@@ -43,8 +43,4 @@
     <ProjectReference Include="..\CarMarket.Data.Models\CarMarket.Data.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configurations\" />
-  </ItemGroup>
-
 </Project>

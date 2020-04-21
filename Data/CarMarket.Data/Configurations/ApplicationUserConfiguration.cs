@@ -1,33 +1,28 @@
 ﻿namespace CarMarket.Data.Configurations
 {
     using CarMarket.Data.Models;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<ApplicationUser> appUser)
+        public void Configure(EntityTypeBuilder<ApplicationUser> user)
         {
-            //appUser
-            //    .HasMany(e => e.Claims)
-            //    .WithOne()
-            //    .HasForeignKey(e => e.UserId)
-            //    .IsRequired()
-            //    .OnDelete(DeleteBehavior.Restrict);
+            user
+                .Property(u => u.FirstName)
+                .IsRequired()
+                .HasMaxLength(50);
 
-            //appUser
-            //    .HasMany(e => e.Logins)
-            //    .WithOne()
-            //    .HasForeignKey(e => e.UserId)
-            //    .IsRequired()
-            //    .OnDelete(DeleteBehavior.Restrict);
+            user
+                .Property(u => u.LastName)
+                .IsRequired()
+                .HasMaxLength(50);
 
-            //appUser
-            //    .HasMany(e => e.Roles)
-            //    .WithOne()
-            //    .HasForeignKey(e => e.UserId)
-            //    .IsRequired()
-            //    .OnDelete(DeleteBehavior.Restrict);
+            user
+                .HasMany(u => u.Listings)
+                .WithOne(l => l.Seller)
+                .HasForeignKey(l => l.SellerId);
         }
     }
 }

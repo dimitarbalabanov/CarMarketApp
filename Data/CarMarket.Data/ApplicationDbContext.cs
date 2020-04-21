@@ -20,12 +20,33 @@
         {
         }
 
-        // public DbSet<Setting> Settings { get; set; }
+        public DbSet<Listing> Listings { get; set; }
+
+        public DbSet<Description> Descriptions { get; set; }
+
+        public DbSet<Make> Makes { get; set; }
+
+        public DbSet<Model> Models { get; set; }
+
+        public DbSet<Body> Bodies { get; set; }
+
+        public DbSet<Color> Colors { get; set; }
+
+        public DbSet<Condition> Conditions { get; set; }
+
+        public DbSet<Fuel> Fuels { get; set; }
+
+        public DbSet<Transmission> Transmissions { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<ApplicationUserBookmarkListing> ApplicationUsersBookmarkListings { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            this.ApplyAuditInfoRules();
+            this.ApplyCreatedOn();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
@@ -36,20 +57,18 @@
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default)
         {
-            this.ApplyAuditInfoRules();
+            this.ApplyCreatedOn();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
-            //this.ConfigureUserIdentityRelations(builder);
+            this.ApplyEntityConfigurations(builder);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
-            // Disable cascade delete
             var foreignKeys = entityTypes
                 .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
             foreach (var foreignKey in foreignKeys)
@@ -58,28 +77,22 @@
             }
         }
 
-        // Applies configurations
-        //private void ConfigureUserIdentityRelations(ModelBuilder builder)
-        //     => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        private void ApplyEntityConfigurations(ModelBuilder builder)
+             => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
-        private void ApplyAuditInfoRules()
+        private void ApplyCreatedOn()
         {
             var changedEntries = this.ChangeTracker
                 .Entries()
                 .Where(e =>
-                    e.Entity is IAuditInfo &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
+                    e.Entity is ICreatedOn && e.State == EntityState.Added);
 
             foreach (var entry in changedEntries)
             {
-                var entity = (IAuditInfo)entry.Entity;
+                var entity = (ICreatedOn)entry.Entity;
                 if (entry.State == EntityState.Added && entity.CreatedOn == default)
                 {
                     entity.CreatedOn = DateTime.UtcNow;
-                }
-                else
-                {
-                    entity.ModifiedOn = DateTime.UtcNow;
                 }
             }
         }

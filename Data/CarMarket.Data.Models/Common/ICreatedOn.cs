@@ -2,10 +2,8 @@
 {
     using System;
 
-    public interface IAuditInfo
+    public interface ICreatedOn
     {
         DateTime CreatedOn { get; set; }
-
-        DateTime? ModifiedOn { get; set; }
     }
 }
