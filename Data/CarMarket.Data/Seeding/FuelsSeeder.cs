@@ -17,7 +17,7 @@
 
             var fuels = new Fuel[]
             {
-                new Fuel { Type = "Other" },
+                new Fuel { Type = "Electric" },
                 new Fuel { Type = "Petrol" },
                 new Fuel { Type = "Diesel" },
                 new Fuel { Type = "LPG" },

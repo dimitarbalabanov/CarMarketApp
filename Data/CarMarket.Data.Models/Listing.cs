@@ -7,6 +7,12 @@
 
     public class Listing : BaseModel<int>
     {
+        public Listing()
+        {
+            this.Images = new HashSet<Image>();
+            this.UserBookmarkings = new HashSet<ApplicationUserBookmarkListing>();
+        }
+
         public string SellerId { get; set; }
 
         public virtual ApplicationUser Seller { get; set; }

@@ -17,7 +17,6 @@
 
             var colors = new Color[]
             {
-                new Color { Name = "Other"},
                 new Color { Name = "White" },
                 new Color { Name = "Silver" },
                 new Color { Name = "Black" },

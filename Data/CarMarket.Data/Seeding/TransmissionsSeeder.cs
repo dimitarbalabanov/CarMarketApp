@@ -17,9 +17,9 @@
 
             var transmissions = new Transmission[]
             {
-                new Transmission { Type = "Other" },
                 new Transmission { Type = "Automatic" },
                 new Transmission { Type = "Manual" },
+                new Transmission { Type = "SemiAutomatic" },
             };
 
             await dbContext.Transmissions.AddRangeAsync(transmissions);

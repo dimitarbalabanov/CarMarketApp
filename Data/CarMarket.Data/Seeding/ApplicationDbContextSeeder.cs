@@ -29,7 +29,7 @@
                               new ColorsSeeder(),
                               new ConditionsSeeder(),
                               new FuelsSeeder(),
-                              new TransmissionsSeeder(),
+                              new MakesAndModelsSeeder(),
                               new TransmissionsSeeder(),
                           };
 

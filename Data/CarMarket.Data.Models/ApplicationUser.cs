@@ -12,6 +12,8 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Listings = new HashSet<Listing>();
+            this.BookmarkListings = new HashSet<ApplicationUserBookmarkListing>();
         }
 
         public DateTime CreatedOn { get; set; }

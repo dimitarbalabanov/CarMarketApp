@@ -17,7 +17,6 @@
 
             var bodies = new Body[]
             {
-                new Body { Type = "Other" },
                 new Body { Type = "Convertible" },
                 new Body { Type = "Coupe" },
                 new Body { Type = "Hatchback" },

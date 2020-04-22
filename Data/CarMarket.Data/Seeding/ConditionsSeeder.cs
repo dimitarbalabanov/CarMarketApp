@@ -17,7 +17,6 @@
 
             var conditions = new Condition[]
             {
-                new Condition { Type = "Parts" },
                 new Condition { Type = "New" },
                 new Condition { Type = "Used" },
             };
