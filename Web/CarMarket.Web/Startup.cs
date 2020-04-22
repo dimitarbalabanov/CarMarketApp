@@ -1,6 +1,9 @@
 ﻿namespace CarMarket.Web
 {
+    using System;
     using System.Reflection;
+
+    using AutoMapper;
 
     using CarMarket.Data;
     using CarMarket.Data.Models;
@@ -47,6 +50,8 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     });
             services.AddRazorPages();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSingleton(this.configuration);
 
