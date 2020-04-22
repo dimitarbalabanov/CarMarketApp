@@ -21,20 +21,24 @@
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            //var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
+            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
 
-            //var seeders = new List<ISeeder>
-            //              {
-            //                  new RolesSeeder(),
-            //                  new SettingsSeeder(),
-            //              };
+            var seeders = new List<ISeeder>
+                          {
+                              new BodiesSeeder(),
+                              new ColorsSeeder(),
+                              new ConditionsSeeder(),
+                              new FuelsSeeder(),
+                              new TransmissionsSeeder(),
+                              new TransmissionsSeeder(),
+                          };
 
-            //foreach (var seeder in seeders)
-            //{
-            //    await seeder.SeedAsync(dbContext, serviceProvider);
-            //    await dbContext.SaveChangesAsync();
-            //    logger.LogInformation($"Seeder {seeder.GetType().Name} done.");
-            //}
+            foreach (var seeder in seeders)
+            {
+                await seeder.SeedAsync(dbContext, serviceProvider);
+                await dbContext.SaveChangesAsync();
+                logger.LogInformation($"Seeder {seeder.GetType().Name} done.");
+            }
         }
     }
 }
