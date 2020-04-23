@@ -16,6 +16,11 @@
             return this.View();
         }
 
+        public IActionResult Single()
+        {
+            return this.View();
+        }
+
         //[HttpPost]
         //[Authorize]
         //public async Task<IActionResult> Create()
