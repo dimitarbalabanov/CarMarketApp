@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center my-text-color mt-4 mb-3">Create a listing</h1>
+<div class="container mb-5 text-dark">
+    <div class="row justify-content-center">
+        <div class="col-md-8 order-md-1">
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="country">Make</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a make</option>
+                            <option>BMW</option>
+                            <option>Mercedes</option>
+                            <option>Audi</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="country">Model</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a model</option>
+                            <option>3 Series</option>
+                            <option>A5</option>
+                            <option>M6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="country">Body</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a body</option>
+                            <option>Coupe</option>
+                            <option>Hatchback</option>
+                            <option>Sedan</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="country">Transmission</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a transmission</option>
+                            <option>Automatic</option>
+                            <option>Manual</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="country">Fuel</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a fuel</option>
+                            <option>Petrol</option>
+                            <option>Diesel</option>
+                            <option>LPG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="country">Condition</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a condition</option>
+                            <option>New</option>
+                            <option>Used</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="country">Color</label>
+                        <select class="custom-select d-block w-100">
+                            <option value="">Choose a color</option>
+                            <option>Black</option>
+                            <option>White</option>
+                            <option>Silver</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="address">Production Year</label>
+                        <input type="number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="address">Mileage</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="address">Horsepower</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="address">Price</label>
+                        <input type="number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="exampleFormControlTextarea1">Description</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                    <small class="text-muted">Additional information</small>
+                </div>
+
+                <p>Car images</p>
+                <div class="custom-file mb-2">
+                    <input type="file" class="custom-file-input">
+                    <label class="custom-file-label" for="customFile">Choose main image</label>
+                </div>
+                <div class="custom-file mb-2">
+                    <input type="file" class="custom-file-input">
+                    <label class="custom-file-label" for="customFile">Choose secondary image</label>
+                </div>
+                <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input">
+                    <label class="custom-file-label" for="customFile">Choose secondary image</label>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $('.custom-file-input').on('change', function () {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
+}

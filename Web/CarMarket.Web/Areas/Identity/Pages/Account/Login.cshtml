@@ -5,13 +5,13 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center my-text-color mt-4">@ViewData["Title"]</h1>
 <div class="row justify-content-center">
 
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h4 class="text-center">Enter into your account.</h4>
+                <h4 class="text-center my-text-color">Enter into your account.</h4>
                 <hr class="mb-4" />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group mb-3">
@@ -26,11 +26,11 @@
                 </div>
                 <hr />
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-outline-light btn-block">Log in</button>
+                    <button type="submit" class="btn my-background-color btn-lg btn-outline-light btn-block">Log in</button>
                 </div>
                 <div class="form-group">
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="my-text-color">Register as a new user</a>
                     </p>
                 </div>
             </form>
