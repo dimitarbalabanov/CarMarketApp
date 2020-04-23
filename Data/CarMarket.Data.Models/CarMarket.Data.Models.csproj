@@ -18,5 +18,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarMarket.Data.Common\CarMarket.Data.Common.csproj" />
+  </ItemGroup>
   
 </Project>

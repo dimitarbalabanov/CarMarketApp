@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CarMarket.Common\CarMarket.Common.csproj" />
+    <ProjectReference Include="..\CarMarket.Data.Common\CarMarket.Data.Common.csproj" />
     <ProjectReference Include="..\CarMarket.Data.Models\CarMarket.Data.Models.csproj" />
   </ItemGroup>
 

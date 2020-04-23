@@ -1,4 +1,4 @@
-﻿namespace CarMarket.Data.Repositories
+﻿namespace CarMarket.Data.Common.Repositories
 {
     using System;
     using System.Linq;

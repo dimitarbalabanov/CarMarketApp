@@ -5,9 +5,12 @@
     using AutoMapper;
 
     using CarMarket.Data;
+    using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Data.Repositories;
     using CarMarket.Data.Seeding;
+    using CarMarket.Services.Data;
+    using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -59,7 +62,16 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             // Application services
-            //services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IBodyService, BodyService>();
+            services.AddTransient<IColorService, ColorService>();
+            services.AddTransient<IConditionService, ConditionService>();
+            services.AddTransient<IDescriptionService, DescriptionService>();
+            services.AddTransient<IFuelService, FuelService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IListingService, ListingService>();
+            services.AddTransient<IMakeService, MakeService>();
+            services.AddTransient<IModelService, ModelService>();
+            services.AddTransient<ITransmissionService, TransmissionService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
