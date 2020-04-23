@@ -30,6 +30,7 @@
                               new ConditionsSeeder(),
                               new FuelsSeeder(),
                               new MakesAndModelsSeeder(),
+                              new RolesSeeder(),
                               new TransmissionsSeeder(),
                           };
 

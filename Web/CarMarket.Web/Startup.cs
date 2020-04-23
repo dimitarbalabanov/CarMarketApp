@@ -1,13 +1,13 @@
 ﻿namespace CarMarket.Web
 {
     using System;
-    using System.Reflection;
 
     using AutoMapper;
 
     using CarMarket.Data;
     using CarMarket.Data.Models;
     using CarMarket.Data.Repositories;
+    using CarMarket.Data.Seeding;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -28,7 +28,6 @@
             this.configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
@@ -49,6 +48,7 @@
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     });
+
             services.AddRazorPages();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -62,18 +62,15 @@
             //services.AddTransient<ISettingsService, SettingsService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             // Seed data on application startup
-            //using (var serviceScope = app.ApplicationServices.CreateScope())
-            //{
-            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            //    dbContext.Database.Migrate();
-            //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            //}
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
 
             if (env.IsDevelopment())
             {
