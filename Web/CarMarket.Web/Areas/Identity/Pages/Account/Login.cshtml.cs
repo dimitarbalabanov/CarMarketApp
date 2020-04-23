@@ -37,8 +37,7 @@
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -64,7 +63,7 @@
 
             if (this.ModelState.IsValid)
             {
-                var result = await this.signInManager.PasswordSignInAsync(this.Input.Email, this.Input.Password, isPersistent: true, lockoutOnFailure: false);
+                var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, isPersistent: true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
