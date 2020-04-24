@@ -16,7 +16,7 @@
             return this.View();
         }
 
-        public IActionResult Single()
+        public IActionResult Details(int? id = null)
         {
             return this.View();
         }
