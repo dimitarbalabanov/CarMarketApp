@@ -25,8 +25,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="ModelId">Model</label>
-                        <select asp-for="ModelId" class="custom-select d-block w-100">
-                            <option value="">Choose a model</option>
+                        <select asp-for="ModelId" class="custom-select d-block w-100" id="modelSelect">
+                            <option value="">Choose a make</option>
                         </select>
                     </div>
                 </div>
@@ -122,7 +122,9 @@
         $('#makeModel').on('change', function () {
             const id = this.value;
             $.get(`/api/models/${id}`, function (data) {
-                console.log(data)
+                const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
+                $('#modelSelect').empty();
+                $('#modelSelect').append(options);
             });
         });
     </script>

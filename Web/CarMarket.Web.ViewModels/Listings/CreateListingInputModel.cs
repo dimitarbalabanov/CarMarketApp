@@ -8,7 +8,7 @@
     {
         public int MakeId { get; set; }
 
-        public int? ModelId { get; set; }
+        public int ModelId { get; set; }
 
         public int BodyId { get; set; }
 
