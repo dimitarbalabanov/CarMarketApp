@@ -64,11 +64,12 @@
             return this.View();
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> Create()
-        //{
-        //    return null;
-        //}
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create(CreateListingInputModel input)
+        {
+            Console.WriteLine();
+            return null;
+        }
     }
 }

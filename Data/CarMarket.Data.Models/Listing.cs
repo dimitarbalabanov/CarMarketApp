@@ -25,8 +25,6 @@
 
         public int Horsepower { get; set; }
 
-        public int SeatsCount { get; set; }
-
         public int ProductionYear { get; set; }
 
         public int ConditionId { get; set; }

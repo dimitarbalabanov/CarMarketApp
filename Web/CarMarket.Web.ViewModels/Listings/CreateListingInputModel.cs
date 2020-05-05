@@ -8,7 +8,7 @@
     {
         public int MakeId { get; set; }
 
-        public int ModelId { get; set; }
+        public int? ModelId { get; set; }
 
         public int BodyId { get; set; }
 
@@ -25,8 +25,6 @@
         public int Mileage { get; set; }
 
         public int Horsepower { get; set; }
-
-        public int SeatsCount { get; set; }
 
         public decimal Price { get; set; }
 

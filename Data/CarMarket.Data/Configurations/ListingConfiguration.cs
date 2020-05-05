@@ -18,10 +18,6 @@
                 .IsRequired();
 
             builder
-                .Property(l => l.SeatsCount)
-                .IsRequired();
-
-            builder
                 .Property(l => l.Description)
                 .IsRequired()
                 .HasMaxLength(1000);
