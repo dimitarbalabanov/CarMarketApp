@@ -18,9 +18,12 @@
                 .IsRequired();
 
             builder
+                .Property(l => l.SeatsCount)
+                .IsRequired();
+
+            builder
                 .Property(l => l.ProductionYear)
-                .IsRequired()
-                .HasColumnType("date");
+                .IsRequired();
 
             builder
                 .Property(l => l.Price)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200421191138_InitialMigration")]
+    [Migration("20200505170111_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -267,11 +267,11 @@ namespace CarMarket.Data.Migrations
                     b.Property<int>("FuelId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Horsepower")
-                        .HasColumnType("float");
+                    b.Property<int>("Horsepower")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Mileage")
-                        .HasColumnType("float");
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
 
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
@@ -279,8 +279,8 @@ namespace CarMarket.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("ProductionYear")
-                        .HasColumnType("date");
+                    b.Property<int>("ProductionYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("SellerId")
                         .HasColumnType("nvarchar(450)");

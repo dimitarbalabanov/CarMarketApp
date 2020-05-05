@@ -21,11 +21,13 @@
 
         public Description Description { get; set; }
 
-        public double Mileage { get; set; }
+        public int Mileage { get; set; }
 
-        public double Horsepower { get; set; }
+        public int Horsepower { get; set; }
 
-        public DateTime ProductionYear { get; set; }
+        public int SeatsCount { get; set; }
+
+        public int ProductionYear { get; set; }
 
         public int ConditionId { get; set; }
 
