@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="MakeId">Make</label>
-                        <select asp-for="MakeId" asp-items="makes" class="custom-select d-block w-100">
+                        <select asp-for="MakeId" asp-items="makes" class="custom-select d-block w-100" id="makeModel">
                             <option value="">Choose a make</option>
                         </select>
                     </div>
@@ -117,6 +117,13 @@
         $('.custom-file-input').on('change', function () {
             let fileName = $(this).val().split('\\').pop();
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+
+        $('#makeModel').on('change', function () {
+            const id = this.value;
+            $.get(`/api/models/${id}`, function (data) {
+                console.log(data)
+            });
         });
     </script>
 }
