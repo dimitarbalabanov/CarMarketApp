@@ -92,20 +92,6 @@ namespace CarMarket.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Descriptions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    Content = table.Column<string>(maxLength: 1000, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Descriptions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Fuels",
                 columns: table => new
                 {
@@ -282,17 +268,18 @@ namespace CarMarket.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     SellerId = table.Column<string>(nullable: true),
-                    DescriptionId = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Description = table.Column<string>(maxLength: 1000, nullable: false),
                     Mileage = table.Column<int>(nullable: false),
                     Horsepower = table.Column<int>(nullable: false),
+                    SeatsCount = table.Column<int>(nullable: false),
                     ProductionYear = table.Column<int>(nullable: false),
                     ConditionId = table.Column<int>(nullable: false),
                     ModelId = table.Column<int>(nullable: false),
                     BodyId = table.Column<int>(nullable: false),
                     ColorId = table.Column<int>(nullable: false),
                     TransmissionId = table.Column<int>(nullable: false),
-                    FuelId = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    FuelId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -313,12 +300,6 @@ namespace CarMarket.Data.Migrations
                         name: "FK_Listings_Conditions_ConditionId",
                         column: x => x.ConditionId,
                         principalTable: "Conditions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Listings_Descriptions_DescriptionId",
-                        column: x => x.DescriptionId,
-                        principalTable: "Descriptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -458,11 +439,6 @@ namespace CarMarket.Data.Migrations
                 column: "ConditionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Listings_DescriptionId",
-                table: "Listings",
-                column: "DescriptionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Listings_FuelId",
                 table: "Listings",
                 column: "FuelId");
@@ -525,9 +501,6 @@ namespace CarMarket.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Conditions");
-
-            migrationBuilder.DropTable(
-                name: "Descriptions");
 
             migrationBuilder.DropTable(
                 name: "Fuels");

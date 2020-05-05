@@ -17,9 +17,9 @@
 
         public virtual ApplicationUser Seller { get; set; }
 
-        public int DescriptionId { get; set; }
+        public decimal Price { get; set; }
 
-        public Description Description { get; set; }
+        public string Description { get; set; }
 
         public int Mileage { get; set; }
 
@@ -52,8 +52,6 @@
         public int FuelId { get; set; }
 
         public virtual Fuel Fuel { get; set; }
-
-        public decimal Price { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
 

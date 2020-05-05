@@ -175,26 +175,6 @@ namespace CarMarket.Data.Migrations
                     b.ToTable("Conditions");
                 });
 
-            modelBuilder.Entity("CarMarket.Data.Models.Description", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Descriptions");
-                });
-
             modelBuilder.Entity("CarMarket.Data.Models.Fuel", b =>
                 {
                     b.Property<int>("Id")
@@ -259,8 +239,10 @@ namespace CarMarket.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
 
                     b.Property<int>("FuelId")
                         .HasColumnType("int");
@@ -296,8 +278,6 @@ namespace CarMarket.Data.Migrations
                     b.HasIndex("ColorId");
 
                     b.HasIndex("ConditionId");
-
-                    b.HasIndex("DescriptionId");
 
                     b.HasIndex("FuelId");
 
@@ -547,12 +527,6 @@ namespace CarMarket.Data.Migrations
                     b.HasOne("CarMarket.Data.Models.Condition", "Condition")
                         .WithMany("Listings")
                         .HasForeignKey("ConditionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarMarket.Data.Models.Description", "Description")
-                        .WithMany("Listings")
-                        .HasForeignKey("DescriptionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

@@ -21,8 +21,6 @@
 
         public DbSet<Listing> Listings { get; set; }
 
-        public DbSet<Description> Descriptions { get; set; }
-
         public DbSet<Make> Makes { get; set; }
 
         public DbSet<Model> Models { get; set; }

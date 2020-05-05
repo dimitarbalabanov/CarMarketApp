@@ -22,6 +22,11 @@
                 .IsRequired();
 
             builder
+                .Property(l => l.Description)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            builder
                 .Property(l => l.ProductionYear)
                 .IsRequired();
 

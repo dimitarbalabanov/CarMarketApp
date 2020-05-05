@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Listings
+﻿namespace CarMarket.Web.ViewModels.Listings
 {
     public class ColorDropDownViewModel
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
