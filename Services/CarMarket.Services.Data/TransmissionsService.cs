@@ -9,24 +9,24 @@
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
 
-    public class BodyService : IBodyService
+    public class TransmissionsService : ITransmissionsService
     {
-        private readonly IRepository<Body> bodiesRepository;
+        private readonly IRepository<Transmission> transmissionsRepository;
         private readonly IMapper mapper;
 
-        public BodyService(IRepository<Body> bodiesRepository, IMapper mapper)
+        public TransmissionsService(IRepository<Transmission> transmissionsRepository, IMapper mapper)
         {
-            this.bodiesRepository = bodiesRepository;
+            this.transmissionsRepository = transmissionsRepository;
             this.mapper = mapper;
         }
 
         public IEnumerable<T> GetAll<T>()
         {
-           var bodies = this.bodiesRepository
+            var transmissions = this.transmissionsRepository
                 .AllAsNoTracking()
                 .ToList();
 
-           return this.mapper.Map<IEnumerable<T>>(bodies);
+            return this.mapper.Map<IEnumerable<T>>(transmissions);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IMakeService
+    public interface IMakesService
     {
         IEnumerable<T> GetAll<T>();
     }

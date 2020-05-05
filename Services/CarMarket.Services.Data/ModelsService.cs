@@ -9,12 +9,12 @@
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
 
-    public class ModelService : IModelService
+    public class ModelsService : IModelsService
     {
         private readonly IRepository<Model> modelsRepository;
         private readonly IMapper mapper;
 
-        public ModelService(IRepository<Model> modelsRepository, IMapper mapper)
+        public ModelsService(IRepository<Model> modelsRepository, IMapper mapper)
         {
             this.modelsRepository = modelsRepository;
             this.mapper = mapper;

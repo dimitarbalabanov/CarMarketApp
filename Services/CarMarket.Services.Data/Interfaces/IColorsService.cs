@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IFuelService
+    public interface IColorsService
     {
         IEnumerable<T> GetAll<T>();
     }

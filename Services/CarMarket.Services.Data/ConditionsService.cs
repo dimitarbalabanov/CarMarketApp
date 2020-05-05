@@ -9,12 +9,12 @@
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
 
-    public class ConditionService : IConditionService
+    public class ConditionsService : IConditionsService
     {
         private readonly IRepository<Condition> conditionsRepository;
         private readonly IMapper mapper;
 
-        public ConditionService(IRepository<Condition> conditionsRepository, IMapper mapper)
+        public ConditionsService(IRepository<Condition> conditionsRepository, IMapper mapper)
         {
             this.conditionsRepository = conditionsRepository;
             this.mapper = mapper;

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IConditionService
+    public interface IConditionsService
     {
         IEnumerable<T> GetAll<T>();
     }

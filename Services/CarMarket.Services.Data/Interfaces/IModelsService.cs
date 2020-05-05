@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public interface IBodyService
+    public interface IModelsService
     {
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetAllByMakeId<T>(int id);
     }
 }

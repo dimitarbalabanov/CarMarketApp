@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface ITransmissionService
+    public interface IBodiesService
     {
         IEnumerable<T> GetAll<T>();
     }

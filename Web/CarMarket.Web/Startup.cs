@@ -62,16 +62,15 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             // Application services
-            services.AddTransient<IBodyService, BodyService>();
-            services.AddTransient<IColorService, ColorService>();
-            services.AddTransient<IConditionService, ConditionService>();
-            services.AddTransient<IDescriptionService, DescriptionService>();
-            services.AddTransient<IFuelService, FuelService>();
-            services.AddTransient<IImageService, ImageService>();
-            services.AddTransient<IListingService, ListingService>();
-            services.AddTransient<IMakeService, MakeService>();
-            services.AddTransient<IModelService, ModelService>();
-            services.AddTransient<ITransmissionService, TransmissionService>();
+            services.AddTransient<IBodiesService, BodiesService>();
+            services.AddTransient<IColorsService, ColorsService>();
+            services.AddTransient<IConditionsService, ConditionsService>();
+            services.AddTransient<IFuelsService, FuelsService>();
+            services.AddTransient<IImagesService, ImagesService>();
+            services.AddTransient<IListingsService, ListingsService>();
+            services.AddTransient<IMakesService, MakesService>();
+            services.AddTransient<IModelsService, ModelsService>();
+            services.AddTransient<ITransmissionsService, TransmissionsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -2,7 +2,7 @@
 {
     using CarMarket.Services.Data.Interfaces;
 
-    public class DescriptionService : IDescriptionService
+    public class ImagesService : IImagesService
     {
     }
 }

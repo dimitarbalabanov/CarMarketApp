@@ -9,24 +9,24 @@
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
 
-    public class ColorService : IColorService
+    public class MakesService : IMakesService
     {
-        private readonly IRepository<Color> colorsRepository;
+        private readonly IRepository<Make> makesRepository;
         private readonly IMapper mapper;
 
-        public ColorService(IRepository<Color> colorsRepository, IMapper mapper)
+        public MakesService(IRepository<Make> makesRepository, IMapper mapper)
         {
-            this.colorsRepository = colorsRepository;
+            this.makesRepository = makesRepository;
             this.mapper = mapper;
         }
 
         public IEnumerable<T> GetAll<T>()
         {
-            var colors = this.colorsRepository
+            var makes = this.makesRepository
                 .AllAsNoTracking()
                 .ToList();
 
-            return this.mapper.Map<IEnumerable<T>>(colors);
+            return this.mapper.Map<IEnumerable<T>>(makes);
         }
     }
 }

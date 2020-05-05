@@ -1,10 +1,9 @@
-﻿using CarMarket.Data.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-
-namespace CarMarket.Web.ViewModels.Listings
+﻿namespace CarMarket.Web.ViewModels.Listings
 {
+    using System.Collections.Generic;
+
+    using Microsoft.AspNetCore.Http;
+
     public class CreateListingInputModel
     {
         public int MakeId { get; set; }

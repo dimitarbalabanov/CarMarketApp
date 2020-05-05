@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public interface IModelService
+    public interface ITransmissionsService
     {
-        IEnumerable<T> GetAllByMakeId<T>(int id);
+        IEnumerable<T> GetAll<T>();
     }
 }
