@@ -1,9 +1,10 @@
 ﻿namespace CarMarket.Services.Data.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IColorsService
     {
-        IEnumerable<T> GetAll<T>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
     }
 }

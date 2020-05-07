@@ -38,14 +38,14 @@
         }
 
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var bodies = this.bodiesService.GetAll<BodyDropDownViewModel>();
-            var colors = this.colorsService.GetAll<ColorDropDownViewModel>();
-            var conditions = this.conditionsService.GetAll<ConditionDropDownViewModel>();
-            var fuels = this.fuelsService.GetAll<FuelDropDownViewModel>();
-            var makes = this.makesService.GetAll<MakeDropDownViewModel>();
-            var transmissions = this.transmissionsService.GetAll<TransmissionDropDownViewModel>();
+            var bodies = await this.bodiesService.GetAllAsync<BodyDropDownViewModel>();
+            var colors = await this.colorsService.GetAllAsync<ColorDropDownViewModel>();
+            var conditions = await this.conditionsService.GetAllAsync<ConditionDropDownViewModel>();
+            var fuels = await this.fuelsService.GetAllAsync<FuelDropDownViewModel>();
+            var makes = await this.makesService.GetAllAsync<MakeDropDownViewModel>();
+            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionDropDownViewModel>();
 
             var viewModel = new CreateListingInputModel
             {

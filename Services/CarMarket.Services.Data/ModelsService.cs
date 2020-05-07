@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using AutoMapper;
 
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     public class ModelsService : IModelsService
     {
@@ -20,12 +21,12 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<T> GetAllByMakeId<T>(int id)
+        public async Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id)
         {
-            var models = this.modelsRepository
+            var models = await this.modelsRepository
                 .AllAsNoTracking()
                 .Where(m => m.MakeId == id)
-                .ToList();
+                .ToListAsync();
 
             return this.mapper.Map<IEnumerable<T>>(models);
         }

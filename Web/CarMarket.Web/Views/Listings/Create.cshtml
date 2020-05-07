@@ -14,7 +14,7 @@
 <div class="container mb-5 text-dark">
     <div class="row justify-content-center">
         <div class="col-md-8 order-md-1">
-            <form asp-action="Create" method="post">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -94,16 +94,8 @@
 
                 <p>Car images</p>
                 <div class="custom-file mb-2">
-                    <input type="file" class="custom-file-input">
-                    <label class="custom-file-label" for="customFile">Choose main image</label>
-                </div>
-                <div class="custom-file mb-2">
-                    <input type="file" class="custom-file-input">
-                    <label class="custom-file-label" for="customFile">Choose secondary image</label>
-                </div>
-                <div class="custom-file mb-3">
-                    <input type="file" class="custom-file-input">
-                    <label class="custom-file-label" for="customFile">Choose secondary image</label>
+                    <input asp-for="Images" type="file" class="custom-file-input" multiple>
+                    <label asp-for="Images" class="custom-file-label">Choose images</label>
                 </div>
 
                 <hr class="mb-4">
@@ -115,8 +107,7 @@
 @section Scripts {
     <script>
         $('.custom-file-input').on('change', function () {
-            let fileName = $(this).val().split('\\').pop();
-            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+            $(this).next('.custom-file-label').addClass("selected").html("Images loaded.");
         });
 
         $('#makeModel').on('change', function () {

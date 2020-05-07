@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using AutoMapper;
 
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     public class TransmissionsService : ITransmissionsService
     {
@@ -20,11 +21,11 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var transmissions = this.transmissionsRepository
+            var transmissions = await this.transmissionsRepository
                 .AllAsNoTracking()
-                .ToList();
+                .ToListAsync();
 
             return this.mapper.Map<IEnumerable<T>>(transmissions);
         }

@@ -1,9 +1,10 @@
 ﻿namespace CarMarket.Services.Data.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IModelsService
     {
-        IEnumerable<T> GetAllByMakeId<T>(int id);
+        Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id);
     }
 }

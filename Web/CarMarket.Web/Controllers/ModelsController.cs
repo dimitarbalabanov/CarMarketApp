@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
+
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -18,15 +20,15 @@
         }
 
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<ModelResponseModel>> GetModelsByMakeId(int id)
+        public async Task<ActionResult<IEnumerable<ModelResponseModel>>> GetModelsByMakeId(int id)
         {
-            var models = this.modelsService.GetAllByMakeId<ModelResponseModel>(id).ToList();
+            var models = await this.modelsService.GetAllByMakeIdAsync<ModelResponseModel>(id);
             if (models == null)
             {
                 return this.NotFound();
             }
 
-            return models;
+            return models.ToList();
         }
     }
 }
