@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class ListingsController : Controller
@@ -18,6 +20,7 @@
         private readonly IListingsService listingsService;
         private readonly IMakesService makesService;
         private readonly ITransmissionsService transmissionsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public ListingsController(
             IBodiesService bodiesService,
@@ -26,8 +29,10 @@
             IFuelsService fuelsService,
             IListingsService listingsService,
             IMakesService makesService,
-            ITransmissionsService transmissionsService)
+            ITransmissionsService transmissionsService,
+            UserManager<ApplicationUser> userManager)
         {
+            this.userManager = userManager;
             this.bodiesService = bodiesService;
             this.colorsService = colorsService;
             this.conditionsService = conditionsService;
@@ -59,7 +64,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Details(int? id = null)
+        public IActionResult Details(int id)
         {
             return this.View();
         }
@@ -68,8 +73,30 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateListingInputModel input)
         {
-            Console.WriteLine();
-            return null;
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            //if (!this.ModelState.IsValid)
+            //{
+            //    return this.View(input);
+            //}
+
+            var listingId = await this.listingsService.CreateAsync(
+                user.Id,
+                input.MakeId,
+                input.ModelId,
+                input.BodyId,
+                input.TransmissionId,
+                input.FuelId,
+                input.ConditionId,
+                input.ColorId,
+                input.ProductionYear,
+                input.Mileage,
+                input.Horsepower,
+                input.Price,
+                input.Description,
+                input.Images);
+
+            return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
     }
 }

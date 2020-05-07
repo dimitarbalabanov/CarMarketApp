@@ -9,9 +9,10 @@
     using CarMarket.Data.Models;
     using CarMarket.Data.Repositories;
     using CarMarket.Data.Seeding;
+    using CarMarket.Services.Cloudinary;
     using CarMarket.Services.Data;
     using CarMarket.Services.Data.Interfaces;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -60,6 +61,9 @@
 
             // Data repositories
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+            services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.configuration));
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             // Application services
             services.AddTransient<IBodiesService, BodiesService>();
