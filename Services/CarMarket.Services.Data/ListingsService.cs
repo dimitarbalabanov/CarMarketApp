@@ -6,6 +6,7 @@
     using CarMarket.Services.Cloudinary;
     using CarMarket.Services.Data.Interfaces;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -44,6 +45,24 @@
             await this.listingsRepository.AddAsync(listing);
             await this.listingsRepository.SaveChangesAsync();
             return listing.Id;
+        }
+
+        public async Task<T> GetSingleByIdAsync<T>(int id)
+        {
+            var listing = await this.listingsRepository
+                .AllAsNoTracking()
+                .Include(l => l.Body)
+                .Include(l => l.Color)
+                .Include(l => l.Condition)
+                .Include(l => l.Fuel)
+                .Include(l => l.Images)
+                .Include(l => l.Make)
+                .Include(l => l.Model)
+                .Include(l => l.Seller)
+                .Include(l => l.Transmission)
+                .FirstOrDefaultAsync(l => l.Id == id);
+
+            return this.mapper.Map<T>(listing);
         }
     }
 }

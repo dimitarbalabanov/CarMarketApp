@@ -8,5 +8,7 @@ namespace CarMarket.Services.Data.Interfaces
     public interface IListingsService
     {
         Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images);
+
+        Task<T> GetSingleByIdAsync<T>(int id);
     }
 }

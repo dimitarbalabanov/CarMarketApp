@@ -4,6 +4,7 @@
     using CarMarket.Data.Models;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Models;
+    using System.Linq;
 
     public class AutoMapperProfile : Profile
     {
@@ -18,6 +19,9 @@
             this.CreateMap<Make, MakeDropDownViewModel>();
             this.CreateMap<Transmission, TransmissionDropDownViewModel>();
             this.CreateMap<Model, ModelResponseModel>();
+
+            this.CreateMap<Listing, DetailsListingViewModel>()
+                .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
 
             //CreateMap<StudentDTO, Student>()
             //    .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.CurrentCity))

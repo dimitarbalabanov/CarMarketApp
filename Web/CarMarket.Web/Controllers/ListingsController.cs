@@ -64,9 +64,10 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return this.View();
+            var listingViewModel = await this.listingsService.GetSingleByIdAsync<DetailsListingViewModel>(id);
+            return this.View(listingViewModel);
         }
 
         [HttpPost]
