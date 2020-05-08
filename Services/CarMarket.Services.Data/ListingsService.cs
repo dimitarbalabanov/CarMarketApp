@@ -47,6 +47,20 @@
             return listing.Id;
         }
 
+        public async Task<IEnumerable<T>> GetLatestAsync<T>()
+        {
+            var listings = await this.listingsRepository
+                .AllAsNoTracking()
+                .Include(l => l.Make)
+                .Include(l => l.Model)
+                .Include(l => l.Images)
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(8)
+                .ToListAsync();
+
+            return this.mapper.Map<IEnumerable<T>>(listings);
+        }
+
         public async Task<T> GetSingleByIdAsync<T>(int id)
         {
             var listing = await this.listingsRepository

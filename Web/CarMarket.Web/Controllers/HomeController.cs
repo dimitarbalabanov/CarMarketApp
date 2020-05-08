@@ -1,16 +1,26 @@
 ﻿namespace CarMarket.Web.Controllers
 {
     using System.Diagnostics;
-
+    using System.Threading.Tasks;
+    using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels;
-
+    using CarMarket.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IListingsService listingsService;
+
+        public HomeController(IListingsService listingsService)
         {
-            return this.View();
+            this.listingsService = listingsService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var listings = await this.listingsService.GetLatestAsync<HomeListingViewModel>();
+            var viewModel = new HomeViewModel { Listings = listings };
+            return this.View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using CarMarket.Data.Models;
+    using CarMarket.Web.ViewModels.Home;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Models;
     using System.Linq;
@@ -22,6 +23,9 @@
 
             this.CreateMap<Listing, DetailsListingViewModel>()
                 .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
+
+            this.CreateMap<Listing, HomeListingViewModel>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
 
             //CreateMap<StudentDTO, Student>()
             //    .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.CurrentCity))

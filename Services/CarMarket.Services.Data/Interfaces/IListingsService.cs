@@ -10,5 +10,7 @@ namespace CarMarket.Services.Data.Interfaces
         Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images);
 
         Task<T> GetSingleByIdAsync<T>(int id);
+
+        Task<IEnumerable<T>> GetLatestAsync<T>();
     }
 }
