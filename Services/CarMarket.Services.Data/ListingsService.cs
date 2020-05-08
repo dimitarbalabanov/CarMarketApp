@@ -1,5 +1,6 @@
 ﻿namespace CarMarket.Services.Data
 {
+    using AutoMapper;
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Cloudinary;
@@ -13,51 +14,32 @@
     {
         private readonly IRepository<Listing> listingsRepository;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IMapper mapper;
 
-        public ListingsService(IRepository<Listing> listingsRepository, ICloudinaryService cloudinaryService)
+        public ListingsService(IRepository<Listing> listingsRepository, ICloudinaryService cloudinaryService, IMapper mapper)
         {
             this.listingsRepository = listingsRepository;
             this.cloudinaryService = cloudinaryService;
+            this.mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(
-            string userId,
-            int makeId,
-            int modelId,
-            int bodyId,
-            int transmissionId,
-            int fuelId,
-            int conditionId,
-            int colorId,
-            int productionYear,
-            int mileage,
-            int horsepower,
-            decimal price,
-            string description,
-            IEnumerable<IFormFile> images)
+        public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
         {
-            var listing = new Listing
-            {
-                BodyId = bodyId,
-                ColorId = colorId,
-                ConditionId = conditionId,
-                Description = description,
-                FuelId = fuelId,
-                Horsepower = horsepower,
-                Mileage = mileage,
-                ModelId = modelId,
-                Price = price,
-                ProductionYear = productionYear,
-                SellerId = userId,
-                TransmissionId = transmissionId,
-            };
+            var imageUrls = images
+                .Select(async i => await this.cloudinaryService.UploadImageAsync(i, i.FileName))
+                .Select(i => i.Result)
+                .ToList();
 
-            var imageUrl = await this.cloudinaryService.UploadImage(images.First(), "image");
-            var image = new Image
+            var listingImages = imageUrls
+                .Select(url => new Image { ImageUrl = url })
+                .ToList();
+
+            var listing = this.mapper.Map<Listing>(model);
+            listing.SellerId = userId;
+            foreach (var img in listingImages)
             {
-                ImageUrl = imageUrl,
-            };
-            listing.Images.Add(image);
+                listing.Images.Add(img);
+            }
 
             await this.listingsRepository.AddAsync(listing);
             await this.listingsRepository.SaveChangesAsync();

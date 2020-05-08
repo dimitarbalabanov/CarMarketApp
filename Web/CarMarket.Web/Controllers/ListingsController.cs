@@ -80,21 +80,7 @@
             //    return this.View(input);
             //}
 
-            var listingId = await this.listingsService.CreateAsync(
-                user.Id,
-                input.MakeId,
-                input.ModelId,
-                input.BodyId,
-                input.TransmissionId,
-                input.FuelId,
-                input.ConditionId,
-                input.ColorId,
-                input.ProductionYear,
-                input.Mileage,
-                input.Horsepower,
-                input.Price,
-                input.Description,
-                input.Images);
+            var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, user.Id, input.UploadImages);
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }

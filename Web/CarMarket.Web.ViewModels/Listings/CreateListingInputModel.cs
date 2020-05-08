@@ -30,7 +30,7 @@
 
         public string Description { get; set; }
 
-        public IEnumerable<IFormFile> Images { get; set; }
+        public IEnumerable<IFormFile> UploadImages { get; set; }
 
         public IEnumerable<MakeDropDownViewModel> Makes { get; set; }
 

@@ -18,7 +18,7 @@
             this.cloudinary = cloudinary;
         }
 
-        public async Task<string> UploadImage(IFormFile fileForm, string name)
+        public async Task<string> UploadImageAsync(IFormFile fileForm, string name)
         {
             if (fileForm == null)
             {
