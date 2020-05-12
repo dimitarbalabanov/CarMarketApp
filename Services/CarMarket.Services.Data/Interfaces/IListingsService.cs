@@ -12,5 +12,7 @@ namespace CarMarket.Services.Data.Interfaces
         Task<T> GetSingleByIdAsync<T>(int id);
 
         Task<IEnumerable<T>> GetLatestAsync<T>();
+
+        Task<IEnumerable<T>> GetAllByCreatorIdAsync<T>(string creatorId);
     }
 }

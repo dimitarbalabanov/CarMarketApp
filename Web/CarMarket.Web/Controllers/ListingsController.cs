@@ -85,5 +85,13 @@
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
+
+        public async Task<IActionResult> Personal()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var listings = await this.listingsService.GetAllByCreatorIdAsync<PersonalListingViewModel>(user.Id);
+            var viewModel = new PersonalViewModel { Listings = listings };
+            return this.View(viewModel);
+        }
     }
 }

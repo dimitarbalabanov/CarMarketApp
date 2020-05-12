@@ -47,6 +47,19 @@
             return listing.Id;
         }
 
+        public async Task<IEnumerable<T>> GetAllByCreatorIdAsync<T>(string creatorId)
+        {
+            var listings = await this.listingsRepository
+                .AllAsNoTracking()
+                .Where(l => l.SellerId == creatorId)
+                .Include(l => l.Make)
+                .Include(l => l.Model)
+                .Include(l => l.Images)
+                .ToListAsync();
+
+            return this.mapper.Map<IEnumerable<T>>(listings);
+        }
+
         public async Task<IEnumerable<T>> GetLatestAsync<T>()
         {
             var listings = await this.listingsRepository
@@ -78,5 +91,6 @@
 
             return this.mapper.Map<T>(listing);
         }
+
     }
 }

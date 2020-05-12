@@ -13,6 +13,7 @@
         {
             // listing input model
             this.CreateMap<CreateListingInputModel, Listing>();
+
             this.CreateMap<Color, ColorDropDownViewModel>();
             this.CreateMap<Body, BodyDropDownViewModel>();
             this.CreateMap<Condition, ConditionDropDownViewModel>();
@@ -25,6 +26,9 @@
                 .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
 
             this.CreateMap<Listing, HomeListingViewModel>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, PersonalListingViewModel>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
 
             //CreateMap<StudentDTO, Student>()
