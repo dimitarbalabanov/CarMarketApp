@@ -34,7 +34,7 @@
         @foreach (var listing in Model.Listings)
         {
             <div class="card my-background-color">
-                <img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">
+                @*<img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">*@
                 <div class="card-body">
                     <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
                     <p class="card-text mb-0">Price: @listing.Price lv</p>

@@ -1,4 +1,9 @@
 ﻿@model CarMarket.Web.ViewModels.Listings.DetailsListingViewModel
+@using CarMarket.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -16,10 +21,10 @@
             <div id="carouselControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="@Model.ImageUrls[1]" class="d-block w-100" alt="...">
+                        @*<img src="@Model.ImageUrls[1]" class="d-block w-100" alt="...">*@
                     </div>
                     <div class="carousel-item">
-                        <img src="@Model.ImageUrls[0]" class="d-block w-100" alt="...">
+                       @*<img src="@Model.ImageUrls[0]" class="d-block w-100" alt="...">*@
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
@@ -53,35 +58,80 @@
             <p>Name: @Model.SellerFirstName @Model.SellerLastName</p>
             <p>Email: @Model.SellerEmail</p>
         </div>
+        <div class="row float-right">
+            @if (this.SignInManager.IsSignedIn(this.User))
+            {
+                if (this.UserManager.GetUserId(this.User) == Model.SellerId)
+                {
+                    //edit
+                    <a class="btn btn-warning" asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalCenter">
+                        Delete
+                    </button>
 
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this listing?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <form class="form-inline" asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    //bookmark
+                    <form class="form-inline" asp-controller="Bookmarks" asp-action="Create" asp-route-id="@Model.Id">
+                        <button type="submit" class="btn btn-info">Add to bookmarks</button>
+                    </form>
+                }
+
+            }
+        </div>
     </div>
-    
+
     @*<h3 class="my-4">Related Projects</h3>
-    <div class="row">
+        <div class="row">
 
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
 
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
 
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
 
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
 
-    </div>*@
+        </div>*@
 </div>
