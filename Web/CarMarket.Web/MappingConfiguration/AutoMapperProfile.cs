@@ -16,7 +16,8 @@
             // listing input model
             this.CreateMap<CreateListingInputModel, Listing>();
 
-            this.CreateMap<Listing, EditListingInputModel>();
+            this.CreateMap<Listing, EditListingInputModel>()
+                .ForMember(dest => dest.UploadedImages, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
 
             this.CreateMap<Color, ColorSelectListViewModel>();
 

@@ -32,7 +32,11 @@ namespace CarMarket.Web.ViewModels.Listings
 
         public string Description { get; set; }
 
-        public IEnumerable<IFormFile> UploadImages { get; set; }
+        public bool ShouldChangeImage { get; set; }
+
+        public IEnumerable<string> UploadedImages { get; set; }
+
+        public IEnumerable<IFormFile> NewUploadImages { get; set; }
 
         public IEnumerable<SelectListItem> Makes { get; set; }
 

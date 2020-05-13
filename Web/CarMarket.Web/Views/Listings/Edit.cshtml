@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="text-center my-text-color mt-4 mb-3">Create new listing</h1>
+<h1 class="text-center my-text-color mt-4 mb-3">Edit your listing</h1>
 <div class="container mb-5 text-dark">
     <div class="row justify-content-center">
         <div class="col-md-8 order-md-1">
@@ -13,14 +13,12 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="MakeId">Make</label>
-                        <select asp-for="MakeId" asp-items="Model.Makes" class="custom-select d-block w-100" id="makeModel">
-                            <option value="">Choose a make</option>
+                        <select asp-for="MakeId" asp-items="Model.Makes" class="custom-select d-block w-100">
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="ModelId">Model</label>
-                        <select asp-for="ModelId" asp-items="Model.Models" class="custom-select d-block w-100" id="modelSelect">
-                            <option value="">Choose a make</option>
+                        <select asp-for="ModelId" asp-items="Model.Models" class="custom-select d-block w-100">
                         </select>
                     </div>
                 </div>
@@ -29,19 +27,16 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="BodyId">Body</label>
                         <select asp-for="BodyId" asp-items="Model.Bodies" class="custom-select d-block w-100">
-                            <option value="">Choose a body</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="TransmissionId">Transmission</label>
                         <select asp-for="TransmissionId" asp-items="Model.Transmissions" class="custom-select d-block w-100">
-                            <option value="">Choose a transmission</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="FuelId">Fuel</label>
                         <select asp-for="FuelId" asp-items="Model.Fuels" class="custom-select d-block w-100">
-                            <option value="">Choose a fuel</option>
                         </select>
                     </div>
                 </div>
@@ -50,13 +45,11 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="ConditionId">Condition</label>
                         <select asp-for="ConditionId" asp-items="Model.Conditions" class="custom-select d-block w-100">
-                            <option value="">Choose a condition</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="ColorId">Color</label>
                         <select asp-for="ColorId" asp-items="Model.Colors" class="custom-select d-block w-100">
-                            <option value="">Choose a color</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -86,14 +79,24 @@
                     <small class="text-muted">Additional information</small>
                 </div>
 
+                @*@foreach (var img in Model.UploadedImages)
+                {
+                    <img src="@img" alt="Alternate Text" />
+                }*@
+
+                <div class="form-check">
+                    <input asp-for="ShouldChangeImage" type="checkbox" class="form-check-input">
+                    <label asp-for="ShouldChangeImage" class="form-check-label">Change image</label>
+                </div>
+
                 <p>Car images</p>
                 <div class="custom-file mb-2">
-                    <input asp-for="UploadImages" type="file" class="custom-file-input" multiple>
-                    <label asp-for="UploadImages" class="custom-file-label">Choose images</label>
+                    <input asp-for="NewUploadImages" type="file" class="custom-file-input" multiple>
+                    <label asp-for="NewUploadImages" class="custom-file-label">Choose images</label>
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
+                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Save changes</button>
             </form>
         </div>
     </div>
@@ -102,15 +105,6 @@
     <script>
         $('.custom-file-input').on('change', function () {
             $(this).next('.custom-file-label').addClass("selected").html("Images loaded.");
-        });
-
-        $('#makeModel').on('change', function () {
-            const id = this.value;
-            $.get(`/api/models/${id}`, function (data) {
-                const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
-                $('#modelSelect').empty();
-                $('#modelSelect').append(options);
-            });
         });
     </script>
 }

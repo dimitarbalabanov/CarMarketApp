@@ -106,12 +106,16 @@
             var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
             var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
             var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(viewModel.MakeId);
-
+            var make = makes.FirstOrDefault(x => x.Id == viewModel.MakeId);
+            var selectMake = new SelectListItem(make.Name, make.Id.ToString(), true, true);
+            var list = new List<SelectListItem>();
+            list.Add(selectMake);
             viewModel.Bodies = bodies.Select(x => x.BodySelectListItem);
             viewModel.Colors = colors.Select(x => x.ColorSelectListItem);
             viewModel.Fuels = fuels.Select(x => x.FuelSelectListItem);
-            viewModel.Makes = makes.Select(x => x.MakeSelectListItem);
+            viewModel.Makes = list;
             viewModel.Transmissions = transmissions.Select(x => x.TransmissionSelectListItem);
+            viewModel.Conditions = conditions.Select(x => x.ConditionSelectListItem);
             viewModel.Models = models.Select(x => x.ModelSelectListItem);
 
             return this.View(viewModel);

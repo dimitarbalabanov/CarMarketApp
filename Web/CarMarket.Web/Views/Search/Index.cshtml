@@ -1,0 +1,131 @@
+﻿@model CarMarket.Web.ViewModels.Search.SearchInputModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1 class="text-center my-text-color mt-4 mb-3">Search for a listing</h1>
+<div class="container mb-5 text-dark">
+    <div class="row justify-content-center">
+        <div class="col-md-8 order-md-1">
+            <form asp-action="Search" method="get">
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="MakeId">Make</label>
+                        <select asp-for="MakeId" asp-items="Model.Makes" class="custom-select d-block w-100" id="makeModel">
+                            <option value="">Choose a make</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ModelId">Model</label>
+                        <select asp-for="ModelId" class="custom-select d-block w-100" id="modelSelect">
+                            <option value="">Choose a make</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="BodyId">Body</label>
+                        <select asp-for="BodyId" asp-items="Model.Bodies" class="custom-select d-block w-100">
+                            <option value="">Any type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="TransmissionId">Transmission</label>
+                        <select asp-for="TransmissionId" asp-items="Model.Transmissions" class="custom-select d-block w-100">
+                            <option value="">Any type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="FuelId">Fuel</label>
+                        <select asp-for="FuelId" asp-items="Model.Fuels" class="custom-select d-block w-100">
+                            <option value="">Any type</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <label asp-for="ConditionId">Condition</label>
+                        <select asp-for="ConditionId" asp-items="Model.Conditions" class="custom-select d-block w-100">
+                            <option value="">Any type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label asp-for="ColorId">Color</label>
+                        <select asp-for="ColorId" asp-items="Model.Colors" class="custom-select d-block w-100">
+                            <option value="">Any color</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-form-label col-sm-3 mr-2">Production year</div>
+                    <label asp-for="ProductionYearFrom" class="col-form-label">from</label>
+                    <div class="col-sm-4">
+                        <input asp-for="ProductionYearFrom" type="number" class="form-control">
+                    </div>
+                    <label asp-for="ProductionYearTo" class="col-form-label">to</label>
+                    <div class="col-sm-4 mb-2">
+                        <input asp-for="ProductionYearTo" type="number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-form-label col-sm-3 mr-2">Mileage</div>
+                    <label asp-for="MileageFrom" class="col-form-label">from</label>
+                    <div class="col-sm-4">
+                        <input asp-for="MileageFrom" type="number" class="form-control">
+                    </div>
+                    <label asp-for="MileageTo" class="col-form-label">to</label>
+                    <div class="col-sm-4 mb-2">
+                        <input asp-for="MileageTo" type="number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-form-label col-sm-3 mr-2">Horsepower</div>
+                    <label asp-for="HorsepowerFrom" class="col-form-label">from</label>
+                    <div class="col-sm-4">
+                        <input asp-for="HorsepowerFrom" type="number" class="form-control">
+                    </div>
+                    <label asp-for="HorsepowerTo" class="col-form-label">to</label>
+                    <div class="col-sm-4 mb-2">
+                        <input asp-for="HorsepowerFrom" type="number" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-form-label col-sm-3 mr-2">Price</div>
+                    <label asp-for="PriceFrom" class="col-form-label">from</label>
+                    <div class="col-sm-4">
+                        <input asp-for="PriceFrom" type="number" class="form-control">
+                    </div>
+                    <label asp-for="PriceTo" class="col-form-label">to</label>
+                    <div class="col-sm-4 mb-2">
+                        <input asp-for="PriceTo" type="number" class="form-control">
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $('#makeModel').on('change', function () {
+            const id = this.value;
+            $.get(`/api/models/${id}`, function (data) {
+                const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
+                let modelSelect = $('#modelSelect');
+                modelSelect.empty();
+                modelSelect.append(`<option>Any Model</option>`)
+                $('#modelSelect').append(options);
+            });
+        });
+    </script>
+}
