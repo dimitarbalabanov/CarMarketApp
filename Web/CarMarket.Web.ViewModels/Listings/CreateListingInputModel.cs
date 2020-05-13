@@ -1,8 +1,9 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
     using System.Collections.Generic;
-
+    using System.Linq;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CreateListingInputModel
     {
@@ -32,17 +33,17 @@
 
         public IEnumerable<IFormFile> UploadImages { get; set; }
 
-        public IEnumerable<MakeDropDownViewModel> Makes { get; set; }
+        public IEnumerable<SelectListItem> Makes { get; set; }
 
-        public IEnumerable<BodyDropDownViewModel> Bodies { get; set; }
+        public IEnumerable<SelectListItem> Bodies { get; set; }
 
-        public IEnumerable<TransmissionDropDownViewModel> Transmissions { get; set; }
+        public IEnumerable<SelectListItem> Transmissions { get; set; }
 
-        public IEnumerable<FuelDropDownViewModel> Fuels { get; set; }
+        public IEnumerable<SelectListItem> Fuels { get; set; }
 
-        public IEnumerable<ConditionDropDownViewModel> Conditions { get; set; }
+        public IEnumerable<SelectListItem> Conditions { get; set; }
 
-        public IEnumerable<ColorDropDownViewModel> Colors { get; set; }
+        public IEnumerable<SelectListItem> Colors { get; set; }
 
         // Make  - select list - id , string
         // Model - select list - id , string

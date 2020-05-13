@@ -1,13 +1,7 @@
 ﻿@model CarMarket.Web.ViewModels.Listings.CreateListingInputModel
+
 @{
     ViewData["Title"] = "Create new listing";
-
-    var bodies = Model.Bodies.Select(x => new SelectListItem(x.Type, x.Id.ToString()));
-    var colors = Model.Colors.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
-    var conditions = Model.Conditions.Select(x => new SelectListItem(x.Type, x.Id.ToString()));
-    var fuels = Model.Fuels.Select(x => new SelectListItem(x.Type, x.Id.ToString()));
-    var makes = Model.Makes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
-    var transmissions = Model.Transmissions.Select(x => new SelectListItem(x.Type, x.Id.ToString()));
 }
 
 <h1 class="text-center my-text-color mt-4 mb-3">Create new listing</h1>
@@ -19,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="MakeId">Make</label>
-                        <select asp-for="MakeId" asp-items="makes" class="custom-select d-block w-100" id="makeModel">
+                        <select asp-for="MakeId" asp-items="Model.Makes" class="custom-select d-block w-100" id="makeModel">
                             <option value="">Choose a make</option>
                         </select>
                     </div>
@@ -34,19 +28,19 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label asp-for="BodyId">Body</label>
-                        <select asp-for="BodyId" asp-items="bodies" class="custom-select d-block w-100">
+                        <select asp-for="BodyId" asp-items="Model.Bodies" class="custom-select d-block w-100">
                             <option value="">Choose a body</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="TransmissionId">Transmission</label>
-                        <select asp-for="TransmissionId" asp-items="transmissions" class="custom-select d-block w-100">
+                        <select asp-for="TransmissionId" asp-items="Model.Transmissions" class="custom-select d-block w-100">
                             <option value="">Choose a transmission</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="FuelId">Fuel</label>
-                        <select asp-for="FuelId" asp-items="fuels" class="custom-select d-block w-100">
+                        <select asp-for="FuelId" asp-items="Model.Fuels" class="custom-select d-block w-100">
                             <option value="">Choose a fuel</option>
                         </select>
                     </div>
@@ -55,13 +49,13 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label asp-for="ConditionId">Condition</label>
-                        <select asp-for="ConditionId" asp-items="conditions" class="custom-select d-block w-100">
+                        <select asp-for="ConditionId" asp-items="Model.Conditions" class="custom-select d-block w-100">
                             <option value="">Choose a condition</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="ColorId">Color</label>
-                        <select asp-for="ColorId" asp-items="colors" class="custom-select d-block w-100">
+                        <select asp-for="ColorId" asp-items="Model.Colors" class="custom-select d-block w-100">
                             <option value="">Choose a color</option>
                         </select>
                     </div>

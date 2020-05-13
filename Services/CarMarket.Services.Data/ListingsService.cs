@@ -28,12 +28,13 @@
 
         public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
         {
-            var imageUrls = images
+            // for now they can be nullable
+            var imageUrls = images?
                 .Select(async i => await this.cloudinaryService.UploadImageAsync(i, i.FileName))
                 .Select(i => i.Result)
                 .ToList();
 
-            var listingImages = imageUrls
+            var listingImages = imageUrls?
                 .Select(url => new Image { ImageUrl = url })
                 .ToList();
 

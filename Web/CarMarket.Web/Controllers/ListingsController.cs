@@ -7,9 +7,11 @@
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings;
+    using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ListingsController : Controller
     {
@@ -45,22 +47,23 @@
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var bodies = await this.bodiesService.GetAllAsync<BodyDropDownViewModel>();
-            var colors = await this.colorsService.GetAllAsync<ColorDropDownViewModel>();
-            var conditions = await this.conditionsService.GetAllAsync<ConditionDropDownViewModel>();
-            var fuels = await this.fuelsService.GetAllAsync<FuelDropDownViewModel>();
-            var makes = await this.makesService.GetAllAsync<MakeDropDownViewModel>();
-            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionDropDownViewModel>();
+            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
+            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
+            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
+            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
+            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
+            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
 
             var viewModel = new CreateListingInputModel
             {
-                Bodies = bodies,
-                Colors = colors,
-                Conditions = conditions,
-                Fuels = fuels,
-                Makes = makes,
-                Transmissions = transmissions,
+                Bodies = bodies.Select(x => x.BodySelectListItem),
+                Colors = colors.Select(x => x.ColorSelectListItem),
+                Conditions = conditions.Select(x => x.ConditionSelectListItem),
+                Fuels = fuels.Select(x => x.FuelSelectListItem),
+                Makes = makes.Select(x => x.MakeSelectListItem),
+                Transmissions = transmissions.Select(x => x.TransmissionSelectListItem),
             };
+
             return this.View(viewModel);
         }
 
@@ -84,6 +87,47 @@
             var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, user.Id, input.UploadImages);
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
+        }
+
+
+        //[Authorize]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+
+        //    var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
+        //    var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
+        //    var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
+        //    var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
+        //    var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
+        //    var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
+
+        //    var viewModel = new CreateListingInputModel
+        //    {
+        //        Bodies = bodies,
+        //        Colors = colors,
+        //        Conditions = conditions,
+        //        Fuels = fuels,
+        //        Makes = makes,
+        //        Transmissions = transmissions,
+        //    };
+
+        //    return this.View(viewModel);
+        //}
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit()
+        {
+            //var user = await this.userManager.GetUserAsync(this.User);
+
+            ////if (!this.ModelState.IsValid)
+            ////{
+            ////    return this.View(input);
+            ////}
+
+            //var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, user.Id, input.UploadImages);
+            return null;
+            //return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
 
         [HttpPost]
