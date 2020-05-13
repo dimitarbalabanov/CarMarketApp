@@ -22,6 +22,7 @@
         private readonly IListingsService listingsService;
         private readonly IMakesService makesService;
         private readonly ITransmissionsService transmissionsService;
+        private readonly IModelsService modelsService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public ListingsController(
@@ -32,6 +33,7 @@
             IListingsService listingsService,
             IMakesService makesService,
             ITransmissionsService transmissionsService,
+            IModelsService modelsService,
             UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
@@ -42,6 +44,7 @@
             this.listingsService = listingsService;
             this.makesService = makesService;
             this.transmissionsService = transmissionsService;
+            this.modelsService = modelsService;
         }
 
         [Authorize]
@@ -69,7 +72,8 @@
 
         public async Task<IActionResult> Details(int id)
         {
-            var listingViewModel = await this.listingsService.GetSingleByIdAsync<DetailsListingViewModel>(id);
+            var listingViewModel = await this.listingsService
+                .GetSingleByIdAsync<DetailsListingViewModel>(id);
             return this.View(listingViewModel);
         }
 
@@ -90,29 +94,28 @@
         }
 
 
-        //[Authorize]
-        //public async Task<IActionResult> Edit(int id)
-        //{
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var viewModel = await this.listingsService.GetSingleByIdAsync<EditListingInputModel>(id);
 
-        //    var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
-        //    var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
-        //    var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
-        //    var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
-        //    var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
-        //    var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
+            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
+            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
+            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
+            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
+            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
+            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
+            var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(viewModel.MakeId);
 
-        //    var viewModel = new CreateListingInputModel
-        //    {
-        //        Bodies = bodies,
-        //        Colors = colors,
-        //        Conditions = conditions,
-        //        Fuels = fuels,
-        //        Makes = makes,
-        //        Transmissions = transmissions,
-        //    };
+            viewModel.Bodies = bodies.Select(x => x.BodySelectListItem);
+            viewModel.Colors = colors.Select(x => x.ColorSelectListItem);
+            viewModel.Fuels = fuels.Select(x => x.FuelSelectListItem);
+            viewModel.Makes = makes.Select(x => x.MakeSelectListItem);
+            viewModel.Transmissions = transmissions.Select(x => x.TransmissionSelectListItem);
+            viewModel.Models = models.Select(x => x.ModelSelectListItem);
 
-        //    return this.View(viewModel);
-        //}
+            return this.View(viewModel);
+        }
 
         [HttpPost]
         [Authorize]

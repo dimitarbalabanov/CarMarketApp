@@ -16,6 +16,8 @@
             // listing input model
             this.CreateMap<CreateListingInputModel, Listing>();
 
+            this.CreateMap<Listing, EditListingInputModel>();
+
             this.CreateMap<Color, ColorSelectListViewModel>();
 
             this.CreateMap<Body, BodySelectListViewModel>();
