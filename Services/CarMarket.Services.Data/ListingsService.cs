@@ -16,12 +16,14 @@
         private readonly IRepository<Listing> listingsRepository;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IMapper mapper;
+        private readonly IRepository<Image> imageRepository;
 
-        public ListingsService(IRepository<Listing> listingsRepository, ICloudinaryService cloudinaryService, IMapper mapper)
+        public ListingsService(IRepository<Listing> listingsRepository, ICloudinaryService cloudinaryService, IMapper mapper, IRepository<Image> imageRepository)
         {
             this.listingsRepository = listingsRepository;
             this.cloudinaryService = cloudinaryService;
             this.mapper = mapper;
+            this.imageRepository = imageRepository;
         }
 
         public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
@@ -37,14 +39,29 @@
 
             var listing = this.mapper.Map<Listing>(model);
             listing.SellerId = userId;
-            foreach (var img in listingImages)
-            {
-                listing.Images.Add(img);
-            }
+            listing.Images = listingImages;
 
             await this.listingsRepository.AddAsync(listing);
             await this.listingsRepository.SaveChangesAsync();
             return listing.Id;
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var listing = await this.listingsRepository
+                .All()
+                .FirstOrDefaultAsync(l => l.Id == id);
+            var images = await this.imageRepository.All().Where(i => i.ListingId == id).ToListAsync();
+            foreach (var img in images)
+            {
+                this.imageRepository.Delete(img);
+            }
+
+            // remove from cloudinary??
+            await this.imageRepository.SaveChangesAsync();
+
+            this.listingsRepository.Delete(listing);
+            await this.listingsRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllByCreatorIdAsync<T>(string creatorId)

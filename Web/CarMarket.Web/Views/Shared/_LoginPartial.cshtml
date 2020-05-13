@@ -8,6 +8,15 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
+            <a class="nav-link text-white" asp-controller="Listings" asp-action="Create">Create</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-controller="Listings" asp-action="Personal">Personal</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-controller="Bookmarks" asp-action="">Bookmarks</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
         </li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))

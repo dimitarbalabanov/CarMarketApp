@@ -86,6 +86,22 @@
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            //var user = await this.userManager.GetUserAsync(this.User);
+
+            //if (!this.ModelState.IsValid)
+            //{
+            //    return this.View(input);
+            //}
+
+            await this.listingsService.DeleteByIdAsync(id);
+
+            return this.RedirectToAction(nameof(this.Personal));
+        }
+
         public async Task<IActionResult> Personal()
         {
             var user = await this.userManager.GetUserAsync(this.User);

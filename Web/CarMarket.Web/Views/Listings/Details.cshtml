@@ -64,7 +64,7 @@
                 if (this.UserManager.GetUserId(this.User) == Model.SellerId)
                 {
                     //edit
-                    <a class="btn btn-warning" asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn btn-warning" asp-controller="Listings" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                     
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalCenter">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <form class="form-inline" asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id">
+                                    <form class="form-inline" asp-controller="Listings" asp-action="Delete" asp-route-id="@Model.Id">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>
