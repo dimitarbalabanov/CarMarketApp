@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace CarMarket.Web.ViewModels.Search
+namespace CarMarket.Services.Data.Dtos
 {
-    public class SearchInputModel
+    public class SearchModelDto
     {
         public int? MakeId { get; set; }
 
@@ -35,18 +36,6 @@ namespace CarMarket.Web.ViewModels.Search
 
         public decimal? PriceTo { get; set; }
 
-        public IEnumerable<SelectListItem> Makes { get; set; }
-
-        public IEnumerable<SelectListItem> Bodies { get; set; }
-
-        public IEnumerable<SelectListItem> Transmissions { get; set; }
-
-        public IEnumerable<SelectListItem> Fuels { get; set; }
-
-        public IEnumerable<SelectListItem> Conditions { get; set; }
-
-        public IEnumerable<SelectListItem> Colors { get; set; }
-
-        public IEnumerable<SelectListItem> OrderingValues { get; set; }
+        public int OrderingValue { get; set; }
     }
 }

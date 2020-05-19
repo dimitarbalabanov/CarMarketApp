@@ -19,6 +19,7 @@ namespace CarMarket.Web.Controllers
         private readonly IMakesService makesService;
         private readonly ITransmissionsService transmissionsService;
         private readonly IModelsService modelsService;
+        private readonly ISearchService searchService;
 
         public SearchController(
             IBodiesService bodiesService,
@@ -28,7 +29,8 @@ namespace CarMarket.Web.Controllers
             IListingsService listingsService,
             IMakesService makesService,
             ITransmissionsService transmissionsService,
-            IModelsService modelsService)
+            IModelsService modelsService,
+            ISearchService searchService)
         {
             this.bodiesService = bodiesService;
             this.colorsService = colorsService;
@@ -38,6 +40,7 @@ namespace CarMarket.Web.Controllers
             this.makesService = makesService;
             this.transmissionsService = transmissionsService;
             this.modelsService = modelsService;
+            this.searchService = searchService;
         }
 
         public async Task<IActionResult> Index()

@@ -75,6 +75,7 @@
             services.AddTransient<IMakesService, MakesService>();
             services.AddTransient<IModelsService, ModelsService>();
             services.AddTransient<ITransmissionsService, TransmissionsService>();
+            services.AddTransient<ISearchService, SearchService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
