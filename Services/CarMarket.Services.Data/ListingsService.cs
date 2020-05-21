@@ -18,7 +18,11 @@
         private readonly IMapper mapper;
         private readonly IRepository<Image> imageRepository;
 
-        public ListingsService(IRepository<Listing> listingsRepository, ICloudinaryService cloudinaryService, IMapper mapper, IRepository<Image> imageRepository)
+        public ListingsService(
+            IRepository<Listing> listingsRepository,
+            ICloudinaryService cloudinaryService,
+            IMapper mapper,
+            IRepository<Image> imageRepository)
         {
             this.listingsRepository = listingsRepository;
             this.cloudinaryService = cloudinaryService;

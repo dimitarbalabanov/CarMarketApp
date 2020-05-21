@@ -46,6 +46,8 @@ namespace CarMarket.Web.ViewModels.Listings
 
         public string[] ImageUrls { get; set; }
 
+        public bool IsBookmarkedByCurrentUser { get; set; }
+
         // description
         // mileage
         // horsepower

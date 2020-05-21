@@ -30,6 +30,15 @@ namespace CarMarket.Services.Data
             await this.bookmarksRepository.SaveChangesAsync();
         }
 
+        public async Task<bool> IsBookmarkedAsync(string userId, int listingId)
+        {
+            var bookmark = await this.bookmarksRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.ListingId == listingId && x.UserId == userId);
+
+            return bookmark != null;
+        }
+
         public async Task RemoveAsync(string userId, int listingId)
         {
             var bookmark = await this.bookmarksRepository

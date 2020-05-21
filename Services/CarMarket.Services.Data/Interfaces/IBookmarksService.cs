@@ -7,5 +7,7 @@
         Task AddAsync(string userId, int listingId);
 
         Task RemoveAsync(string userId, int listingId);
+
+        Task<bool> IsBookmarkedAsync(string userId, int listingId);
     }
 }

@@ -98,8 +98,16 @@
                 {
                     //bookmark
                     <form id="bookmarksForm" class="form-inline" asp-antiforgery="true">
-                        <a id="addBtn" href="#" class="btn btn-info" onclick="addBookmark(@Model.Id)">Add to bookmarks</a>
-                        <a id="removeBtn" href="#" class="btn btn-info" onclick="removeBookmark(@Model.Id)">Remove from bookmarks</a>
+                        @if (Model.IsBookmarkedByCurrentUser)
+                        {
+                            <a id="addBtn" style="display:none" href="#" class="btn btn-info" onclick="addBookmark(@Model.Id)">Add to bookmarks</a>
+                            <a id="removeBtn" href="#" class="btn btn-info" onclick="removeBookmark(@Model.Id)">Remove from bookmarks</a>
+                        }
+                        else
+                        {
+                            <a id="addBtn" href="#" class="btn btn-info" onclick="addBookmark(@Model.Id)">Add to bookmarks</a>
+                            <a id="removeBtn" style="display:none" href="#" class="btn btn-info" onclick="removeBookmark(@Model.Id)">Remove from bookmarks</a>
+                        }
                     </form>
                 }
 
@@ -118,11 +126,10 @@
                 type: "POST",
                 data: JSON.stringify({ id }),
                 contentType: "application/json; charset=utf-8",
-                dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function () {
-                    $("#addBtn").toggle();
-                    $("#removeBtn").toggle();
+                    $("#addBtn").css("display", "none");
+                    $("#removeBtn").css("display", "block");
                 }
             });
         }
@@ -135,8 +142,8 @@
                 type: "DELETE",
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function () {
-                    $("#removeBtn").toggle();
-                    $("#addBtn").toggle();
+                    $("#addBtn").css("display", "block");
+                    $("#removeBtn").css("display", "none");
                 }
             });
         }

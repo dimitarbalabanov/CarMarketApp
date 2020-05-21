@@ -23,6 +23,7 @@
         private readonly IMakesService makesService;
         private readonly ITransmissionsService transmissionsService;
         private readonly IModelsService modelsService;
+        private readonly IBookmarksService bookmarksService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public ListingsController(
@@ -34,6 +35,7 @@
             IMakesService makesService,
             ITransmissionsService transmissionsService,
             IModelsService modelsService,
+            IBookmarksService bookmarksService,
             UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
@@ -45,6 +47,7 @@
             this.makesService = makesService;
             this.transmissionsService = transmissionsService;
             this.modelsService = modelsService;
+            this.bookmarksService = bookmarksService;
         }
 
         [Authorize]
@@ -74,6 +77,8 @@
         {
             var listingViewModel = await this.listingsService
                 .GetSingleByIdAsync<DetailsListingViewModel>(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+            listingViewModel.IsBookmarkedByCurrentUser = await this.bookmarksService.IsBookmarkedAsync(user.Id, id);
             return this.View(listingViewModel);
         }
 
@@ -92,7 +97,6 @@
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
-
 
         [Authorize]
         public async Task<IActionResult> Edit(int id)
