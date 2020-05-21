@@ -45,25 +45,25 @@
             </div>
         }
         @*@foreach (var listing in Model.Listings)
-        {
-            <div class="card my-background-color">
-                <img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
-                    <p class="card-text mb-0">Price: @listing.Price lv</p>
-                    <p class="card-text mb-0">Production year: @listing.ProductionYear</p>
-                    <p class="card-text mb-0">Mileage: @listing.Mileage km</p>
+            {
+                <div class="card my-background-color">
+                    <img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
+                        <p class="card-text mb-0">Price: @listing.Price lv</p>
+                        <p class="card-text mb-0">Production year: @listing.ProductionYear</p>
+                        <p class="card-text mb-0">Mileage: @listing.Mileage km</p>
+                    </div>
+                    <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>
                 </div>
-                <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>
-            </div>
-        }*@
+            }*@
     </div>
     <hr class="my-background-color" />
 </div>
 
 <div class="container">
     <h4 class="text-center my-text-color mt-3">Popular brands</h4>
-    <hr  />
+    <hr />
     <div class="row">
         <div class="col-md-3 col-sm-6 mb-2">
             <a href="#">
@@ -88,4 +88,32 @@
     </div>
     <hr class="my-background-color" />
 </div>
-    
+
+@*<h3 class="my-4">Related Projects</h3>
+    <div class="row">
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+    </div>*@

@@ -53,6 +53,12 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     });
 
+            services.AddAntiforgery(
+                options =>
+                {
+                    options.HeaderName = "X-CSRF-TOKEN";
+                });
+
             services.AddRazorPages();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -76,6 +82,7 @@
             services.AddTransient<IModelsService, ModelsService>();
             services.AddTransient<ITransmissionsService, TransmissionsService>();
             services.AddTransient<ISearchService, SearchService>();
+            services.AddTransient<IBookmarksService, BookmarksService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

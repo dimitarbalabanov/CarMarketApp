@@ -1,11 +1,10 @@
-﻿using CarMarket.Services.Data.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarMarket.Services.Data.Interfaces
+﻿namespace CarMarket.Services.Data.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using CarMarket.Services.Data.Dtos;
+
     public interface ISearchService
     {
         IReadOnlyDictionary<int, string> GetOrderingValues();
