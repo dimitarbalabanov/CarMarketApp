@@ -43,6 +43,9 @@
 
             this.CreateMap<Listing, PersonalListingViewModel>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, BookmarksListingViewModel>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
         }
     }
 }

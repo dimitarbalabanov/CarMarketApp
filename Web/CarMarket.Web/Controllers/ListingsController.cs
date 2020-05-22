@@ -164,5 +164,13 @@
             var viewModel = new PersonalViewModel { Listings = listings };
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> Bookmarks()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var bookmarkedListings = await this.bookmarksService.GetAllListingsByUserIdAsync<BookmarksListingViewModel>(user.Id);
+            var viewModel = new BookmarksViewModel { Listings = bookmarkedListings };
+            return this.View(viewModel);
+        }
     }
 }

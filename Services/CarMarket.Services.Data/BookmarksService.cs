@@ -1,9 +1,12 @@
-﻿using CarMarket.Data.Common.Repositories;
+﻿using AutoMapper;
+using CarMarket.Data.Common.Repositories;
 using CarMarket.Data.Models;
 using CarMarket.Services.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,10 +15,14 @@ namespace CarMarket.Services.Data
     public class BookmarksService : IBookmarksService
     {
         private readonly IRepository<ApplicationUserBookmarkListing> bookmarksRepository;
+        private readonly IMapper mapper;
+        private readonly IRepository<Listing> listingsRepository;
 
-        public BookmarksService(IRepository<ApplicationUserBookmarkListing> bookmarksRepository)
+        public BookmarksService(IRepository<ApplicationUserBookmarkListing> bookmarksRepository, IMapper mapper, IRepository<Listing> listingsRepository)
         {
             this.bookmarksRepository = bookmarksRepository;
+            this.mapper = mapper;
+            this.listingsRepository = listingsRepository;
         }
 
         public async Task AddAsync(string userId, int listingId)
@@ -28,6 +35,25 @@ namespace CarMarket.Services.Data
 
             await this.bookmarksRepository.AddAsync(bookmark);
             await this.bookmarksRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllListingsByUserIdAsync<T>(string userId)
+        {
+            var bookmarkedListingsIds = await this.bookmarksRepository
+                .AllAsNoTracking()
+                .Where(b => b.UserId == userId)
+                .Select(b => b.ListingId)
+                .ToListAsync();
+
+            var bookmarkedListings = await this.listingsRepository
+                .AllAsNoTracking()
+                .Where(x => bookmarkedListingsIds.Contains(x.Id))
+                .Include(l => l.Make)
+                .Include(l => l.Model)
+                .Include(l => l.Images)
+                .ToListAsync();
+
+            return this.mapper.Map<IEnumerable<T>>(bookmarkedListings);
         }
 
         public async Task<bool> IsBookmarkedAsync(string userId, int listingId)
