@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Listings
+﻿namespace CarMarket.Web.ViewModels.Listings
 {
+    using System.Collections.Generic;
+
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class EditListingInputModel
     {
         public int MakeId { get; set; }

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace CarMarket.Web.ViewModels.Listings
+﻿namespace CarMarket.Web.ViewModels.Listings
 {
+    using System;
+
     public class PersonalListingViewModel
     {
         public int Id { get; set; }

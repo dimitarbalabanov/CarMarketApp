@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Home
+﻿namespace CarMarket.Web.ViewModels.Home
 {
+    using System.Collections.Generic;
+
     public class HomeViewModel
     {
         public IEnumerable<HomeListingViewModel> Listings { get; set; }

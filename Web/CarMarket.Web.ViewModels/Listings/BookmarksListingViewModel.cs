@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Listings
+﻿namespace CarMarket.Web.ViewModels.Listings
 {
+    using System;
+
     public class BookmarksListingViewModel
     {
         public int Id { get; set; }

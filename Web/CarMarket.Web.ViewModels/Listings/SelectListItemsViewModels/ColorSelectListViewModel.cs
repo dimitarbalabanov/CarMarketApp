@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels
+﻿namespace CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class ColorSelectListViewModel
     {
         public int Id { get; set; }

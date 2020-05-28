@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Home
+﻿namespace CarMarket.Web.ViewModels.Home
 {
     public class HomeListingViewModel
     {

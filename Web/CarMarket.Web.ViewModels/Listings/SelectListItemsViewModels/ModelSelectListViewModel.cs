@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels
+﻿namespace CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class ModelSelectListViewModel
     {
         public int Id { get; set; }

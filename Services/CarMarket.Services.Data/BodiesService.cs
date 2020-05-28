@@ -4,9 +4,11 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
+
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
+
     using Microsoft.EntityFrameworkCore;
 
     public class BodiesService : IBodiesService

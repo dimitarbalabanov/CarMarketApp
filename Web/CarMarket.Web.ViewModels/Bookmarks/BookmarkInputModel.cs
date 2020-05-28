@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Web.ViewModels.Bookmarks
+﻿namespace CarMarket.Web.ViewModels.Bookmarks
 {
     public class BookmarkInputModel
     {

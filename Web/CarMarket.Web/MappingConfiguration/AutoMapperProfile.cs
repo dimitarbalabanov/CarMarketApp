@@ -1,13 +1,14 @@
 ﻿namespace CarMarket.Web.MappingConfiguration
 {
+    using System.Linq;
+
     using AutoMapper;
+
     using CarMarket.Data.Models;
     using CarMarket.Web.ViewModels.Home;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
     using CarMarket.Web.ViewModels.Models;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using System.Linq;
 
     public class AutoMapperProfile : Profile
     {

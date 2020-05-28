@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarMarket.Services.Data.Dtos
+﻿namespace CarMarket.Services.Data.Dtos
 {
     public class SearchModelDto
     {

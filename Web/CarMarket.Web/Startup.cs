@@ -12,7 +12,9 @@
     using CarMarket.Services.Cloudinary;
     using CarMarket.Services.Data;
     using CarMarket.Services.Data.Interfaces;
+
     using CloudinaryDotNet;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;

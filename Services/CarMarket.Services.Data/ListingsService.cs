@@ -1,15 +1,18 @@
 ﻿namespace CarMarket.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using AutoMapper;
+
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Cloudinary;
     using CarMarket.Services.Data.Interfaces;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class ListingsService : IListingsService
     {

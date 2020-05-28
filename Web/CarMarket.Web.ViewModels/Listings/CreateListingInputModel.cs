@@ -1,7 +1,7 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
     using System.Collections.Generic;
-    using System.Linq;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
 

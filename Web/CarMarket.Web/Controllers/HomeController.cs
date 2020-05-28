@@ -2,9 +2,11 @@
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
+
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels;
     using CarMarket.Web.ViewModels.Home;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller

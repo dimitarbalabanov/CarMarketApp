@@ -12,8 +12,8 @@
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
+
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Internal;
 
     public class SearchService : ISearchService
     {
@@ -161,6 +161,7 @@
         {
             var type = typeof(Listing);
             var prop = nameof(model.BodyId);
+            Predicate<int> asdf = x => x == 3;
             BinaryExpression predicate = Expression.Equal(
                 Expression.Constant(model.BodyId, typeof(int?)),
                 Expression.Constant(model.BodyId, typeof(int?)));

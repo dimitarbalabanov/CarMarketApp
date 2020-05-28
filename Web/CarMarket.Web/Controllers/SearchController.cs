@@ -1,14 +1,14 @@
-﻿using CarMarket.Services.Data.Interfaces;
-using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
-using CarMarket.Web.ViewModels.Search;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarMarket.Web.Controllers
+﻿namespace CarMarket.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using CarMarket.Services.Data.Interfaces;
+    using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
+    using CarMarket.Web.ViewModels.Search;
+
+    using Microsoft.AspNetCore.Mvc;
+
     public class SearchController : Controller
     {
         private readonly IBodiesService bodiesService;

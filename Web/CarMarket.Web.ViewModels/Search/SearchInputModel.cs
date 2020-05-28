@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-
-namespace CarMarket.Web.ViewModels.Search
+﻿namespace CarMarket.Web.ViewModels.Search
 {
+    using System.Collections.Generic;
+
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class SearchInputModel
     {
         public int? MakeId { get; set; }

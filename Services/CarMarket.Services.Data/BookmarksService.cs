@@ -1,17 +1,17 @@
-﻿using AutoMapper;
-using CarMarket.Data.Common.Repositories;
-using CarMarket.Data.Models;
-using CarMarket.Services.Data.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarMarket.Services.Data
+﻿namespace CarMarket.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using AutoMapper;
+
+    using CarMarket.Data.Common.Repositories;
+    using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Interfaces;
+
+    using Microsoft.EntityFrameworkCore;
+
     public class BookmarksService : IBookmarksService
     {
         private readonly IRepository<ApplicationUserBookmarkListing> bookmarksRepository;
