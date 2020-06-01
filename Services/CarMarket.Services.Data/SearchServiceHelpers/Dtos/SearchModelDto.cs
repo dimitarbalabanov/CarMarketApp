@@ -1,4 +1,4 @@
-﻿namespace CarMarket.Services.Data.Dtos
+﻿namespace CarMarket.Services.Data.SearchServiceHelpers.Dtos
 {
     public class SearchModelDto
     {
