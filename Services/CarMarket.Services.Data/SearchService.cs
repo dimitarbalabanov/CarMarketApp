@@ -16,8 +16,8 @@
     {
         private static readonly IReadOnlyDictionary<int, string> OrderingValues = new Dictionary<int, string>
         {
-            { 1, "Oldest" },
-            { 2, "Newest" },
+            { 1, "Newest" },
+            { 2, "Oldest" },
             { 3, "Price (ascending)" },
             { 4, "Price (descending)" },
             { 5, "Production year (ascending)" },
@@ -40,12 +40,18 @@
         public async Task<IEnumerable<T>> GetSearchResultAsync<T>(SearchModelDto searchModel)
         {
             var listings = this.listingsRepository.AllAsNoTracking();
+
             foreach (var mutator in SearchFieldMutatorsProvider.SearchFieldMutators)
             {
                 listings = mutator.Apply(searchModel, listings);
             }
 
             listings = OrderingMutatorsProvider.OrderingMutators[searchModel.OrderingValue](listings);
+            listings = listings
+                .Include(l => l.Make)
+                .Include(l => l.Model)
+                .Include(l => l.Images);
+
             var searchResult = await listings.ToListAsync();
             return this.mapper.Map<IEnumerable<T>>(searchResult);
         }

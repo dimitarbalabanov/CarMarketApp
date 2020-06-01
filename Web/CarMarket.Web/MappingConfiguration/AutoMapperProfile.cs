@@ -5,10 +5,12 @@
     using AutoMapper;
 
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
     using CarMarket.Web.ViewModels.Home;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
     using CarMarket.Web.ViewModels.Models;
+    using CarMarket.Web.ViewModels.Search;
 
     public class AutoMapperProfile : Profile
     {
@@ -47,6 +49,11 @@
 
             this.CreateMap<Listing, BookmarksListingViewModel>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, SearchResultListingViewModel>()
+               .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<SearchInputModel, SearchModelDto>();
         }
     }
 }

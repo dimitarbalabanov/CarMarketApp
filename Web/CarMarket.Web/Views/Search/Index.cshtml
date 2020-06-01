@@ -60,14 +60,7 @@
                     </div>
                     <div class="col-md-4 mb-4">
                         <label >Order by</label>
-                        <select class="custom-select d-block w-100">
-                            <option value="">Newest</option>
-                            <option value="">Price (descending)</option>
-                            <option value="">Price (ascending)</option>
-                            <option value="">Production year (descending)</option>
-                            <option value="">Production year (ascending)</option>
-                            <option value="">Mileage</option>
-                        </select>
+                        <select asp-for="OrderingValue" asp-items="Model.OrderingValues" class="custom-select d-block w-100"></select>
                     </div>
                 </div>
 
@@ -121,7 +114,7 @@
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Search</button>
+                <button asp-controller="Search" asp-action="Result" class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Search</button>
             </form>
         </div>
     </div>

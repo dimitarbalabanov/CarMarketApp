@@ -11,10 +11,10 @@
         public static readonly IDictionary<int, Func<IQueryable<Listing>, IQueryable<Listing>>> OrderingMutators = new Dictionary<int, Func<IQueryable<Listing>, IQueryable<Listing>>>
         {
             {
-                1, listings => listings.OrderBy(l => l.CreatedOn)
+                1, listings => listings.OrderByDescending(l => l.CreatedOn)
             },
             {
-                2, listings => listings.OrderByDescending(l => l.CreatedOn)
+                2, listings => listings.OrderBy(l => l.CreatedOn)
             },
             {
                 3, listings => listings.OrderBy(l => l.Price)

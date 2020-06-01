@@ -36,6 +36,8 @@
 
         public decimal? PriceTo { get; set; }
 
+        public int OrderingValue { get; set; }
+
         public IEnumerable<SelectListItem> Makes { get; set; }
 
         public IEnumerable<SelectListItem> Bodies { get; set; }
