@@ -19,10 +19,8 @@
         private readonly IColorsService colorsService;
         private readonly IConditionsService conditionsService;
         private readonly IFuelsService fuelsService;
-        private readonly IListingsService listingsService;
         private readonly IMakesService makesService;
         private readonly ITransmissionsService transmissionsService;
-        private readonly IModelsService modelsService;
         private readonly ISearchService searchService;
         private readonly IMapper mapper;
 
@@ -31,10 +29,8 @@
             IColorsService colorsService,
             IConditionsService conditionsService,
             IFuelsService fuelsService,
-            IListingsService listingsService,
             IMakesService makesService,
             ITransmissionsService transmissionsService,
-            IModelsService modelsService,
             ISearchService searchService,
             IMapper mapper)
         {
@@ -42,15 +38,27 @@
             this.colorsService = colorsService;
             this.conditionsService = conditionsService;
             this.fuelsService = fuelsService;
-            this.listingsService = listingsService;
             this.makesService = makesService;
             this.transmissionsService = transmissionsService;
-            this.modelsService = modelsService;
             this.searchService = searchService;
             this.mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
+        {
+            var viewModel = await this.CreateSearchInputModelAndPopulateSelectLists();
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Result(SearchInputModel searchInput)
+        {
+            var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
+            var listings = await this.searchService.GetSearchResultAsync<SearchResultListingViewModel>(searchModel);
+            var viewModel = new SearchResultViewModel { Listings = listings };
+            return this.View(viewModel);
+        }
+
+        private async Task<SearchInputModel> CreateSearchInputModelAndPopulateSelectLists()
         {
             var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
             var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
@@ -71,15 +79,7 @@
                 OrderingValues = orderingValues.Select(x => new SelectListItem(x.Value, x.Key.ToString())),
             };
 
-            return this.View(viewModel);
-        }
-
-        public async Task<IActionResult> Result(SearchInputModel searchInput)
-        {
-            var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
-            var listings = await this.searchService.GetSearchResultAsync<SearchResultListingViewModel>(searchModel);
-            var viewModel = new SearchResultViewModel { Listings = listings };
-            return this.View(viewModel);
+            return viewModel;
         }
     }
 }

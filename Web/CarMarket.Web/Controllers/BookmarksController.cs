@@ -15,16 +15,13 @@
     public class BookmarksController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IListingsService listingsService;
         private readonly IBookmarksService bookmarksService;
 
         public BookmarksController(
             UserManager<ApplicationUser> userManager,
-            IListingsService listingsService,
             IBookmarksService bookmarksService)
         {
             this.userManager = userManager;
-            this.listingsService = listingsService;
             this.bookmarksService = bookmarksService;
         }
 

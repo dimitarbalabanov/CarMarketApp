@@ -54,23 +54,7 @@
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
-            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
-            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
-            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
-            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
-            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
-
-            var viewModel = new CreateListingInputModel
-            {
-                Bodies = bodies.Select(x => x.BodySelectListItem),
-                Colors = colors.Select(x => x.ColorSelectListItem),
-                Conditions = conditions.Select(x => x.ConditionSelectListItem),
-                Fuels = fuels.Select(x => x.FuelSelectListItem),
-                Makes = makes.Select(x => x.MakeSelectListItem),
-                Transmissions = transmissions.Select(x => x.TransmissionSelectListItem),
-            };
-
+            var viewModel = await this.CreateCreateListingInputModelAndPopulateSelectLists();
             return this.View(viewModel);
         }
 
@@ -78,8 +62,8 @@
         {
             var listingViewModel = await this.listingsService
                 .GetSingleByIdAsync<DetailsListingViewModel>(id);
-            var user = await this.userManager.GetUserAsync(this.User);
-            listingViewModel.IsBookmarkedByCurrentUser = await this.bookmarksService.IsBookmarkedAsync(user.Id, id);
+            var userId = this.userManager.GetUserId(this.User);
+            listingViewModel.IsBookmarkedByCurrentUser = await this.bookmarksService.IsBookmarkedAsync(userId, id);
             return this.View(listingViewModel);
         }
 
@@ -87,14 +71,14 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateListingInputModel input)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
 
             //if (!this.ModelState.IsValid)
             //{
             //    return this.View(input);
             //}
 
-            var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, user.Id, input.UploadImages);
+            var userId = this.userManager.GetUserId(this.User);
+            var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, userId, input.UploadImages);
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
@@ -103,26 +87,7 @@
         public async Task<IActionResult> Edit(int id)
         {
             var viewModel = await this.listingsService.GetSingleByIdAsync<EditListingInputModel>(id);
-
-            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
-            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
-            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
-            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
-            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
-            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
-            var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(viewModel.MakeId);
-            var make = makes.FirstOrDefault(x => x.Id == viewModel.MakeId);
-            var selectMake = new SelectListItem(make.Name, make.Id.ToString(), true, true);
-            var list = new List<SelectListItem>();
-            list.Add(selectMake);
-            viewModel.Bodies = bodies.Select(x => x.BodySelectListItem);
-            viewModel.Colors = colors.Select(x => x.ColorSelectListItem);
-            viewModel.Fuels = fuels.Select(x => x.FuelSelectListItem);
-            viewModel.Makes = list;
-            viewModel.Transmissions = transmissions.Select(x => x.TransmissionSelectListItem);
-            viewModel.Conditions = conditions.Select(x => x.ConditionSelectListItem);
-            viewModel.Models = models.Select(x => x.ModelSelectListItem);
-
+            this.PopulateSelectListsInEditListingInputModel(viewModel);
             return this.View(viewModel);
         }
 
@@ -160,18 +125,60 @@
 
         public async Task<IActionResult> Personal()
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-            var listings = await this.listingsService.GetAllByCreatorIdAsync<PersonalListingViewModel>(user.Id);
+            var userId = this.userManager.GetUserId(this.User);
+            var listings = await this.listingsService.GetAllByCreatorIdAsync<PersonalListingViewModel>(userId);
             var viewModel = new PersonalViewModel { Listings = listings };
             return this.View(viewModel);
         }
 
         public async Task<IActionResult> Bookmarks()
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-            var bookmarkedListings = await this.bookmarksService.GetAllListingsByUserIdAsync<BookmarksListingViewModel>(user.Id);
+            var userId = this.userManager.GetUserId(this.User);
+            var bookmarkedListings = await this.bookmarksService.GetAllListingsByUserIdAsync<BookmarksListingViewModel>(userId);
             var viewModel = new BookmarksViewModel { Listings = bookmarkedListings };
             return this.View(viewModel);
+        }
+
+        private async Task<CreateListingInputModel> CreateCreateListingInputModelAndPopulateSelectLists()
+        {
+            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
+            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
+            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
+            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
+            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
+            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
+
+            var viewModel = new CreateListingInputModel
+            {
+                Bodies = bodies.Select(x => x.BodySelectListItem),
+                Colors = colors.Select(x => x.ColorSelectListItem),
+                Conditions = conditions.Select(x => x.ConditionSelectListItem),
+                Fuels = fuels.Select(x => x.FuelSelectListItem),
+                Makes = makes.Select(x => x.MakeSelectListItem),
+                Transmissions = transmissions.Select(x => x.TransmissionSelectListItem),
+            };
+
+            return viewModel;
+        }
+
+        private async void PopulateSelectListsInEditListingInputModel(EditListingInputModel viewModel)
+        {
+            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
+            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
+            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
+            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
+            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
+            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
+            var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(viewModel.MakeId);
+            var make = makes.FirstOrDefault(x => x.Id == viewModel.MakeId);
+
+            viewModel.Bodies = bodies.Select(x => x.BodySelectListItem);
+            viewModel.Colors = colors.Select(x => x.ColorSelectListItem);
+            viewModel.Fuels = fuels.Select(x => x.FuelSelectListItem);
+            viewModel.Makes = new List<SelectListItem> { new SelectListItem(make.Name, make.Id.ToString(), true, true) };
+            viewModel.Transmissions = transmissions.Select(x => x.TransmissionSelectListItem);
+            viewModel.Conditions = conditions.Select(x => x.ConditionSelectListItem);
+            viewModel.Models = models.Select(x => x.ModelSelectListItem);
         }
     }
 }
