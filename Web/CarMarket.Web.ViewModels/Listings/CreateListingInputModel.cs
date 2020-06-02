@@ -3,7 +3,6 @@
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CreateListingInputModel
     {
@@ -32,31 +31,5 @@
         public string Description { get; set; }
 
         public IEnumerable<IFormFile> UploadImages { get; set; }
-
-        public IEnumerable<SelectListItem> Makes { get; set; }
-
-        public IEnumerable<SelectListItem> Bodies { get; set; }
-
-        public IEnumerable<SelectListItem> Transmissions { get; set; }
-
-        public IEnumerable<SelectListItem> Fuels { get; set; }
-
-        public IEnumerable<SelectListItem> Conditions { get; set; }
-
-        public IEnumerable<SelectListItem> Colors { get; set; }
-
-        // Make  - select list - id , string
-        // Model - select list - id , string
-        // Body - select list - id , string
-        // Transmission - select list - id , string
-        // Fuel - select list - id , string
-        // Condition - select list - id , string
-        // Color - select list - id , string
-        // Prod Year - int
-        // Mileage - int
-        // Horsepower - int
-        // Price - decimal
-        // Description - string
-        // Images - iformfile
     }
 }

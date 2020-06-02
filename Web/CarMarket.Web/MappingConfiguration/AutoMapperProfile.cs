@@ -9,6 +9,7 @@
     using CarMarket.Web.ViewModels.Home;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
+    using CarMarket.Web.ViewModels.Makes;
     using CarMarket.Web.ViewModels.Models;
     using CarMarket.Web.ViewModels.Search;
 
@@ -31,6 +32,8 @@
             this.CreateMap<Fuel, FuelSelectListViewModel>();
 
             this.CreateMap<Make, MakeSelectListViewModel>();
+
+            this.CreateMap<Make, MakeViewModel>();
 
             this.CreateMap<Transmission, TransmissionSelectListViewModel>();
 

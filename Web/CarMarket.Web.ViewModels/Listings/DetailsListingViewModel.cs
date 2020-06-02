@@ -43,18 +43,5 @@
         public string[] ImageUrls { get; set; }
 
         public bool IsBookmarkedByCurrentUser { get; set; }
-
-        // description
-        // mileage
-        // horsepower
-        // prod year
-        // condition -> type
-        // model -> name
-        // body -> type
-        // color -> name
-        // transmission -> type
-        // fuel -> type
-        // make -> name
-        // images -> urls
     }
 }

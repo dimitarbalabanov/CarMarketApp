@@ -38,18 +38,6 @@
 
         public int OrderingValue { get; set; }
 
-        public IEnumerable<SelectListItem> Makes { get; set; }
-
-        public IEnumerable<SelectListItem> Bodies { get; set; }
-
-        public IEnumerable<SelectListItem> Transmissions { get; set; }
-
-        public IEnumerable<SelectListItem> Fuels { get; set; }
-
-        public IEnumerable<SelectListItem> Conditions { get; set; }
-
-        public IEnumerable<SelectListItem> Colors { get; set; }
-
         public IEnumerable<SelectListItem> OrderingValues { get; set; }
     }
 }

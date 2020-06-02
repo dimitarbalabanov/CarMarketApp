@@ -1,7 +1,6 @@
 ﻿namespace CarMarket.Web.ViewComponents
 {
     using System.Threading.Tasks;
-
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
 
@@ -16,9 +15,10 @@
             this.modelsService = modelsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int makeId)
         {
-            return this.View();
+            var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(makeId);
+            return this.View(models);
         }
     }
 }

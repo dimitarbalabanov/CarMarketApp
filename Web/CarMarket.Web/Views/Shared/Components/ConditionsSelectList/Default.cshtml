@@ -1,0 +1,6 @@
+﻿@model IEnumerable<CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels.ConditionSelectListViewModel>
+
+@foreach (var condition in Model)
+{
+    <option value="@condition.Id">@condition.Type</option>
+}

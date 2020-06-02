@@ -8,7 +8,7 @@
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
-
+    using CarMarket.Web.ViewModels.Makes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -52,9 +52,9 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var viewModel = await this.CreateCreateListingInputModelAndPopulateSelectLists();
+            var viewModel = new CreateListingInputModel();
             return this.View(viewModel);
         }
 
@@ -87,7 +87,9 @@
         public async Task<IActionResult> Edit(int id)
         {
             var viewModel = await this.listingsService.GetSingleByIdAsync<EditListingInputModel>(id);
-            this.PopulateSelectListsInEditListingInputModel(viewModel);
+            var make = await this.makesService.GetSingleById<MakeViewModel>(viewModel.MakeId);
+            
+
             return this.View(viewModel);
         }
 
@@ -137,48 +139,6 @@
             var bookmarkedListings = await this.bookmarksService.GetAllListingsByUserIdAsync<BookmarksListingViewModel>(userId);
             var viewModel = new BookmarksViewModel { Listings = bookmarkedListings };
             return this.View(viewModel);
-        }
-
-        private async Task<CreateListingInputModel> CreateCreateListingInputModelAndPopulateSelectLists()
-        {
-            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
-            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
-            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
-            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
-            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
-            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
-
-            var viewModel = new CreateListingInputModel
-            {
-                Bodies = bodies.Select(x => x.BodySelectListItem),
-                Colors = colors.Select(x => x.ColorSelectListItem),
-                Conditions = conditions.Select(x => x.ConditionSelectListItem),
-                Fuels = fuels.Select(x => x.FuelSelectListItem),
-                Makes = makes.Select(x => x.MakeSelectListItem),
-                Transmissions = transmissions.Select(x => x.TransmissionSelectListItem),
-            };
-
-            return viewModel;
-        }
-
-        private async void PopulateSelectListsInEditListingInputModel(EditListingInputModel viewModel)
-        {
-            var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
-            var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
-            var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
-            var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
-            var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
-            var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
-            var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(viewModel.MakeId);
-            var make = makes.FirstOrDefault(x => x.Id == viewModel.MakeId);
-
-            viewModel.Bodies = bodies.Select(x => x.BodySelectListItem);
-            viewModel.Colors = colors.Select(x => x.ColorSelectListItem);
-            viewModel.Fuels = fuels.Select(x => x.FuelSelectListItem);
-            viewModel.Makes = new List<SelectListItem> { new SelectListItem(make.Name, make.Id.ToString(), true, true) };
-            viewModel.Transmissions = transmissions.Select(x => x.TransmissionSelectListItem);
-            viewModel.Conditions = conditions.Select(x => x.ConditionSelectListItem);
-            viewModel.Models = models.Select(x => x.ModelSelectListItem);
         }
     }
 }

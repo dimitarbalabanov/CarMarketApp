@@ -3,11 +3,12 @@
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class EditListingInputModel
     {
         public int MakeId { get; set; }
+
+        public string MakeName { get; set; }
 
         public int ModelId { get; set; }
 
@@ -36,19 +37,5 @@
         public IEnumerable<string> UploadedImages { get; set; }
 
         public IEnumerable<IFormFile> NewUploadImages { get; set; }
-
-        public IEnumerable<SelectListItem> Makes { get; set; }
-
-        public IEnumerable<SelectListItem> Models { get; set; }
-
-        public IEnumerable<SelectListItem> Bodies { get; set; }
-
-        public IEnumerable<SelectListItem> Transmissions { get; set; }
-
-        public IEnumerable<SelectListItem> Fuels { get; set; }
-
-        public IEnumerable<SelectListItem> Conditions { get; set; }
-
-        public IEnumerable<SelectListItem> Colors { get; set; }
     }
 }
