@@ -1,8 +1,9 @@
 ﻿namespace CarMarket.Web.ViewComponents
 {
     using System.Threading.Tasks;
+
     using CarMarket.Services.Data.Interfaces;
-    using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
+    using CarMarket.Web.ViewModels.Models;
 
     using Microsoft.AspNetCore.Mvc;
 

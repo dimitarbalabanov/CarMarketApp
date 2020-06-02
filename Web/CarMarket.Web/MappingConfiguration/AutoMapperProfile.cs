@@ -6,12 +6,16 @@
 
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
+    using CarMarket.Web.ViewModels.Bodies;
+    using CarMarket.Web.ViewModels.Colors;
+    using CarMarket.Web.ViewModels.Conditions;
+    using CarMarket.Web.ViewModels.Fuels;
     using CarMarket.Web.ViewModels.Home;
     using CarMarket.Web.ViewModels.Listings;
-    using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
     using CarMarket.Web.ViewModels.Makes;
     using CarMarket.Web.ViewModels.Models;
     using CarMarket.Web.ViewModels.Search;
+    using CarMarket.Web.ViewModels.Transmissions;
 
     public class AutoMapperProfile : Profile
     {

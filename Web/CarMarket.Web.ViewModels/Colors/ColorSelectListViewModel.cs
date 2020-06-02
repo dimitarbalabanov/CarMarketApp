@@ -1,4 +1,4 @@
-﻿namespace CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels
+﻿namespace CarMarket.Web.ViewModels.Colors
 {
     public class ColorSelectListViewModel
     {

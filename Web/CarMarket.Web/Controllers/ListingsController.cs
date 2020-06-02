@@ -1,53 +1,25 @@
 ﻿namespace CarMarket.Web.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings;
-    using CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels;
-    using CarMarket.Web.ViewModels.Makes;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ListingsController : Controller
     {
-        private readonly IBodiesService bodiesService;
-        private readonly IColorsService colorsService;
-        private readonly IConditionsService conditionsService;
-        private readonly IFuelsService fuelsService;
         private readonly IListingsService listingsService;
-        private readonly IMakesService makesService;
-        private readonly ITransmissionsService transmissionsService;
-        private readonly IModelsService modelsService;
         private readonly IBookmarksService bookmarksService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ListingsController(
-            IBodiesService bodiesService,
-            IColorsService colorsService,
-            IConditionsService conditionsService,
-            IFuelsService fuelsService,
-            IListingsService listingsService,
-            IMakesService makesService,
-            ITransmissionsService transmissionsService,
-            IModelsService modelsService,
-            IBookmarksService bookmarksService,
-            UserManager<ApplicationUser> userManager)
+        public ListingsController(IListingsService listingsService, IBookmarksService bookmarksService, UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
-            this.bodiesService = bodiesService;
-            this.colorsService = colorsService;
-            this.conditionsService = conditionsService;
-            this.fuelsService = fuelsService;
             this.listingsService = listingsService;
-            this.makesService = makesService;
-            this.transmissionsService = transmissionsService;
-            this.modelsService = modelsService;
             this.bookmarksService = bookmarksService;
         }
 
@@ -87,9 +59,6 @@
         public async Task<IActionResult> Edit(int id)
         {
             var viewModel = await this.listingsService.GetSingleByIdAsync<EditListingInputModel>(id);
-            var make = await this.makesService.GetSingleById<MakeViewModel>(viewModel.MakeId);
-            
-
             return this.View(viewModel);
         }
 
@@ -125,6 +94,7 @@
             return this.RedirectToAction(nameof(this.Personal));
         }
 
+        [Authorize]
         public async Task<IActionResult> Personal()
         {
             var userId = this.userManager.GetUserId(this.User);
@@ -133,6 +103,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Bookmarks()
         {
             var userId = this.userManager.GetUserId(this.User);

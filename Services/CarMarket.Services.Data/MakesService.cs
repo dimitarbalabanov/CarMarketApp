@@ -30,14 +30,5 @@
 
             return this.mapper.Map<IEnumerable<T>>(makes);
         }
-
-        public async Task<T> GetSingleById<T>(int id)
-        {
-            var make = await this.makesRepository
-                .AllAsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            return this.mapper.Map<T>(make);
-        }
     }
 }
