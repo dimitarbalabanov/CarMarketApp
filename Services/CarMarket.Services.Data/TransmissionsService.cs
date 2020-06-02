@@ -24,11 +24,9 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var transmissions = await this.transmissionsRepository
-                .AllAsNoTracking()
-                .ToListAsync();
-
-            return this.mapper.Map<IEnumerable<T>>(transmissions);
+            var query = this.transmissionsRepository.AllAsNoTracking();
+            var transmissions = await this.mapper.ProjectTo<T>(query).ToListAsync();
+            return transmissions;
         }
     }
 }

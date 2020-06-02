@@ -52,8 +52,8 @@
                 .Include(l => l.Model)
                 .Include(l => l.Images);
 
-            var searchResult = await listings.ToListAsync();
-            return this.mapper.Map<IEnumerable<T>>(searchResult);
+            var searchResult = await this.mapper.ProjectTo<T>(listings).ToListAsync();
+            return searchResult;
         }
     }
 }

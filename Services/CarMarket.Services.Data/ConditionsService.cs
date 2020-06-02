@@ -24,11 +24,9 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var conditions = await this.conditionsRepository
-                .AllAsNoTracking()
-                .ToListAsync();
-
-            return this.mapper.Map<IEnumerable<T>>(conditions);
+            var query = this.conditionsRepository.AllAsNoTracking();
+            var conditions = await this.mapper.ProjectTo<T>(query).ToListAsync();
+            return conditions;
         }
     }
 }

@@ -24,11 +24,9 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var fuels = await this.fuelsRepository
-                .AllAsNoTracking()
-                .ToListAsync();
-
-            return this.mapper.Map<IEnumerable<T>>(fuels);
+            var query = this.fuelsRepository.AllAsNoTracking();
+            var fuels = await this.mapper.ProjectTo<T>(query).ToListAsync();
+            return fuels;
         }
     }
 }

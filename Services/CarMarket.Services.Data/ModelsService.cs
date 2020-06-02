@@ -25,12 +25,11 @@
 
         public async Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id)
         {
-            var models = await this.modelsRepository
+            var query = this.modelsRepository
                 .AllAsNoTracking()
-                .Where(m => m.MakeId == id)
-                .ToListAsync();
-
-            return this.mapper.Map<IEnumerable<T>>(models);
+                .Where(m => m.MakeId == id);
+            var models = await this.mapper.ProjectTo<T>(query).ToListAsync();
+            return models;
         }
     }
 }

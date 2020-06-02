@@ -45,15 +45,15 @@
                 .Select(b => b.ListingId)
                 .ToListAsync();
 
-            var bookmarkedListings = await this.listingsRepository
+            var bookmarkedListingsQuery = this.listingsRepository
                 .AllAsNoTracking()
                 .Where(x => bookmarkedListingsIds.Contains(x.Id))
                 .Include(l => l.Make)
                 .Include(l => l.Model)
-                .Include(l => l.Images)
-                .ToListAsync();
+                .Include(l => l.Images);
 
-            return this.mapper.Map<IEnumerable<T>>(bookmarkedListings);
+            var bookmarkedListings = await this.mapper.ProjectTo<T>(bookmarkedListingsQuery).ToListAsync();
+            return bookmarkedListings;
         }
 
         public async Task<bool> IsBookmarkedAsync(string userId, int listingId)

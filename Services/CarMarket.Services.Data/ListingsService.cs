@@ -35,7 +35,7 @@
 
         public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
         {
-            // for now they can be nullable
+            // for now they can be null
             var imageUrls = images?
                 .Select(async i => await this.cloudinaryService.UploadImageAsync(i, i.FileName))
                 .Select(i => i.Result)
@@ -74,29 +74,29 @@
 
         public async Task<IEnumerable<T>> GetAllByCreatorIdAsync<T>(string creatorId)
         {
-            var listings = await this.listingsRepository
+            var listingsQuery = this.listingsRepository
                 .AllAsNoTracking()
                 .Where(l => l.SellerId == creatorId)
                 .Include(l => l.Make)
                 .Include(l => l.Model)
-                .Include(l => l.Images)
-                .ToListAsync();
+                .Include(l => l.Images);
 
-            return this.mapper.Map<IEnumerable<T>>(listings);
+            var listings = await this.mapper.ProjectTo<T>(listingsQuery).ToListAsync();
+            return listings;
         }
 
         public async Task<IEnumerable<T>> GetLatestAsync<T>()
         {
-            var listings = await this.listingsRepository
+            var listingsQuery = this.listingsRepository
                 .AllAsNoTracking()
                 .Include(l => l.Make)
                 .Include(l => l.Model)
                 .Include(l => l.Images)
                 .OrderByDescending(x => x.CreatedOn)
-                .Take(8)
-                .ToListAsync();
+                .Take(8);
 
-            return this.mapper.Map<IEnumerable<T>>(listings);
+            var listings = await this.mapper.ProjectTo<T>(listingsQuery).ToListAsync();
+            return listings;
         }
 
         public async Task<T> GetSingleByIdAsync<T>(int id)
