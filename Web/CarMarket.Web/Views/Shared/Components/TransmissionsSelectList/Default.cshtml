@@ -1,0 +1,6 @@
+﻿@model IEnumerable<CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels.TransmissionSelectListViewModel>
+
+@foreach (var transmission in Model)
+{
+    <option value="@transmission.Id">@transmission.Type</option>
+}

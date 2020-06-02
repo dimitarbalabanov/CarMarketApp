@@ -1,0 +1,6 @@
+﻿@model IEnumerable<CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels.MakeSelectListViewModel>
+
+@foreach (var make in Model)
+{
+    <option value="@make.Id">@make.Name</option>
+}

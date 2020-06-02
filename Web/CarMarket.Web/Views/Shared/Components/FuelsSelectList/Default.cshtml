@@ -1,0 +1,6 @@
+﻿@model IEnumerable<CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels.FuelSelectListViewModel>
+
+@foreach (var fuel in Model)
+{
+    <option value="@fuel.Id">@fuel.Type</option>
+}

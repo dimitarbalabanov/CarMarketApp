@@ -1,0 +1,6 @@
+﻿@model IEnumerable<CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels.ColorSelectListViewModel>
+
+@foreach (var color in Model)
+{
+    <option value="@color.Id">@color.Name</option>
+}

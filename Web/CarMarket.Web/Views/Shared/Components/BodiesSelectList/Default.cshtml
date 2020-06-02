@@ -1,0 +1,6 @@
+﻿@model IEnumerable<CarMarket.Web.ViewModels.Listings.SelectListItemsViewModels.BodySelectListViewModel>
+
+@foreach (var body in Model)
+{
+    <option value="@body.Id">@body.Type</option>
+}

@@ -13,8 +13,9 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="MakeId">Make</label>
-                        <select asp-for="MakeId" asp-items="Model.Makes" class="custom-select d-block w-100" id="makeModel">
+                        <select asp-for="MakeId"  class="custom-select d-block w-100" id="makeModel">
                             <option value="">Choose a make</option>
+                            <vc:makes-select-list></vc:makes-select-list>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
