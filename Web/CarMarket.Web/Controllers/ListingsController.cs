@@ -43,11 +43,10 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateListingInputModel input)
         {
-
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View(input);
-            //}
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
 
             var userId = this.userManager.GetUserId(this.User);
             var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, userId, input.UploadImages);
