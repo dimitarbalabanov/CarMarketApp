@@ -1,10 +1,10 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
+    using CarMarket.Web.Infrastructure.CustomValidation;
+    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-
-    using Microsoft.AspNetCore.Http;
 
     public class CreateListingInputModel
     {
@@ -27,12 +27,14 @@
         private const string DescriptionErrorMessage = "{0} should be at most {1} characters long!";
         private const int DescriptionMaxLenght = 1500;
 
-        [Required]
+        [Required(ErrorMessage = "Please choose a make")]
         [DisplayName("Make")]
+        [ValidateMakeExists]
         public int MakeId { get; set; }
 
         [Required]
         [DisplayName("Model")]
+        [ValidateMakeModelComboExists("MakeId")]
         public int ModelId { get; set; }
 
         [Required]
@@ -53,6 +55,7 @@
 
         [Required]
         [DisplayName("Color")]
+        [ValidateValueExists("Color")]
         public int ColorId { get; set; }
 
         [Required]

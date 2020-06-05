@@ -28,5 +28,13 @@
             var makes = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return makes;
         }
+
+        public async Task<bool> IsValidByIdAsync(int id)
+        {
+            var isValid = await this.makesRepository.
+                AllAsNoTracking()
+                .AnyAsync(m => m.Id == id);
+            return isValid;
+        }
     }
 }

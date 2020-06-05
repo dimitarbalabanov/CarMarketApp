@@ -28,5 +28,13 @@
             var transmissions = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return transmissions;
         }
+
+        public async Task<bool> IsValidByIdAsync(int id)
+        {
+            var isValid = await this.transmissionsRepository.
+                AllAsNoTracking()
+                .AnyAsync(t => t.Id == id);
+            return isValid;
+        }
     }
 }

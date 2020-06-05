@@ -6,5 +6,7 @@
     public interface IMakesService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<bool> IsValidByIdAsync(int id);
     }
 }

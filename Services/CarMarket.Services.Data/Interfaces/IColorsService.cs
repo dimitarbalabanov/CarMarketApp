@@ -6,5 +6,7 @@
     public interface IColorsService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<bool> IsValidByIdAsync(int id);
     }
 }

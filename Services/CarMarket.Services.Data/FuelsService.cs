@@ -28,5 +28,13 @@
             var fuels = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return fuels;
         }
+
+        public async Task<bool> IsValidByIdAsync(int id)
+        {
+            var isValid = await this.fuelsRepository.
+                AllAsNoTracking()
+                .AnyAsync(m => m.Id == id);
+            return isValid;
+        }
     }
 }

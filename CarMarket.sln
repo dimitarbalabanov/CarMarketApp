@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMarket.Data.Common", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMarket.Services", "Services\CarMarket.Services\CarMarket.Services.csproj", "{77A69F10-9525-4731-B4E2-A5B71CC42D2C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMarket.Web.Infrastructure", "Web\CarMarket.Web.Infrastructure\CarMarket.Web.Infrastructure.csproj", "{CA37DE82-AF39-4743-B35B-294A74480A51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{77A69F10-9525-4731-B4E2-A5B71CC42D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77A69F10-9525-4731-B4E2-A5B71CC42D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77A69F10-9525-4731-B4E2-A5B71CC42D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA37DE82-AF39-4743-B35B-294A74480A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA37DE82-AF39-4743-B35B-294A74480A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA37DE82-AF39-4743-B35B-294A74480A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA37DE82-AF39-4743-B35B-294A74480A51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7} = {E389DEB6-5F90-444B-A054-12A10D39C76F}
 		{099051A3-C7D4-4CEA-8A45-31EE9CB4C80E} = {ACBE44C4-E198-45E2-BA02-6655250A0006}
 		{77A69F10-9525-4731-B4E2-A5B71CC42D2C} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
+		{CA37DE82-AF39-4743-B35B-294A74480A51} = {E389DEB6-5F90-444B-A054-12A10D39C76F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384484BE-4680-4529-9CC2-AD37BA4D12D1}

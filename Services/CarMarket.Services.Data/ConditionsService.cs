@@ -28,5 +28,13 @@
             var conditions = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return conditions;
         }
+
+        public async Task<bool> IsValidByIdAsync(int id)
+        {
+            var isValid = await this.conditionsRepository.
+                AllAsNoTracking()
+                .AnyAsync(c => c.Id == id);
+            return isValid;
+        }
     }
 }

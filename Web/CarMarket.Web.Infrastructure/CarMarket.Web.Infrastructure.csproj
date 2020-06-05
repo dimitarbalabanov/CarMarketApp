@@ -13,15 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\CarMarket.Data.Models\CarMarket.Data.Models.csproj" />
-    <ProjectReference Include="..\CarMarket.Web.Infrastructure\CarMarket.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Services\CarMarket.Services.Data\CarMarket.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>

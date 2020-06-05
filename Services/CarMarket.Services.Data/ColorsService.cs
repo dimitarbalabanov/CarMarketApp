@@ -28,5 +28,13 @@
             var colors = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return colors;
         }
+
+        public async Task<bool> IsValidByIdAsync(int id)
+        {
+            var isValid = await this.colorsRepository.
+                AllAsNoTracking()
+                .AnyAsync(c => c.Id == id);
+            return isValid;
+        }
     }
 }

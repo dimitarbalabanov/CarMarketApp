@@ -31,5 +31,13 @@
             var models = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return models;
         }
+
+        public async Task<bool> IsValidByMakeIdAndIdAsync(int makeId, int modelId)
+        {
+            var isValid = await this.modelsRepository.
+                AllAsNoTracking()
+                .AnyAsync(mod => mod.Id == modelId && mod.MakeId == makeId);
+            return isValid;
+        }
     }
 }

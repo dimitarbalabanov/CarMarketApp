@@ -1,12 +1,9 @@
 ﻿namespace CarMarket.Services.Data.Interfaces
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface ITransmissionsService
+    public interface IValidValue
     {
-        Task<IEnumerable<T>> GetAllAsync<T>();
-
         Task<bool> IsValidByIdAsync(int id);
     }
 }
