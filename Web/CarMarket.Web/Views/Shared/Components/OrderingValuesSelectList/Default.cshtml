@@ -1,0 +1,6 @@
+﻿@model IReadOnlyDictionary<int, string>
+
+@foreach (var kvp in Model)
+{
+    <option value="@kvp.Key">@kvp.Value</option>
+}

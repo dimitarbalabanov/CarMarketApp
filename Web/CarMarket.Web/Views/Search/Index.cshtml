@@ -7,7 +7,7 @@
 <div class="container mb-5 text-dark">
     <div class="row justify-content-center">
         <div class="col-md-8 order-md-1">
-            <form asp-controller="Search" asp-action="Result">
+            <form asp-controller="Search" asp-action="Result" method="get">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="MakeId">Make</label>
@@ -65,7 +65,9 @@
                     </div>
                     <div class="col-md-4 mb-4">
                         <label >Order by</label>
-                        <select asp-for="OrderingValue" asp-items="Model.OrderingValues" class="custom-select d-block w-100"></select>
+                        <select asp-for="OrderingValue" class="custom-select d-block w-100">
+                            <vc:ordering-values-select-list></vc:ordering-values-select-list>
+                        </select>
                     </div>
                 </div>
 

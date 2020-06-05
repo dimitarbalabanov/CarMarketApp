@@ -1,9 +1,5 @@
 ﻿namespace CarMarket.Web.ViewModels.Search
 {
-    using System.Collections.Generic;
-
-    using Microsoft.AspNetCore.Mvc.Rendering;
-
     public class SearchInputModel
     {
         public int? MakeId { get; set; }
@@ -37,7 +33,5 @@
         public decimal? PriceTo { get; set; }
 
         public int OrderingValue { get; set; }
-
-        public IEnumerable<SelectListItem> OrderingValues { get; set; }
     }
 }

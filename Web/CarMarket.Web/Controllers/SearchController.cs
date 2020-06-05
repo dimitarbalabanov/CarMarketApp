@@ -1,6 +1,5 @@
 ﻿namespace CarMarket.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -10,7 +9,6 @@
     using CarMarket.Web.ViewModels.Search;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class SearchController : Controller
     {
@@ -25,11 +23,7 @@
 
         public IActionResult Index()
         {
-            var viewModel = new SearchInputModel
-            {
-                OrderingValues = this.searchService.GetOrderingValues.Select(x => new SelectListItem(x.Value, x.Key.ToString())),
-            };
-
+            var viewModel = new SearchInputModel();
             return this.View(viewModel);
         }
 
