@@ -12,6 +12,7 @@
         private const string InvalidErrorMessage = "Please choose a valid {0} from the dropdown.";
         private const string ServiceNameFormat = "I{0}Service";
         private const string AssemblyQualifiedNameFormat = "CarMarket.Services.Data.Interfaces.{0}";
+
         private readonly string entityName;
 
         public ValidateValueExistsAttribute(string entityName)

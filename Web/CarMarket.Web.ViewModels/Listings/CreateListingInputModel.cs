@@ -1,10 +1,12 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
-    using CarMarket.Web.Infrastructure.CustomValidation;
-    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+
+    using CarMarket.Data.Models;
+    using CarMarket.Web.Infrastructure.CustomValidation;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateListingInputModel
     {
@@ -34,32 +36,37 @@
 
         [Required]
         [DisplayName("Model")]
-        [ValidateMakeModelComboExists("MakeId")]
+        [ValidateMakeModelComboExists(nameof(MakeId))]
         public int ModelId { get; set; }
 
         [Required]
         [DisplayName("Body")]
+        [ValidateBodyExists]
         public int BodyId { get; set; }
 
         [Required]
         [DisplayName("Transmission")]
+        [ValidateTransmissionExists]
         public int TransmissionId { get; set; }
 
         [Required]
         [DisplayName("Fuel")]
+        [ValidateFuelExists]
         public int FuelId { get; set; }
 
         [Required]
         [DisplayName("Condition")]
+        [ValidateConditionExists]
         public int ConditionId { get; set; }
 
         [Required]
         [DisplayName("Color")]
-        [ValidateValueExists("Color")]
+        [ValidateValueExists(nameof(Color))]
         public int ColorId { get; set; }
 
         [Required]
         [DisplayName("Production year")]
+        [ValidateProductionYear]
         [Range(ProductionYearMinValue, ProductionYearMaxValue, ErrorMessage = ProductionYearErrorMessage)]
         public int ProductionYear { get; set; }
 
