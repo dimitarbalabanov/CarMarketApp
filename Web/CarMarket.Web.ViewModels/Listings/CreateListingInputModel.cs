@@ -61,7 +61,7 @@
 
         [Required]
         [DisplayName("Color")]
-        [ValidateValueExists(nameof(Color))]
+        [ValidateColorExists]
         public int ColorId { get; set; }
 
         [Required]
@@ -87,5 +87,12 @@
 
         [DataType(DataType.Upload)]
         public IEnumerable<IFormFile> UploadImages { get; set; }
+
+        [Required]
+        [ValidateFileTypeAndSize]
+        public IFormFile MainPicture { get; set; }
+
+        [ValidateFileTypeAndSize]
+        public IFormFile SecondaryPicture { get; set; }
     }
 }

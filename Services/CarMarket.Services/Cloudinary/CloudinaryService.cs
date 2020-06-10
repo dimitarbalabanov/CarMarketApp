@@ -36,7 +36,7 @@
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(name, stream),
-
+                AllowedFormats = new string[] { "jpg", "png" },
                 // Transformation = new Transformation(),
             };
 

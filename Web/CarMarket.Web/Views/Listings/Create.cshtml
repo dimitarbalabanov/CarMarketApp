@@ -14,15 +14,16 @@
                     <div class="col-md-6 mb-3">
                         <label asp-for="MakeId">Make</label>
                         <select asp-for="MakeId" class="custom-select d-block w-100" id="makeModel">
-                            <option selected="selected" disabled="disabled" value="">Choose a make</option>
-                            <vc:makes-select-list></vc:makes-select-list>
+                            <option value="">Choose a make</option>
+                            @await Component.InvokeAsync("MakesSelectList")
+                            @*<vc:makes-select-list></vc:makes-select-list>*@
                         </select>
                         <span asp-validation-for="MakeId" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="ModelId">Model</label>
                         <select asp-for="ModelId" class="custom-select d-block w-100" id="modelSelect">
-                            <option selected="selected" disabled="disabled" value="">Choose a make</option>
+                            <option value="">Choose a make</option>
                         </select>
                         <span asp-validation-for="ModelId" class="text-danger"></span>
                     </div>
@@ -32,7 +33,7 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="BodyId">Body</label>
                         <select asp-for="BodyId" class="custom-select d-block w-100">
-                            <option selected="selected" disabled="disabled" value="">Choose a body</option>
+                            <option value="">Choose a body</option>
                             <vc:bodies-select-list></vc:bodies-select-list>
                         </select>
                         <span asp-validation-for="BodyId" class="text-danger"></span>
@@ -40,7 +41,7 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="TransmissionId">Transmission</label>
                         <select asp-for="TransmissionId" class="custom-select d-block w-100">
-                            <option selected="selected" disabled="disabled" value="">Choose a transmission</option>
+                            <option value="">Choose a transmission</option>
                             <vc:transmissions-select-list></vc:transmissions-select-list>
                         </select>
                         <span asp-validation-for="TransmissionId" class="text-danger"></span>
@@ -48,7 +49,7 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="FuelId">Fuel</label>
                         <select asp-for="FuelId" class="custom-select d-block w-100">
-                            <option selected="selected" disabled="disabled" value="">Choose a fuel</option>
+                            <option value="">Choose a fuel</option>
                             <vc:fuels-select-list></vc:fuels-select-list>
                         </select>
                         <span asp-validation-for="FuelId" class="text-danger"></span>
@@ -59,7 +60,7 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="ConditionId">Condition</label>
                         <select asp-for="ConditionId" class="custom-select d-block w-100">
-                            <option selected="selected" disabled="disabled" value="">Choose a condition</option>
+                            <option value="">Choose a condition</option>
                             <vc:conditions-select-list></vc:conditions-select-list>
                         </select>
                         <span asp-validation-for="ConditionId" class="text-danger"></span>
@@ -67,7 +68,7 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="ColorId">Color</label>
                         <select asp-for="ColorId" class="custom-select d-block w-100">
-                            <option selected="selected" disabled="disabled" value="">Choose a color</option>
+                            <option value="">Choose a color</option>
                             <vc:colors-select-list></vc:colors-select-list>
                         </select>
                         <span asp-validation-for="ColorId" class="text-danger"></span>
@@ -110,17 +111,30 @@
                     <label asp-for="UploadImages" class="custom-file-label">Choose images</label>
                     <span asp-validation-for="UploadImages" class="text-danger"></span>
                 </div>
+                main pic
+                <div class="custom-file mb-2">
+                    <input asp-for="MainPicture" type="file" class="custom-file-input">
+                    <label asp-for="MainPicture" class="custom-file-label">Choose images</label>
+                    <span asp-validation-for="MainPicture" class="text-danger"></span>
+                </div>
+                secondary pic
+                <div class="custom-file mb-2">
+                    <input asp-for="SecondaryPicture" type="file" class="custom-file-input">
+                    <label asp-for="SecondaryPicture" class="custom-file-label">Choose images</label>
+                    <span asp-validation-for="SecondaryPicture" class="text-danger"></span>
+                </div>
 
                 <hr class="mb-4">
                 <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
             </form>
-        </div>
+    </div>
     </div>
 </div>
 @section Scripts {
     <script>
         $('.custom-file-input').on('change', function () {
-            $(this).next('.custom-file-label').addClass("selected").html("Images loaded.");
+            const fileName = event.target.files[0].name;
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
         });
 
         $('#makeModel').on('change', function () {

@@ -36,15 +36,15 @@
         public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
         {
             // for now they can be null
-            var imageUrls = images?
-                .Select(async i => await this.cloudinaryService.UploadImageAsync(i, i.FileName))
-                .Select(i => i.Result)
-                .ToList();
+            //var imageUrls = images?
+            //    .Select(async i => await this.cloudinaryService.UploadImageAsync(i, i.FileName))
+            //    .Select(i => i.Result)
+            //    .ToList();
 
-            var listingImages = imageUrls?
-                .Select(url => new Image { ImageUrl = url })
-                .ToList();
-
+            //var listingImages = imageUrls?
+            //    .Select(url => new Image { ImageUrl = url })
+            //    .ToList();
+            var listingImages = new List<Image>();
             var listing = this.mapper.Map<Listing>(model);
             listing.SellerId = userId;
             listing.Images = listingImages;
