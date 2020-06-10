@@ -44,6 +44,7 @@
             stream.Dispose();
 
             return uploadResult.SecureUri.AbsoluteUri;
+            //return uploadResult;
         }
     }
 }

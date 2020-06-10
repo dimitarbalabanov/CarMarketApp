@@ -17,7 +17,8 @@
             builder
                .HasMany(b => b.Listings)
                .WithOne(l => l.Model)
-               .HasForeignKey(l => l.ModelId);
+               .HasForeignKey(l => l.ModelId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -137,12 +137,26 @@
         });
 
         $('#makeModel').on('change', function () {
-            const id = this.value;
+            fetchModels(this.value);
+        });
+
+        if ($('#makeModel').val() != "Choose a make") {
+            fetchModels($('#makeModel').val());
+        }
+
+        function fetchModels(id) {
             $.get(`/api/models/${id}`, function (data) {
-                const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
+                const options = data.map(
+                    x => {
+                        if (x.id == @Model.ModelId) {
+                           return `<option value=${x.id} selected="selected">${x.name}</option>`
+                        } else {
+                           return `<option value=${x.id}>${x.name}</option>`
+                        }
+                    });
                 $('#modelSelect').empty();
                 $('#modelSelect').append(options);
             });
-        });
+        }
     </script>
 }
