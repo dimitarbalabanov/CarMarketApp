@@ -16,10 +16,16 @@
             this.bodiesService = bodiesService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var bodies = await this.bodiesService.GetAllAsync<BodySelectListViewModel>();
-            return this.View(bodies);
+            var viewModel = new AllBodiesSelectListViewModel
+            {
+                Bodies = bodies,
+                SelectedBodyId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

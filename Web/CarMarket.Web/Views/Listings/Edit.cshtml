@@ -29,19 +29,19 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="BodyId">Body</label>
                         <select asp-for="BodyId" class="custom-select d-block w-100">
-                            <vc:bodies-select-list></vc:bodies-select-list>
+                            <vc:bodies-select-list id="@Model.BodyId"></vc:bodies-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="TransmissionId">Transmission</label>
                         <select asp-for="TransmissionId" class="custom-select d-block w-100">
-                            <vc:transmissions-select-list></vc:transmissions-select-list>
+                            <vc:transmissions-select-list id="@Model.TransmissionId"></vc:transmissions-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="FuelId">Fuel</label>
                         <select asp-for="FuelId" class="custom-select d-block w-100">
-                            <vc:fuels-select-list></vc:fuels-select-list>
+                            <vc:fuels-select-list id="@Model.FuelId"></vc:fuels-select-list>
                         </select>
                     </div>
                 </div>
@@ -50,13 +50,13 @@
                     <div class="col-md-4 mb-3">
                         <label asp-for="ConditionId">Condition</label>
                         <select asp-for="ConditionId" class="custom-select d-block w-100">
-                            <vc:conditions-select-list></vc:conditions-select-list>
+                            <vc:conditions-select-list id="@Model.ConditionId"></vc:conditions-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label asp-for="ColorId">Color</label>
                         <select asp-for="ColorId" class="custom-select d-block w-100">
-                            <vc:colors-select-list></vc:colors-select-list>
+                            <vc:colors-select-list id="@Model.ColorId"></vc:colors-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">

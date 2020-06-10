@@ -1,6 +1,12 @@
-﻿@model IEnumerable<CarMarket.Web.ViewModels.Makes.MakeSelectListViewModel>
+﻿@model CarMarket.Web.ViewModels.Makes.AllMakesSelectListViewModel
 
-@foreach (var make in Model)
+@foreach (var make in Model.Makes)
 {
+    if (make.Id == Model.SelectedMakeId)
+    {
+        <option value="@make.Id" selected="selected">@make.Name</option>
+        continue;
+    }
+
     <option value="@make.Id">@make.Name</option>
 }

@@ -1,6 +1,12 @@
-﻿@model IEnumerable<CarMarket.Web.ViewModels.Colors.ColorSelectListViewModel>
+﻿@model CarMarket.Web.ViewModels.Colors.AllColorsSelectListViewModel
 
-@foreach (var color in Model)
+@foreach (var color in Model.Colors)
 {
+    if (color.Id == Model.SelectedColorId)
+    {
+        <option value="@color.Id" selected="selected">@color.Name</option>
+        continue;
+    }
+
     <option value="@color.Id">@color.Name</option>
 }

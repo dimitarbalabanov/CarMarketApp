@@ -16,10 +16,16 @@
             this.colorsService = colorsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var colors = await this.colorsService.GetAllAsync<ColorSelectListViewModel>();
-            return this.View(colors);
+            var viewModel = new AllColorsSelectListViewModel
+            {
+                Colors = colors,
+                SelectedColorId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

@@ -16,10 +16,16 @@
             this.fuelsService = fuelsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var fuels = await this.fuelsService.GetAllAsync<FuelSelectListViewModel>();
-            return this.View(fuels);
+            var viewModel = new AllFuelsSelectListViewModel
+            {
+                Fuels = fuels,
+                SelectedFuelId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

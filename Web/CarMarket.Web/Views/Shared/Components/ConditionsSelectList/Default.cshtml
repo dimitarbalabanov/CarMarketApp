@@ -1,6 +1,12 @@
-﻿@model IEnumerable<CarMarket.Web.ViewModels.Conditions.ConditionSelectListViewModel>
+﻿@model CarMarket.Web.ViewModels.Conditions.AllConditionsSelectListViewModel
 
-@foreach (var condition in Model)
+@foreach (var condition in Model.Conditions)
 {
+    if (condition.Id == Model.SelectedConditionId)
+    {
+        <option value="@condition.Id" selected="selected">@condition.Type</option>
+        continue;
+    }
+
     <option value="@condition.Id">@condition.Type</option>
 }

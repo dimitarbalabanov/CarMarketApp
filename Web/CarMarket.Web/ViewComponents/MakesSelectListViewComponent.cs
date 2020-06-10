@@ -16,10 +16,16 @@
             this.makesService = makesService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var makes = await this.makesService.GetAllAsync<MakeSelectListViewModel>();
-            return this.View(makes);
+            var viewModel = new AllMakesSelectListViewModel
+            {
+                Makes = makes,
+                SelectedMakeId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

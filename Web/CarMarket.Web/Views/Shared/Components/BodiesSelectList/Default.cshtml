@@ -1,6 +1,12 @@
-﻿@model IEnumerable<CarMarket.Web.ViewModels.Bodies.BodySelectListViewModel>
+﻿@model CarMarket.Web.ViewModels.Bodies.AllBodiesSelectListViewModel
 
-@foreach (var body in Model)
+@foreach (var body in Model.Bodies)
 {
+    if (body.Id == Model.SelectedBodyId)
+    {
+        <option value="@body.Id" selected="selected">@body.Type</option>
+        continue;
+    }
+
     <option value="@body.Id">@body.Type</option>
 }

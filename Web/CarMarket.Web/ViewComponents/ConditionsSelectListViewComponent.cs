@@ -16,10 +16,16 @@
             this.conditionsService = conditionsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var conditions = await this.conditionsService.GetAllAsync<ConditionSelectListViewModel>();
-            return this.View(conditions);
+            var viewModel = new AllConditionsSelectListViewModel
+            {
+                Conditions = conditions,
+                SelectedConditionId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

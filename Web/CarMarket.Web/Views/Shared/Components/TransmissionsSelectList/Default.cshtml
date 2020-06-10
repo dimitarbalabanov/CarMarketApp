@@ -1,6 +1,13 @@
-﻿@model IEnumerable<CarMarket.Web.ViewModels.Transmissions.TransmissionSelectListViewModel>
+﻿@model CarMarket.Web.ViewModels.Transmissions.AllTransmissionsSelectListViewModel
 
-@foreach (var transmission in Model)
+@foreach (var transmission in Model.Transmissions)
 {
+    if (transmission.Id == Model.SelectedTransmissionId)
+    {
+        <option value="@transmission.Id" selected="selected">@transmission.Type</option>
+        continue;
+    }
+
     <option value="@transmission.Id">@transmission.Type</option>
 }
+

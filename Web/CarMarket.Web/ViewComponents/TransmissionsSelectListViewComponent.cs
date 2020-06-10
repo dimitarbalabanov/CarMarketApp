@@ -16,10 +16,16 @@
             this.transmissionsService = transmissionsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var transmissions = await this.transmissionsService.GetAllAsync<TransmissionSelectListViewModel>();
-            return this.View(transmissions);
+            var viewModel = new AllTransmissionsSelectListViewModel
+            {
+                Transmissions = transmissions,
+                SelectedTransmissionId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

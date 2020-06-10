@@ -1,6 +1,12 @@
-﻿@model IEnumerable<CarMarket.Web.ViewModels.Fuels.FuelSelectListViewModel>
+﻿@model CarMarket.Web.ViewModels.Fuels.AllFuelsSelectListViewModel
 
-@foreach (var fuel in Model)
+@foreach (var fuel in Model.Fuels)
 {
-<option value="@fuel.Id">@fuel.Type</option>
+    if (fuel.Id == Model.SelectedFuelId)
+    {
+        <option value="@fuel.Id" selected="selected">@fuel.Type</option>
+        continue;
+    }
+
+    <option value="@fuel.Id">@fuel.Type</option>
 }
