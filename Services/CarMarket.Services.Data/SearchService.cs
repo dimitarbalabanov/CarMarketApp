@@ -8,12 +8,14 @@
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Interfaces;
+    using CarMarket.Services.Data.Pagination;
     using CarMarket.Services.Data.SearchServiceHelpers;
     using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
     using Microsoft.EntityFrameworkCore;
 
     public class SearchService : ISearchService
     {
+        private const int DefaultPageSize = 5;
         private static readonly IReadOnlyDictionary<int, string> OrderingValues = new Dictionary<int, string>
         {
             { 1, "Newest" },
@@ -37,7 +39,7 @@
 
         public IReadOnlyDictionary<int, string> GetOrderingValues => OrderingValues;
 
-        public async Task<IEnumerable<T>> GetSearchResultAsync<T>(SearchModelDto searchModel)
+        public async Task<PaginatedList<T>> GetSearchResultAsync<T>(SearchModelDto searchModel, int pageNumber)
         {
             var listings = this.listingsRepository.AllAsNoTracking();
 
@@ -52,8 +54,9 @@
                 .Include(l => l.Model)
                 .Include(l => l.Images);
 
-            var searchResult = await this.mapper.ProjectTo<T>(listings).ToListAsync();
-            return searchResult;
+            var mapperListings = this.mapper.ProjectTo<T>(listings);
+            var pagedListings = await PaginatedList<T>.CreateAsync(mapperListings, pageNumber, DefaultPageSize);
+            return pagedListings;
         }
     }
 }

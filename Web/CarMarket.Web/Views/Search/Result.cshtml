@@ -25,4 +25,23 @@
         </div>
         <hr class="mb-4">
     }
+
+    @{
+        var prevDisabled = !Model.Listings.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Listings.HasNextPage ? "disabled" : "";
+        var paramsDictionary = (Dictionary<string, string>)ViewData["Query"];
+    }
+
+    <a asp-action="Result"
+       asp-all-route-data="paramsDictionary"
+       asp-route-pageNumber="@(Model.Listings.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Result"
+       asp-all-route-data="paramsDictionary"
+       asp-route-pageNumber="@(Model.Listings.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 </div>

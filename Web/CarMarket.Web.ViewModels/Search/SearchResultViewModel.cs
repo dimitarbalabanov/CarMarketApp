@@ -1,9 +1,9 @@
 ﻿namespace CarMarket.Web.ViewModels.Search
 {
-    using System.Collections.Generic;
+    using CarMarket.Services.Data.Pagination;
 
     public class SearchResultViewModel
     {
-        public IEnumerable<SearchResultListingViewModel> Listings { get; set; }
+        public PaginatedList<SearchResultListingViewModel> Listings { get; set; }
     }
 }
