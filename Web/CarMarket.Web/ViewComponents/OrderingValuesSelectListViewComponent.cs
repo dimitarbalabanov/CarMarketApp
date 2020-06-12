@@ -1,12 +1,8 @@
-﻿using CarMarket.Services.Data.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarMarket.Web.ViewComponents
+﻿namespace CarMarket.Web.ViewComponents
 {
+    using CarMarket.Services.Data.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+
     public class OrderingValuesSelectListViewComponent : ViewComponent
     {
         private readonly ISearchService searchService;

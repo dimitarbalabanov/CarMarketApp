@@ -8,6 +8,8 @@
 
     public interface ICloudinaryService
     {
-       Task<string> UploadImageAsync(IFormFile formFile, string name);
+        Task<ImageUploadResult> UploadImageAsync(IFormFile formFile, string name);
+
+        Task DestroyImageAsync(string publicId);
     }
 }

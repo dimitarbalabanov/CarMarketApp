@@ -11,6 +11,9 @@
 
     public class CloudinaryService : ICloudinaryService
     {
+        private const string JpgFormat = "jpg";
+        private const string PngFormat = "png";
+
         private readonly Cloudinary cloudinary;
 
         public CloudinaryService(Cloudinary cloudinary)
@@ -18,7 +21,7 @@
             this.cloudinary = cloudinary;
         }
 
-        public async Task<string> UploadImageAsync(IFormFile formFile, string name)
+        public async Task<ImageUploadResult> UploadImageAsync(IFormFile formFile, string name)
         {
             if (formFile == null)
             {
@@ -36,15 +39,19 @@
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(name, stream),
-                AllowedFormats = new string[] { "jpg", "png" },
-                // Transformation = new Transformation(),
+                AllowedFormats = new string[] { JpgFormat, PngFormat },
             };
 
             var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
             stream.Dispose();
 
-            return uploadResult.SecureUri.AbsoluteUri;
-            //return uploadResult;
+            return uploadResult;
+        }
+
+        public async Task DestroyImageAsync(string publicId)
+        {
+            var deletionParams = new DeletionParams(publicId);
+            await this.cloudinary.DestroyAsync(deletionParams);
         }
     }
 }

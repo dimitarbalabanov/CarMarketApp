@@ -8,7 +8,6 @@
 
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
-    using CarMarket.Services.Cloudinary;
     using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Http;
@@ -16,35 +15,32 @@
 
     public class ListingsService : IListingsService
     {
+        private const int LatestListingsCount = 8;
+
         private readonly IRepository<Listing> listingsRepository;
-        private readonly ICloudinaryService cloudinaryService;
         private readonly IMapper mapper;
-        private readonly IRepository<Image> imageRepository;
+        private readonly IImagesService imagesService;
 
         public ListingsService(
             IRepository<Listing> listingsRepository,
-            ICloudinaryService cloudinaryService,
             IMapper mapper,
-            IRepository<Image> imageRepository)
+            IImagesService imagesService)
         {
             this.listingsRepository = listingsRepository;
-            this.cloudinaryService = cloudinaryService;
             this.mapper = mapper;
-            this.imageRepository = imageRepository;
+            this.imagesService = imagesService;
         }
 
         public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
         {
+            bool isMain = false;
+
             // for now they can be null
-            var imageUrls = images?
-                .Select(async i => await this.cloudinaryService.UploadImageAsync(i, i.FileName))
+            var listingImages = images?
+                .Select(async i => await this.imagesService.UploadAsync(i, isMain))
                 .Select(i => i.Result)
                 .ToList();
 
-            var listingImages = imageUrls?
-                .Select(url => new Image { ImageUrl = url })
-                .ToList();
-            //var listingImages = new List<Image>();
             var listing = this.mapper.Map<Listing>(model);
             listing.SellerId = userId;
             listing.Images = listingImages;
@@ -59,14 +55,8 @@
             var listing = await this.listingsRepository
                 .All()
                 .FirstOrDefaultAsync(l => l.Id == id);
-            var images = await this.imageRepository.All().Where(i => i.ListingId == id).ToListAsync();
-            foreach (var img in images)
-            {
-                this.imageRepository.Delete(img);
-            }
 
-            // remove from cloudinary??
-            await this.imageRepository.SaveChangesAsync();
+            await this.imagesService.DeleteAllImagesByListingIdAsync(listing.Id);
 
             this.listingsRepository.Delete(listing);
             await this.listingsRepository.SaveChangesAsync();
@@ -93,7 +83,7 @@
                 .Include(l => l.Model)
                 .Include(l => l.Images)
                 .OrderByDescending(x => x.CreatedOn)
-                .Take(8);
+                .Take(LatestListingsCount);
 
             var listings = await this.mapper.ProjectTo<T>(listingsQuery).ToListAsync();
             return listings;

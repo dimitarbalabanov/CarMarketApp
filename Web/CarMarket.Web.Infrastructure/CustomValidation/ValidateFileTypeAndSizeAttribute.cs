@@ -8,7 +8,10 @@
     {
         private const string InvalidFileExtensionErrorMessage = "Image can be .jpg, .jpeg or .png format only.";
         private const string NoFileErrorMessage = "Image is required.";
-        private const string InvalidFileSizeErrorMessage = "Image's size can be at most 1 MB.";
+        private const string InvalidFileSizeErrorMessage = "Single image's size can be at most 1 MB.";
+
+        private const string JpegMimeType = "image/jpeg";
+        private const string PngMimeType = "image/png";
 
         private const int FileMaxSizeInBytes = 1048576;
 
@@ -17,7 +20,7 @@
             var imageAsIFormFile = value as IFormFile;
             if (imageAsIFormFile == null)
             {
-                return ValidationResult.Success;
+                return new ValidationResult(NoFileErrorMessage);
             }
 
             var isValidExtension = this.ValidateFileExtension(imageAsIFormFile);
@@ -38,7 +41,7 @@
         private bool ValidateFileExtension(IFormFile file)
         {
             var extension = file.ContentType;
-            return (extension != "image/jpeg" && extension != "image/png") ? false : true;
+            return (extension != JpegMimeType && extension != PngMimeType) ? false : true;
         }
 
         private bool ValidateFileSize(IFormFile file)
