@@ -8,7 +8,7 @@
 
     public interface IImagesService
     {
-        Task<Image> UploadAsync(IFormFile file, bool isMain);
+        Task<Image> UploadAsync(IFormFile file, bool isMain = false);
 
         Task DeleteAllImagesByListingIdAsync(int listingId);
     }

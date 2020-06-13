@@ -1,7 +1,5 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
-    using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using CarMarket.Data.Models;
@@ -10,64 +8,61 @@
 
     public class CreateListingInputModel
     {
-        private const string PriceErrorMessage = "{0} can't be below {1} BGN!";
+        private const string PriceErrorMessage = "{0} cannot be below {1} BGN.";
         private const string PriceMinValue = "1";
         private const string PriceMaxValue = "79228162514264337593543950335";
 
-        private const string ProductionYearErrorMessage = "{0} should be between {1} and {2}!";
-        private const int ProductionYearMinValue = 1900;
-        private const int ProductionYearMaxValue = 2020;
-
-        private const string MileageErrorMessage = "{0} should be between {1} and {2}!";
+        private const string MileageErrorMessage = "{0} can be between {1} and {2}.";
         private const int MileageMinValue = 0;
         private const int MileageMaxValue = 1000000;
 
-        private const string HorsepowerErrorMessage = "{0} should be between {1} and {2}!";
+        private const string HorsepowerErrorMessage = "{0} can be between {1} and {2}.";
         private const int HorsepowerMinValue = 1;
         private const int HorsepowerMaxValue = 5000;
 
-        private const string DescriptionErrorMessage = "{0} should be at most {1} characters long!";
+        private const string DescriptionErrorMessage = "{0} should be at most {1} symbols long.";
         private const int DescriptionMaxLenght = 1500;
 
-        [Required(ErrorMessage = "Please choose a make")]
-        [DisplayName("Make")]
+        private const string MakeRequiredErrorMessage = "Please choose a make.";
+        private const string ModelRequiredErrorMessage = "Please choose a model.";
+        private const string BodyRequiredErrorMessage = "Please choose a body type.";
+        private const string TransmissionRequiredErrorMessage = "Please choose a transmission.";
+        private const string FuelRequiredErrorMessage = "Please choose a fuel type.";
+        private const string ConditionRequiredErrorMessage = "Please choose a condition.";
+        private const string ColorRequiredErrorMessage = "Please choose a color.";
+        private const string MainImageRequiredErrorMessage = "Please choose a main image.";
+        private const string SecondaryImageRequiredErrorMessage = "Please choose a secondary image.";
+
+        [Required(ErrorMessage = MakeRequiredErrorMessage)]
         [ValidateMakeExists]
         public int MakeId { get; set; }
 
-        [Required]
-        [DisplayName("Model")]
+        [Required(ErrorMessage = ModelRequiredErrorMessage)]
         [ValidateMakeModelComboExists(nameof(MakeId))]
         public int ModelId { get; set; }
 
-        [Required]
-        [DisplayName("Body")]
+        [Required(ErrorMessage = BodyRequiredErrorMessage)]
         [ValidateBodyExists]
         public int BodyId { get; set; }
 
-        [Required]
-        [DisplayName("Transmission")]
+        [Required(ErrorMessage = TransmissionRequiredErrorMessage)]
         [ValidateTransmissionExists]
         public int TransmissionId { get; set; }
 
-        [Required]
-        [DisplayName("Fuel")]
+        [Required(ErrorMessage = FuelRequiredErrorMessage)]
         [ValidateFuelExists]
         public int FuelId { get; set; }
 
-        [Required]
-        [DisplayName("Condition")]
+        [Required(ErrorMessage = ConditionRequiredErrorMessage)]
         [ValidateConditionExists]
         public int ConditionId { get; set; }
 
-        [Required]
-        [DisplayName("Color")]
+        [Required(ErrorMessage = ColorRequiredErrorMessage)]
         [ValidateColorExists]
         public int ColorId { get; set; }
 
         [Required]
-        [DisplayName("Production year")]
         [ValidateProductionYear]
-        [Range(ProductionYearMinValue, ProductionYearMaxValue, ErrorMessage = ProductionYearErrorMessage)]
         public int ProductionYear { get; set; }
 
         [Required]
@@ -85,14 +80,16 @@
         [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionErrorMessage)]
         public string Description { get; set; }
 
-        [DataType(DataType.Upload)]
-        public IEnumerable<IFormFile> UploadImages { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = MainImageRequiredErrorMessage)]
         [ValidateFileTypeAndSize]
-        public IFormFile MainPicture { get; set; }
+        public IFormFile MainImage { get; set; }
 
+        [Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
         [ValidateFileTypeAndSize]
-        public IFormFile SecondaryPicture { get; set; }
+        public IFormFile SecondaryImageA { get; set; }
+
+        [Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
+        [ValidateFileTypeAndSize]
+        public IFormFile SecondaryImageB { get; set; }
     }
 }

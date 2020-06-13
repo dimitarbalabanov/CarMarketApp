@@ -7,126 +7,133 @@
 <h1 class="text-center my-text-color mt-4 mb-3">Create new listing</h1>
 <div class="container mb-5 text-dark">
     <div class="row justify-content-center">
-        <div class="col-md-8 order-md-1">
+        <div class="col-md-8 order-md-1 font-weight-bold my-text-color">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="MakeId">Make</label>
-                        <select asp-for="MakeId" class="custom-select d-block w-100" id="makeModel">
+                        <label asp-for="@Model.MakeId">Make</label>
+                        <select asp-for="@Model.MakeId" class="custom-select d-block w-100" id="makeModel">
                             <option value="">Choose a make</option>
                             <vc:makes-select-list id="@Model.MakeId"></vc:makes-select-list>
                         </select>
-                        <span asp-validation-for="MakeId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.MakeId" class="text-info"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="ModelId">Model</label>
-                        <select asp-for="ModelId" class="custom-select d-block w-100" id="modelSelect">
+                        <label asp-for="@Model.ModelId">Model</label>
+                        <select asp-for="@Model.ModelId" class="custom-select d-block w-100" id="modelSelect">
                             <option value="">Choose a make</option>
                         </select>
-                        <span asp-validation-for="ModelId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.ModelId" class="text-info"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="BodyId">Body</label>
-                        <select asp-for="BodyId" class="custom-select d-block w-100">
+                        <label asp-for="@Model.BodyId">Body type</label>
+                        <select asp-for="@Model.BodyId" class="custom-select d-block w-100">
                             <option value="">Choose a body</option>
                             <vc:bodies-select-list id="@Model.BodyId"></vc:bodies-select-list>
                         </select>
-                        <span asp-validation-for="BodyId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BodyId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="TransmissionId">Transmission</label>
-                        <select asp-for="TransmissionId" class="custom-select d-block w-100">
+                        <label asp-for="@Model.TransmissionId">Transmission type</label>
+                        <select asp-for="@Model.TransmissionId" class="custom-select d-block w-100">
                             <option value="">Choose a transmission</option>
                             <vc:transmissions-select-list id="@Model.TransmissionId"></vc:transmissions-select-list>
                         </select>
-                        <span asp-validation-for="TransmissionId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.TransmissionId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="FuelId">Fuel</label>
-                        <select asp-for="FuelId" class="custom-select d-block w-100">
+                        <label asp-for="@Model.FuelId">Fuel type</label>
+                        <select asp-for="@Model.FuelId" class="custom-select d-block w-100">
                             <option value="">Choose a fuel</option>
                             <vc:fuels-select-list id="@Model.FuelId"></vc:fuels-select-list>
                         </select>
-                        <span asp-validation-for="FuelId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.FuelId" class="text-info"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="ConditionId">Condition</label>
-                        <select asp-for="ConditionId" class="custom-select d-block w-100">
+                        <label asp-for="@Model.ConditionId">Condition</label>
+                        <select asp-for="@Model.ConditionId" class="custom-select d-block w-100">
                             <option value="">Choose a condition</option>
                             <vc:conditions-select-list id="@Model.ConditionId"></vc:conditions-select-list>
                         </select>
-                        <span asp-validation-for="ConditionId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.ConditionId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="ColorId">Color</label>
-                        <select asp-for="ColorId" class="custom-select d-block w-100">
+                        <label asp-for="@Model.ColorId">Color</label>
+                        <select asp-for="@Model.ColorId" class="custom-select d-block w-100">
                             <option value="">Choose a color</option>
                             <vc:colors-select-list id="@Model.ColorId"></vc:colors-select-list>
                         </select>
-                        <span asp-validation-for="ColorId" class="text-danger"></span>
+                        <span asp-validation-for="@Model.ColorId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="ProductionYear">Production Year</label>
-                        <input asp-for="ProductionYear" type="number" class="form-control">
-                        <span asp-validation-for="ProductionYear" class="text-danger"></span>
+                        <label asp-for="@Model.ProductionYear">Production year</label>
+                        <input asp-for="@Model.ProductionYear" type="number" class="form-control">
+                        <span asp-validation-for="@Model.ProductionYear" class="text-info"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Mileage">Mileage</label>
-                        <input asp-for="Mileage" type="number" class="form-control">
-                        <span asp-validation-for="Mileage" class="text-danger"></span>
+                        <label asp-for="@Model.Mileage">Mileage in km</label>
+                        <input asp-for="@Model.Mileage" type="number" class="form-control">
+                        <span asp-validation-for="@Model.Mileage" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Horsepower">Horsepower</label>
-                        <input asp-for="Horsepower" type="number" class="form-control">
-                        <span asp-validation-for="Horsepower" class="text-danger"></span>
+                        <label asp-for="@Model.Horsepower">Horsepower</label>
+                        <input asp-for="@Model.Horsepower" type="number" class="form-control">
+                        <span asp-validation-for="@Model.Horsepower" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Price">Price in BGN</label>
-                        <input asp-for="Price" type="number" class="form-control">
-                        <span asp-validation-for="Price" class="text-danger"></span>
+                        <label asp-for="@Model.Price">Price in BGN</label>
+                        <input asp-for="@Model.Price" type="number" class="form-control">
+                        <span asp-validation-for="@Model.Price" class="text-info"></span>
                     </div>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Description">Description</label>
-                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                    <small class="text-muted">Additional information</small>
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <label asp-for="@Model.Description">Description</label>
+                    <textarea asp-for="@Model.Description" class="form-control" rows="3"></textarea>
+                    <small class="text-muted">Additional information (not required, up to 1500 symbols)</small>
+                    <span asp-validation-for="@Model.Description" class="text-info"></span>
                 </div>
 
-                <p>Car images</p>
-                <div class="custom-file mb-2">
-                    <input asp-for="UploadImages" type="file" class="custom-file-input" multiple>
-                    <label asp-for="UploadImages" class="custom-file-label">Choose images</label>
-                    <span asp-validation-for="UploadImages" class="text-danger"></span>
+                <div>
+                    <p>
+                        <span>Car images</span>
+                        <small class="text-muted">
+                            You cannot post a listing without car images. A total of 3 are required, each up to 1 MB in size.
+                            Only ".jpeg", ".jpg" and ".pgn" formats are allowed. The main image of your car is the one that will be displayed in search results.
+                            The rest will be present in the detailed view of your listing.
+                        </small>
+                    </p>
                 </div>
-                main pic
                 <div class="custom-file mb-2">
-                    <input asp-for="MainPicture" type="file" class="custom-file-input">
-                    <label asp-for="MainPicture" class="custom-file-label">Choose images</label>
-                    <span asp-validation-for="MainPicture" class="text-danger"></span>
+                    <input asp-for="@Model.MainImage" type="file" class="custom-file-input">
+                    <label asp-for="@Model.MainImage" class="custom-file-label">Choose main image</label>
+                    <span asp-validation-for="@Model.MainImage" class="text-info"></span>
                 </div>
-                secondary pic
                 <div class="custom-file mb-2">
-                    <input asp-for="SecondaryPicture" type="file" class="custom-file-input">
-                    <label asp-for="SecondaryPicture" class="custom-file-label">Choose images</label>
-                    <span asp-validation-for="SecondaryPicture" class="text-danger"></span>
+                    <input asp-for="@Model.SecondaryImageA" type="file" class="custom-file-input">
+                    <label asp-for="@Model.SecondaryImageA" class="custom-file-label">Choose secondary image</label>
+                    <span asp-validation-for="@Model.SecondaryImageA" class="text-info"></span>
+                </div>
+                <div class="custom-file mb-2">
+                    <input asp-for="@Model.SecondaryImageB" type="file" class="custom-file-input">
+                    <label asp-for="@Model.SecondaryImageB" class="custom-file-label">Choose secondary image</label>
+                    <span asp-validation-for="@Model.SecondaryImageB" class="text-info"></span>
                 </div>
 
                 <hr class="mb-4">
                 <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
             </form>
-    </div>
+        </div>
     </div>
 </div>
 @section Scripts {

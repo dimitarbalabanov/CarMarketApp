@@ -7,7 +7,7 @@
 
     public interface IListingsService
     {
-        Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images);
+        Task<int> CreateAsync<T>(T model, string userId, IFormFile mainImage, IFormFile secImageA, IFormFile secImageB);
 
         Task<T> GetSingleByIdAsync<T>(int id);
 

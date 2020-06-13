@@ -31,19 +31,15 @@
             this.imagesService = imagesService;
         }
 
-        public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<IFormFile> images)
+        public async Task<int> CreateAsync<T>(T model, string userId, IFormFile mainImage, IFormFile secImageA, IFormFile secImageB)
         {
-            bool isMain = false;
-
-            // for now they can be null
-            var listingImages = images?
-                .Select(async i => await this.imagesService.UploadAsync(i, isMain))
-                .Select(i => i.Result)
-                .ToList();
+            var mainImg = await this.imagesService.UploadAsync(mainImage, true);
+            var secImgA = await this.imagesService.UploadAsync(secImageA);
+            var secImgB = await this.imagesService.UploadAsync(secImageB);
 
             var listing = this.mapper.Map<Listing>(model);
             listing.SellerId = userId;
-            listing.Images = listingImages;
+            listing.Images = new List<Image> { mainImg, secImgA, secImgB };
 
             await this.listingsRepository.AddAsync(listing);
             await this.listingsRepository.SaveChangesAsync();

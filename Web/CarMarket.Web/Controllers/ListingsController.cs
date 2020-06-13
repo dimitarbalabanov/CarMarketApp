@@ -49,7 +49,8 @@
             }
 
             var userId = this.userManager.GetUserId(this.User);
-            var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, userId, input.UploadImages);
+            var listingId = await this.listingsService
+                .CreateAsync<CreateListingInputModel>(input, userId, input.MainImage, input.SecondaryImageA, input.SecondaryImageB);
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }

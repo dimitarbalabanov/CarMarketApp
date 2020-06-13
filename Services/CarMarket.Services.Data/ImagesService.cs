@@ -22,7 +22,7 @@
             this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<Image> UploadAsync(IFormFile file, bool isMain)
+        public async Task<Image> UploadAsync(IFormFile file, bool isMain = false)
         {
             var uploadResult = await this.cloudinaryService.UploadImageAsync(file, file.Name);
             var image = new Image
