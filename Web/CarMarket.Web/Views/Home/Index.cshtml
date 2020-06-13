@@ -17,21 +17,21 @@
                 </p>
                 <form asp-controller="Search" asp-action="Result" method="get" class="form mt-2 mt-md-0 row">
                     <div class="col-md-7">
-                        <select asp-for="MakeId" class="form-control mr-sm-2 mb-1" id="makeModel">
+                        <select asp-for="@Model.MakeId" class="form-control mr-sm-2 mb-1" id="makeModel">
                             <option value="">Any make</option>
                             <vc:makes-select-list id="0"></vc:makes-select-list>
                         </select>
                     </div>
                     <div class="col-md-7">
-                        <select asp-for="ModelId" class="form-control mr-sm-2 mb-1" id="modelSelect">
+                        <select asp-for="@Model.ModelId" class="form-control mr-sm-2 mb-1" id="modelSelect">
                             <option value="">Any model</option>
                         </select>
                     </div>
                     <div class="col-md-7">
-                        <input class="form-control mr-sm-2 mb-1" asp-for="PriceTo" type="number" placeholder="Maximum price in BGN">
+                        <input class="form-control mr-sm-2 mb-1" asp-for="@Model.PriceTo" type="number" placeholder="Maximum price in BGN">
                     </div>
                     <div class="col-md-7">
-                        <select asp-for="OrderingValue" class="form-control mr-sm-2 mb-1" id="modelSelect">
+                        <select asp-for="@Model.OrderingValue" class="form-control mr-sm-2 mb-1" id="modelSelect">
                             <vc:ordering-values-select-list></vc:ordering-values-select-list>
                         </select>
                     </div>
@@ -46,25 +46,14 @@
 
 <div class="container">
     <h4 class="text-center my-text-color mt-3">Latest listings</h4>
-    <hr class="my-background-color" />
-    <div class="card-deck text-white">
+    <hr />
+    <div class="row text-white">
         @foreach (var listing in Model.Listings)
         {
-            <div class="card my-background-color">
-                @*<img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">*@
-                <div class="card-body">
-                    <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
-                    <p class="card-text mb-0">Price: @listing.Price lv</p>
-                    <p class="card-text mb-0">Production year: @listing.ProductionYear</p>
-                    <p class="card-text mb-0">Mileage: @listing.Mileage km</p>
-                </div>
-                <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>
-            </div>
-        }
-        @*@foreach (var listing in Model.Listings)
-            {
+            <div class="col-md-3 col-sm-6 mb-2">
                 <div class="card my-background-color">
-                    <img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">
+                    @*<img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">*@
+                    <img style="height:200px; width:100%;" class="card-img-top" src="~/alfaromeo.jpeg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
                         <p class="card-text mb-0">Price: @listing.Price lv</p>
@@ -73,9 +62,23 @@
                     </div>
                     <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>
                 </div>
-            }*@
+            </div>
+        }
+        <div class="col-md-3 col-sm-6 mb-2">
+            <div class="card my-background-color">
+                @*<img class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">*@
+                <img style="height:200px; width:100%;" class="card-img-top" src="~/bmw.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">bla bla</h5>
+                    <p class="card-text mb-0">Price: 123 lv</p>
+                    <p class="card-text mb-0">Production year: 1232313</p>
+                    <p class="card-text mb-0">Mileage: 123 km</p>
+                </div>
+                <a asp-controller="Listings" asp-action="Details" asp-route-id="1" class="stretched-link"></a>
+            </div>
+        </div>
     </div>
-    <hr class="my-background-color" />
+    <hr />
 </div>
 
 <div class="container">
@@ -103,22 +106,32 @@
             </a>
         </div>
     </div>
-    <hr class="my-background-color" />
+    <hr />
 </div>
+
 @section Scripts {
     <script>
         $('#makeModel').on('change', function () {
-            const id = this.value;
+            if ($('#makeModel').val() != "") {
+                fetchModels(this.value);
+            }
+        });
+
+        $(window).on('load', function () {
+            if ($('#makeModel').val() != "") {
+                fetchModels($('#makeModel').val());
+            }
+        });
+
+        function fetchModels(id) {
             $.get(`/api/models/${id}`, function (data) {
                 const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
-                let modelSelect = $('#modelSelect');
-                modelSelect.empty();
-                modelSelect.append(`<option>Any model</option>`)
-                $('#modelSelect').append(options);
+                $('#modelSelect').empty().append(`<option>Any model</option>`).append(options);
             });
-        });
+        }
     </script>
 }
+
 @*<h3 class="my-4">Related Projects</h3>
     <div class="row">
 

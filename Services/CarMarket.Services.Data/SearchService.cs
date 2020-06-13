@@ -18,14 +18,14 @@
         private const int DefaultPageSize = 5;
         private static readonly IReadOnlyDictionary<int, string> OrderingValues = new Dictionary<int, string>
         {
-            { 1, "Newest" },
-            { 2, "Oldest" },
-            { 3, "Price (ascending)" },
-            { 4, "Price (descending)" },
-            { 5, "Production year (ascending)" },
-            { 6, "Production year (descending)" },
-            { 7, "Mileage (ascending)" },
-            { 8, "Mileage (descending)" },
+            { 0, "Newest" },
+            { 1, "Oldest" },
+            { 2, "Price (ascending)" },
+            { 3, "Price (descending)" },
+            { 4, "Production year (ascending)" },
+            { 5, "Production year (descending)" },
+            { 6, "Mileage (ascending)" },
+            { 7, "Mileage (descending)" },
         };
 
         private readonly IRepository<Listing> listingsRepository;

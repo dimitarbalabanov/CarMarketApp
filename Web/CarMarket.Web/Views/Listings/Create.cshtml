@@ -1,13 +1,14 @@
 ﻿@model CarMarket.Web.ViewModels.Listings.CreateListingInputModel
 
 @{
-    ViewData["Title"] = "Create new listing";
+    ViewData["Title"] = "Create a new listing";
 }
 
-<h1 class="text-center my-text-color mt-4 mb-3">Create new listing</h1>
-<div class="container mb-5 text-dark">
+<h2 class="text-center my-text-color mt-4 mb-2">Create a new listing</h2>
+<div class="container mb-3 text-dark">
     <div class="row justify-content-center">
         <div class="col-md-8 order-md-1 font-weight-bold my-text-color">
+            <hr class="mb-3">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
 
                 <div class="row">
@@ -144,12 +145,16 @@
         });
 
         $('#makeModel').on('change', function () {
-            fetchModels(this.value);
+            if ($('#makeModel').val() != "") {
+                fetchModels(this.value);
+            }
         });
 
-        if ($('#makeModel').val() != "Choose a make") {
-            fetchModels($('#makeModel').val());
-        }
+        $(window).on('load', function () {
+            if ($('#makeModel').val() != "") {
+                fetchModels($('#makeModel').val());
+            }
+        });
 
         function fetchModels(id) {
             $.get(`/api/models/${id}`, function (data) {
