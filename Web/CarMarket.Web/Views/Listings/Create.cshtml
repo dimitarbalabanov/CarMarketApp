@@ -10,7 +10,6 @@
         <div class="col-md-8 order-md-1 font-weight-bold my-text-color">
             <hr class="mb-3">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
-
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="@Model.MakeId">Make</label>
@@ -28,7 +27,6 @@
                         <span asp-validation-for="@Model.ModelId" class="text-info"></span>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label asp-for="@Model.BodyId">Body type</label>
@@ -55,7 +53,6 @@
                         <span asp-validation-for="@Model.FuelId" class="text-info"></span>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label asp-for="@Model.ConditionId">Condition</label>
@@ -79,7 +76,6 @@
                         <span asp-validation-for="@Model.ProductionYear" class="text-info"></span>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label asp-for="@Model.Mileage">Mileage in km</label>
@@ -97,14 +93,12 @@
                         <span asp-validation-for="@Model.Price" class="text-info"></span>
                     </div>
                 </div>
-
                 <div class="form-group mb-3">
                     <label asp-for="@Model.Description">Description</label>
                     <textarea asp-for="@Model.Description" class="form-control" rows="3"></textarea>
                     <small class="text-muted">Additional information (not required, up to 1500 symbols)</small>
                     <span asp-validation-for="@Model.Description" class="text-info"></span>
                 </div>
-
                 <div>
                     <p>
                         <span>Car images</span>
@@ -130,7 +124,6 @@
                     <label asp-for="@Model.SecondaryImageB" class="custom-file-label">Choose secondary image</label>
                     <span asp-validation-for="@Model.SecondaryImageB" class="text-info"></span>
                 </div>
-
                 <hr class="mb-4">
                 <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
             </form>
@@ -166,8 +159,7 @@
                            return `<option value=${x.id}>${x.name}</option>`
                         }
                     });
-                $('#modelSelect').empty();
-                $('#modelSelect').append(options);
+                $('#modelSelect').empty().append(options);
             });
         }
     </script>

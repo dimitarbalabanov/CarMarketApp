@@ -129,14 +129,22 @@
 @section Scripts {
     <script>
         $('#makeModel').on('change', function () {
-            const id = this.value;
+            if ($('#makeModel').val() != "") {
+                fetchModels(this.value);
+            }
+        });
+
+        $(window).on('load', function () {
+            if ($('#makeModel').val() != "") {
+                fetchModels($('#makeModel').val());
+            }
+        });
+
+        function fetchModels(id) {
             $.get(`/api/models/${id}`, function (data) {
                 const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
-                let modelSelect = $('#modelSelect');
-                modelSelect.empty();
-                modelSelect.append(`<option>Any Model</option>`)
-                $('#modelSelect').append(options);
+                $('#modelSelect').empty().append(`<option>Any model</option>`).append(options);
             });
-        });
+        }
     </script>
 }

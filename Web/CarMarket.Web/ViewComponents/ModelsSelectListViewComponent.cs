@@ -16,10 +16,16 @@
             this.modelsService = modelsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int makeId)
+        public async Task<IViewComponentResult> InvokeAsync(int makeId, int modelId)
         {
             var models = await this.modelsService.GetAllByMakeIdAsync<ModelSelectListViewModel>(makeId);
-            return this.View(models);
+            var viewModel = new AllModelsSelectListViewModel
+            {
+                Models = models,
+                SelectedModelId = modelId,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿
-@{
-    Layout = null;
+﻿@model CarMarket.Web.ViewModels.Models.AllModelsSelectListViewModel
+
+@foreach (var mod in Model.Models)
+{
+    if (mod.Id == Model.SelectedModelId)
+    {
+        <option value="@mod.Id" selected="selected">@mod.Name</option>
+        continue;
+    }
+
+    <option value="@mod.Id">@mod.Name</option>
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Default</title>
-</head>
-<body>
-</body>
-</html>
