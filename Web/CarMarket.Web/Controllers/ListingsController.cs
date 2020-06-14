@@ -64,18 +64,16 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(EditListingInputModel input)
         {
-            //var user = await this.userManager.GetUserAsync(this.User);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
 
-            ////if (!this.ModelState.IsValid)
-            ////{
-            ////    return this.View(input);
-            ////}
-
-            //var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, user.Id, input.UploadImages);
-            return null;
-            //return this.RedirectToAction(nameof(this.Details), new { id = listingId });
+            var userId = this.userManager.GetUserId(this.User);
+            var listingId = await this.listingsService.EditAsync<EditListingInputModel>(input, input.Id, userId);
+            return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
 
         [HttpPost]

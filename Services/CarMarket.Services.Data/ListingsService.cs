@@ -1,5 +1,6 @@
 ﻿namespace CarMarket.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -44,6 +45,29 @@
             await this.listingsRepository.AddAsync(listing);
             await this.listingsRepository.SaveChangesAsync();
             return listing.Id;
+        }
+
+        public async Task<int> EditAsync<T>(T model, int listingId, string userId)
+        {
+            var listingFromDb = await this.listingsRepository.All().FirstOrDefaultAsync(l => l.Id == listingId);
+            var newListing = this.mapper.Map<Listing>(model);
+
+            listingFromDb.BodyId = newListing.BodyId;
+            listingFromDb.ColorId = newListing.ColorId;
+            listingFromDb.ConditionId = newListing.ConditionId;
+            listingFromDb.CreatedOn = DateTime.UtcNow;
+            listingFromDb.Description = newListing.Description;
+            listingFromDb.FuelId = newListing.FuelId;
+            listingFromDb.Horsepower = newListing.Horsepower;
+            listingFromDb.Mileage = newListing.Mileage;
+            listingFromDb.ModelId = newListing.ModelId;
+            listingFromDb.Price = newListing.Price;
+            listingFromDb.ProductionYear = newListing.ProductionYear;
+            listingFromDb.TransmissionId = newListing.TransmissionId;
+
+            this.listingsRepository.Update(listingFromDb);
+            await this.listingsRepository.SaveChangesAsync();
+            return listingFromDb.Id;
         }
 
         public async Task DeleteByIdAsync(int id)

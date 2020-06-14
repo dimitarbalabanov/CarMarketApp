@@ -14,7 +14,7 @@
                     <div class="col-md-6 mb-3">
                         <label asp-for="@Model.MakeId">Make</label>
                         <select asp-for="@Model.MakeId" class="custom-select d-block w-100">
-                            <option value="@Model.MakeId" selected="selected" disabled="disabled">@Model.MakeName</option>
+                            <option value="@Model.MakeId" selected>@Model.MakeName</option>
                         </select>
                         <span asp-validation-for="@Model.MakeId" class="text-info"></span>
                     </div>

@@ -1,5 +1,7 @@
 ﻿namespace CarMarket.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using CarMarket.Common;
     using CarMarket.Web.Controllers;
 
@@ -8,7 +10,11 @@
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
-    public class AdministrationController : Controller
+    public class DashboardController : Controller
     {
+        public async Task<IActionResult> Index()
+        {
+            return this.View();
+        }
     }
 }
