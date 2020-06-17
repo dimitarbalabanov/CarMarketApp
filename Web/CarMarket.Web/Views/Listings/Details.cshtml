@@ -61,7 +61,7 @@
         <div class="row float-right">
             @if (this.SignInManager.IsSignedIn(this.User))
             {
-                if (this.UserManager.GetUserId(this.User) == Model.SellerId)
+                if (this.UserManager.GetUserId(this.User) == Model.SellerId || this.User.IsInRole(CarMarket.Common.GlobalConstants.AdministratorRoleName))
                 {
                     //edit
                     <a class="btn btn-warning" asp-controller="Listings" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>

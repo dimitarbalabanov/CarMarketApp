@@ -19,6 +19,6 @@
 
         Task DeleteByIdAsync(int id);
 
-        Task<int> GetTotalCount();
+        Task<int> GetTotalCountAsync();
     }
 }

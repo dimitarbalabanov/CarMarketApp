@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
-
+    using CarMarket.Common;
     using CarMarket.Data.Models;
 
     using Microsoft.AspNetCore.Authorization;
@@ -87,6 +87,7 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
+                    await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
                     await this.signInManager.SignInAsync(user, isPersistent: false);
                     return this.LocalRedirect(returnUrl);
                 }

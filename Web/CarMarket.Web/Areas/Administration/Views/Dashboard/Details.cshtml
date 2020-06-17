@@ -1,0 +1,71 @@
+﻿@model CarMarket.Web.ViewModels.Administration.Dashboard.UserDetailsViewModel
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2 class="text-center my-text-color mt-4 mb-3">User details</h2>
+<div class="container mb-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <hr class="mb-4">
+            <p><span class="font-weight-bold my-text-color">User Id:</span> @Model.Id</p>
+            <p><span class="font-weight-bold my-text-color">Username:</span> @Model.UserName</p>
+            <p><span class="font-weight-bold my-text-color">Email:</span> @Model.Email</p>
+            <p><span class="font-weight-bold my-text-color">First name:</span> @Model.FirstName</p>
+            <p><span class="font-weight-bold my-text-color">Last name:</span> @Model.LastName</p>
+            <p><span class="font-weight-bold my-text-color">Registered on:</span> @Model.CreatedOn</p>
+            <hr class="mb-4">
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            Listing Id
+                        </th>
+                        <th>
+                            Make
+                        </th>
+                        <th>
+                            Model
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Created on
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var listing in Model.Listings)
+                    {
+                        <tr>
+                            <td>
+                                @listing.Id
+                            </td>
+                            <td>
+                                @listing.MakeName
+                            </td>
+                            <td>
+                                @listing.ModelName
+                            </td>
+                            <td>
+                                @listing.Price
+                            </td>
+                            <td>
+                                @listing.CreatedOn
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-light my-background-color" asp-area="" asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id">Listing Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

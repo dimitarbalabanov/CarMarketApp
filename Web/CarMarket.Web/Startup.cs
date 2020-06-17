@@ -92,6 +92,7 @@
             services.AddTransient<ITransmissionsService, TransmissionsService>();
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IBookmarksService, BookmarksService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -8,13 +8,13 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
-            <a class="nav-link text-white" asp-controller="Listings" asp-action="Create">Create</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Listings" asp-action="Create">Create</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-controller="Listings" asp-action="Personal">Personal</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Listings" asp-action="Personal">Personal</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-controller="Listings" asp-action="Bookmarks">Bookmarks</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Listings" asp-action="Bookmarks">Bookmarks</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white">Hello, @(this.User.Identity.Name)!</a>

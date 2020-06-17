@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CarMarket.Common\CarMarket.Common.csproj" />
     <ProjectReference Include="..\..\Data\CarMarket.Data.Models\CarMarket.Data.Models.csproj" />
     <ProjectReference Include="..\CarMarket.Services\CarMarket.Services.csproj" />
   </ItemGroup>

@@ -50,7 +50,8 @@
                 .Where(x => bookmarkedListingsIds.Contains(x.Id))
                 .Include(l => l.Make)
                 .Include(l => l.Model)
-                .Include(l => l.Images);
+                .Include(l => l.Images)
+                .OrderByDescending(l => l.CreatedOn);
 
             var bookmarkedListings = await this.mapper.ProjectTo<T>(bookmarkedListingsQuery).ToListAsync();
             return bookmarkedListings;

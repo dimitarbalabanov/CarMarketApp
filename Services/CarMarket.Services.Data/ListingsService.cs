@@ -89,7 +89,8 @@
                 .Where(l => l.SellerId == creatorId)
                 .Include(l => l.Make)
                 .Include(l => l.Model)
-                .Include(l => l.Images);
+                .Include(l => l.Images)
+                .OrderByDescending(l => l.CreatedOn);
 
             var listings = await this.mapper.ProjectTo<T>(listingsQuery).ToListAsync();
             return listings;
@@ -127,7 +128,7 @@
             return this.mapper.Map<T>(listing);
         }
 
-        public async Task<int> GetTotalCount()
+        public async Task<int> GetTotalCountAsync()
         {
             var count = await this.listingsRepository
                 .AllAsNoTracking()

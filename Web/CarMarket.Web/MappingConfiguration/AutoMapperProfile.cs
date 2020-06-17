@@ -6,6 +6,7 @@
 
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
+    using CarMarket.Web.ViewModels.Administration.Dashboard;
     using CarMarket.Web.ViewModels.Bodies;
     using CarMarket.Web.ViewModels.Colors;
     using CarMarket.Web.ViewModels.Conditions;
@@ -63,6 +64,12 @@
                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
 
             this.CreateMap<SearchInputModel, SearchModelDto>();
+
+            this.CreateMap<ApplicationUser, UserViewModel>();
+
+            this.CreateMap<ApplicationUser, UserDetailsViewModel>();
+
+            this.CreateMap<Listing, UserDetailsListingViewModel>();
         }
     }
 }
