@@ -18,5 +18,7 @@
         Task<IEnumerable<T>> GetAllByCreatorIdAsync<T>(string creatorId);
 
         Task DeleteByIdAsync(int id);
+
+        Task<int> GetTotalCount();
     }
 }

@@ -48,6 +48,11 @@
                 listings = mutator.Apply(searchModel, listings);
             }
 
+            if (!OrderingValues.ContainsKey(searchModel.OrderingValue))
+            {
+                throw new KeyNotFoundException();
+            }
+
             listings = OrderingMutatorsProvider.OrderingMutators[searchModel.OrderingValue](listings);
             listings = listings
                 .Include(l => l.Make)

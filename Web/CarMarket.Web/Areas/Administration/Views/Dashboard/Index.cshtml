@@ -1,5 +1,18 @@
-﻿@{
+﻿@model IEnumerable<CarMarket.Data.Models.ApplicationUser>
+@{
     this.ViewData["Title"] = "Admin dashboard";
 }
 
 <h1>@this.ViewData["Title"]</h1>
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>Username: @user.UserName</li>
+        <ul>
+            @foreach (var listing in user.Listings)
+            {
+                <li>Id:@listing.Id</li>
+            }
+        </ul>
+    }
+</ul>

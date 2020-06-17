@@ -126,5 +126,14 @@
 
             return this.mapper.Map<T>(listing);
         }
+
+        public async Task<int> GetTotalCount()
+        {
+            var count = await this.listingsRepository
+                .AllAsNoTracking()
+                .CountAsync();
+
+            return count;
+        }
     }
 }

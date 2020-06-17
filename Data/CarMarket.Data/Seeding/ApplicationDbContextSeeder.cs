@@ -25,12 +25,13 @@
 
             var seeders = new List<ISeeder>
                           {
+                              new RolesSeeder(),
+                              new AdministratorUserSeeder(),
                               new BodiesSeeder(),
                               new ColorsSeeder(),
                               new ConditionsSeeder(),
                               new FuelsSeeder(),
                               new MakesAndModelsSeeder(),
-                              new RolesSeeder(),
                               new TransmissionsSeeder(),
                           };
 

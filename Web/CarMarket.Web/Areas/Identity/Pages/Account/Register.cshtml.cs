@@ -81,7 +81,9 @@
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
                 };
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
+
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
