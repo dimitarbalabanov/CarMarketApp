@@ -1,6 +1,6 @@
 ﻿@model CarMarket.Web.ViewModels.Administration.Dashboard.DashboardViewModel
 @{
-    this.ViewData["Title"] = "Admin dashboard";
+    this.ViewData["Title"] = "Dashboard";
 }
 
 <h2 class="text-center my-text-color mt-4 mb-2">Dashboard</h2>
@@ -11,8 +11,10 @@
             <p>Total registered users: @Model.UsersCount</p>
             <p>Total posted listings: @Model.ListingsCount</p>
             <hr class="mb-4">
-            <a class="btn btn-outline-light my-background-color" asp-action="Users">Browse users</a>
-            <a class="btn btn-outline-light my-background-color" asp-action="">Manage makes and models</a>
+            <div class="text-center">
+                <a class="btn btn-outline-light my-background-color" asp-area="Administration" asp-controller="Users" asp-action="Index">Browse users</a>
+                <a class="btn btn-outline-light my-background-color" asp-area="Administration" asp-controller="Makes" asp-action="Index">Manage makes and models</a>
+            </div>
         </div>
     </div>
 </div>

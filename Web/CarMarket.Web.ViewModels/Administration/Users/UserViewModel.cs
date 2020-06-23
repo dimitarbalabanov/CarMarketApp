@@ -1,4 +1,4 @@
-﻿namespace CarMarket.Web.ViewModels.Administration.Dashboard
+﻿namespace CarMarket.Web.ViewModels.Administration.Users
 {
     using System;
 

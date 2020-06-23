@@ -6,7 +6,8 @@
 
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
-    using CarMarket.Web.ViewModels.Administration.Dashboard;
+    using CarMarket.Web.ViewModels.Administration.Makes;
+    using CarMarket.Web.ViewModels.Administration.Users;
     using CarMarket.Web.ViewModels.Bodies;
     using CarMarket.Web.ViewModels.Colors;
     using CarMarket.Web.ViewModels.Conditions;
@@ -41,6 +42,10 @@
             this.CreateMap<Make, MakeSelectListViewModel>();
 
             this.CreateMap<Make, MakeViewModel>();
+
+            this.CreateMap<Make, MakeAdminViewModel>();
+
+            this.CreateMap<CreateMakeInputModel, Make>();
 
             this.CreateMap<Transmission, TransmissionSelectListViewModel>();
 

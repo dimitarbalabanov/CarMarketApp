@@ -1,54 +1,52 @@
-﻿@model CarMarket.Web.ViewModels.Administration.Dashboard.UsersViewModel
+﻿
 @{
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "Details";
 }
 
-<h2 class="text-center my-text-color mt-4 mb-3">List of users</h2>
+<h2 class="text-center my-text-color mt-4 mb-3">List of makes</h2>
 <div class="container mb-3">
+    <div class="mb-3">
+        <a class="btn btn-outline-light my-background-color" asp-action="Create">Add a new model</a>
+    </div>
     <div class="row justify-content-center">
         <div class="table-responsive">
             <table class="table table-bordered text-center">
                 <thead class="thead-light">
                     <tr>
                         <th>
-                            User Id
+                            Model Id
                         </th>
                         <th>
-                            Username
+                            Model Name
                         </th>
                         <th>
-                            Registered
-                        </th>
-                        <th>
-                            Total listings
+                            Created On
                         </th>
                         <th>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var user in Model.Users)
+                    @*@foreach (var make in Model.Makes)
                     {
                         <tr>
                             <td>
-                                @user.Id
+                                @make.Id
                             </td>
                             <td>
-                                @user.UserName
+                                @make.Name
                             </td>
                             <td>
-                                @user.CreatedOn
+                                @make.CreatedOn
                             </td>
                             <td>
-                                @user.ListingsCount
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-light my-background-color" asp-action="UserDetails" asp-route-id="@user.Id">User Details</a>
+                                <a class="btn btn-outline-light my-background-color" asp-action="Details" asp-route-id="@make.Id">Manage models</a>
                             </td>
                         </tr>
-                    }
+                    }*@
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+

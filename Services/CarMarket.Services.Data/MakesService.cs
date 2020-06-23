@@ -22,6 +22,23 @@
             this.mapper = mapper;
         }
 
+        public async Task<int> CreateAsync<T>(T model)
+        {
+            var make = this.mapper.Map<Make>(model);
+
+            await this.makesRepository.AddAsync(make);
+            await this.makesRepository.SaveChangesAsync();
+            return make.Id;
+        }
+
+        public async Task<bool> ExistsByNameAsync(string name)
+        {
+            var exists = await this.makesRepository
+                .AllAsNoTracking()
+                .AnyAsync(m => m.Name == name);
+            return exists;
+        }
+
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             var query = this.makesRepository.AllAsNoTracking();
@@ -29,10 +46,15 @@
             return makes;
         }
 
+        public Task<T> GetByIdAsync<T>(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<bool> IsValidByIdAsync(int id)
         {
-            var isValid = await this.makesRepository.
-                AllAsNoTracking()
+            var isValid = await this.makesRepository
+                .AllAsNoTracking()
                 .AnyAsync(m => m.Id == id);
             return isValid;
         }
