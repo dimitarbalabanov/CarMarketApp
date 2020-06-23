@@ -1,0 +1,27 @@
+﻿@model CarMarket.Web.ViewModels.Administration.Makes.CreateModelInputModel
+@{
+    ViewData["Title"] = "Create a model";
+}
+
+<h2 class="text-center my-text-color mt-4 mb-2">Create a new model</h2>
+<div class="container mb-3 text-dark">
+    <div class="row justify-content-center">
+        <div class="col-md-8 order-md-1 font-weight-bold my-text-color text-center">
+            <hr class="mb-3">
+            <form asp-action="CreateModel" method="post">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group mb-3">
+                            <label asp-for="@Model.Name">Name</label>
+                            <input asp-for="@Model.Name" class="form-control" />
+                            <input asp-for="@Model.MakeId" type="hidden" />
+                            <span asp-validation-for="@Model.Name" class="text-info"></span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline-light my-background-color" type="submit">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+

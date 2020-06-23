@@ -8,5 +8,9 @@
         Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id);
 
         Task<bool> IsValidByMakeIdAndIdAsync(int makeId, int modelId);
+
+        Task<bool> ExistsByNameAsync(string name);
+
+        Task CreateAsync<T>(T inputModel);
     }
 }

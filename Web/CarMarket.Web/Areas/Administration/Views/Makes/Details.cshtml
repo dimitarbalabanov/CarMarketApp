@@ -1,12 +1,19 @@
-﻿
+﻿@model CarMarket.Web.ViewModels.Administration.Makes.DetailsMakeViewModel
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2 class="text-center my-text-color mt-4 mb-3">List of makes</h2>
+<h2 class="text-center my-text-color mt-4 mb-3">Name: @Model.Name</h2>
 <div class="container mb-3">
-    <div class="mb-3">
-        <a class="btn btn-outline-light my-background-color" asp-action="Create">Add a new model</a>
+    <div class="row justify-content-center">
+        <div class="col-md-8 font-weight-bold my-text-color">
+            <hr class="mb-4">
+            <p>Make Id: @Model.Id</p>
+            <p>Total models: @Model.ModelsCount</p>
+            <p>Created on: @Model.CreatedOn</p>
+            <a class="btn btn-outline-light my-background-color" asp-action="CreateModel">Add a new model</a>
+            <hr class="mb-4">
+        </div>
     </div>
     <div class="row justify-content-center">
         <div class="table-responsive">
@@ -22,28 +29,23 @@
                         <th>
                             Created On
                         </th>
-                        <th>
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @*@foreach (var make in Model.Makes)
+                    @foreach (var mod in Model.Models)
                     {
                         <tr>
                             <td>
-                                @make.Id
+                                @mod.Id
                             </td>
                             <td>
-                                @make.Name
+                                @mod.Name
                             </td>
                             <td>
-                                @make.CreatedOn
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-light my-background-color" asp-action="Details" asp-route-id="@make.Id">Manage models</a>
+                                @mod.CreatedOn
                             </td>
                         </tr>
-                    }*@
+                    }
                 </tbody>
             </table>
         </div>

@@ -46,9 +46,14 @@
             return makes;
         }
 
-        public Task<T> GetByIdAsync<T>(int id)
+        public async Task<T> GetSingleByIdAsync<T>(int id)
         {
-            throw new System.NotImplementedException();
+            var make = await this.makesRepository
+                .AllAsNoTracking()
+                .Include(m => m.Models)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            return this.mapper.Map<T>(make);
         }
 
         public async Task<bool> IsValidByIdAsync(int id)

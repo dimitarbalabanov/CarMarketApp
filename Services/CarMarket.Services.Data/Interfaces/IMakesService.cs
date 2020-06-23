@@ -13,6 +13,6 @@
 
         Task<bool> ExistsByNameAsync(string name);
 
-        Task<T> GetByIdAsync<T>(int id);
+        Task<T> GetSingleByIdAsync<T>(int id);
     }
 }

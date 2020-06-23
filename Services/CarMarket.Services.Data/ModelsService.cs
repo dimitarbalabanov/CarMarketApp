@@ -23,6 +23,22 @@
             this.mapper = mapper;
         }
 
+        public async Task CreateAsync<T>(T inputModel)
+        {
+            var model = this.mapper.Map<Model>(inputModel);
+
+            await this.modelsRepository.AddAsync(model);
+            await this.modelsRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsByNameAsync(string name)
+        {
+            var exists = await this.modelsRepository
+                .AllAsNoTracking()
+                .AnyAsync(m => m.Name == name);
+            return exists;
+        }
+
         public async Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id)
         {
             var query = this.modelsRepository

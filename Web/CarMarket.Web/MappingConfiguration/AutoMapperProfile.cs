@@ -45,6 +45,8 @@
 
             this.CreateMap<Make, MakeAdminViewModel>();
 
+            this.CreateMap<Make, DetailsMakeViewModel>();
+
             this.CreateMap<CreateMakeInputModel, Make>();
 
             this.CreateMap<Transmission, TransmissionSelectListViewModel>();
@@ -52,6 +54,10 @@
             this.CreateMap<Model, ModelSelectListViewModel>();
 
             this.CreateMap<Model, ModelResponseModel>();
+
+            this.CreateMap<Model, DetailsMakeModelViewModel>();
+
+            this.CreateMap<CreateModelInputModel, Model>();
 
             this.CreateMap<Listing, DetailsListingViewModel>()
                 .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));

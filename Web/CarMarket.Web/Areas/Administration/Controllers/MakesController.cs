@@ -14,10 +14,12 @@
     public class MakesController : Controller
     {
         private readonly IMakesService makesService;
+        private readonly IModelsService modelsService;
 
-        public MakesController(IMakesService makesService)
+        public MakesController(IMakesService makesService, IModelsService modelsService)
         {
             this.makesService = makesService;
+            this.modelsService = modelsService;
         }
 
         public async Task<IActionResult> Index()
@@ -52,8 +54,33 @@
 
         public async Task<IActionResult> Details(int id)
         {
+            this.TempData["makeId"] = id;
+            var viewModel = await this.makesService.GetSingleByIdAsync<DetailsMakeViewModel>(id);
+            return this.View(viewModel);
+        }
 
-            return this.View();
+        public IActionResult CreateModel()
+        {
+            var viewModel = new CreateModelInputModel();
+            if (this.TempData.ContainsKey("makeId"))
+            {
+                viewModel.MakeId = int.Parse(this.TempData["makeId"].ToString());
+            }
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateModel(CreateModelInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.modelsService.CreateAsync<CreateModelInputModel>(input);
+
+            return this.RedirectToAction(nameof(this.Details), new { id = input.MakeId });
         }
     }
 }
