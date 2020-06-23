@@ -47,11 +47,12 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> UserDetails(string id)
         {
             var viewModel = await this.usersService.GetUserInfoByIdAsync<UserDetailsViewModel>(id);
             viewModel.Listings = await this.listingsService.GetAllByCreatorIdAsync<UserDetailsListingViewModel>(id);
             return this.View(viewModel);
         }
+
     }
 }
