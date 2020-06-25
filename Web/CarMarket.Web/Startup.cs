@@ -12,7 +12,7 @@
     using CarMarket.Services.Cloudinary;
     using CarMarket.Services.Data;
     using CarMarket.Services.Data.Interfaces;
-
+    using CarMarket.Web.Middlewares;
     using CloudinaryDotNet;
 
     using Microsoft.AspNetCore.Builder;
@@ -115,6 +115,18 @@
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/Home/NotFoundError";
+                    await next();
+                }
+            });
+
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
