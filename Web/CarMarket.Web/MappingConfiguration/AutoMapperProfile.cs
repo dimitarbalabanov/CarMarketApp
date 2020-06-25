@@ -24,32 +24,31 @@
     {
         public AutoMapperProfile()
         {
-            // listing input model
             this.CreateMap<CreateListingInputModel, Listing>();
 
             this.CreateMap<Listing, EditListingInputModel>()
                 .ForMember(
-                    dest => dest.UploadedMainImage,
+                    dest => dest.MainImage,
                     opt => opt.MapFrom(
                         x => x.Images
                         .Where(y => y.IsMain)
-                        .Select(z => new EditListingImageViewModel { Url = z.ImageUrl, PublicId = z.PublicId })
+                        .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
                         .FirstOrDefault()))
                 .ForMember(
-                    dest => dest.UploadedSecondaryImageA,
+                    dest => dest.SecondaryImageA,
                     opt => opt.MapFrom(
                         x => x.Images
                         .Where(y => !y.IsMain)
                         .OrderBy(y => y.CreatedOn)
-                        .Select(z => new EditListingImageViewModel { Url = z.ImageUrl, PublicId = z.PublicId })
+                        .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
                         .FirstOrDefault()))
                 .ForMember(
-                    dest => dest.UploadedSecondaryImageB,
+                    dest => dest.SecondaryImageB,
                     opt => opt.MapFrom(
                         x => x.Images
                         .Where(y => !y.IsMain)
                         .OrderBy(y => y.CreatedOn)
-                        .Select(z => new EditListingImageViewModel { Url = z.ImageUrl, PublicId = z.PublicId })
+                        .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
                         .LastOrDefault()));
 
             this.CreateMap<EditListingInputModel, Listing>();

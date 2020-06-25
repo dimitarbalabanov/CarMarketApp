@@ -83,17 +83,11 @@
         [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionErrorMessage)]
         public string Description { get; set; }
 
-        public EditListingImageViewModel UploadedMainImage { get; set; }
+        public EditListingImageInputModel MainImage { get; set; }
 
-        public EditListingImageViewModel UploadedSecondaryImageA { get; set; }
+        public EditListingImageInputModel SecondaryImageA { get; set; }
 
-        public EditListingImageViewModel UploadedSecondaryImageB { get; set; }
-
-        public EditListingImageInputModel NewMainImage { get; set; }
-
-        public EditListingImageInputModel NewSecondaryImageA { get; set; }
-
-        public EditListingImageInputModel NewSecondaryImageB { get; set; }
+        public EditListingImageInputModel SecondaryImageB { get; set; }
 
         //[Required(ErrorMessage = MainImageRequiredErrorMessage)]
         //[ValidateFileTypeAndSize]

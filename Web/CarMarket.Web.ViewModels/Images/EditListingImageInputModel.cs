@@ -4,7 +4,9 @@
 
     public class EditListingImageInputModel
     {
-        public string PublicId { get; set; }
+        public int Id { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public IFormFile Image { get; set; }
     }
