@@ -13,6 +13,7 @@
     using CarMarket.Web.ViewModels.Conditions;
     using CarMarket.Web.ViewModels.Fuels;
     using CarMarket.Web.ViewModels.Home;
+    using CarMarket.Web.ViewModels.Images;
     using CarMarket.Web.ViewModels.Listings;
     using CarMarket.Web.ViewModels.Makes;
     using CarMarket.Web.ViewModels.Models;
@@ -26,8 +27,30 @@
             // listing input model
             this.CreateMap<CreateListingInputModel, Listing>();
 
-            this.CreateMap<Listing, EditListingInputModel>();
-            // .ForMember(dest => dest.UploadedImages, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
+            this.CreateMap<Listing, EditListingInputModel>()
+                .ForMember(
+                    dest => dest.UploadedMainImage,
+                    opt => opt.MapFrom(
+                        x => x.Images
+                        .Where(y => y.IsMain)
+                        .Select(z => new EditListingImageViewModel { Url = z.ImageUrl, PublicId = z.PublicId })
+                        .FirstOrDefault()))
+                .ForMember(
+                    dest => dest.UploadedSecondaryImageA,
+                    opt => opt.MapFrom(
+                        x => x.Images
+                        .Where(y => !y.IsMain)
+                        .OrderBy(y => y.CreatedOn)
+                        .Select(z => new EditListingImageViewModel { Url = z.ImageUrl, PublicId = z.PublicId })
+                        .FirstOrDefault()))
+                .ForMember(
+                    dest => dest.UploadedSecondaryImageB,
+                    opt => opt.MapFrom(
+                        x => x.Images
+                        .Where(y => !y.IsMain)
+                        .OrderBy(y => y.CreatedOn)
+                        .Select(z => new EditListingImageViewModel { Url = z.ImageUrl, PublicId = z.PublicId })
+                        .LastOrDefault()));
 
             this.CreateMap<EditListingInputModel, Listing>();
 

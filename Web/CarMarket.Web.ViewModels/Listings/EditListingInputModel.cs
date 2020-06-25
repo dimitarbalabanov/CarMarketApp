@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using CarMarket.Web.Infrastructure.CustomValidation;
-
+    using CarMarket.Web.ViewModels.Images;
     using Microsoft.AspNetCore.Http;
 
     public class EditListingInputModel
@@ -24,7 +24,6 @@
         private const string DescriptionErrorMessage = "{0} should be at most {1} symbols long.";
         private const int DescriptionMaxLenght = 1500;
 
-        private const string MakeRequiredErrorMessage = "Please choose a make.";
         private const string ModelRequiredErrorMessage = "Please choose a model.";
         private const string BodyRequiredErrorMessage = "Please choose a body type.";
         private const string TransmissionRequiredErrorMessage = "Please choose a transmission.";
@@ -36,7 +35,6 @@
 
         public int Id { get; set; }
 
-        //[Required(ErrorMessage = MakeRequiredErrorMessage)]
         [ValidateMakeExists]
         public int MakeId { get; set; }
 
@@ -85,16 +83,28 @@
         [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionErrorMessage)]
         public string Description { get; set; }
 
+        public EditListingImageViewModel UploadedMainImage { get; set; }
+
+        public EditListingImageViewModel UploadedSecondaryImageA { get; set; }
+
+        public EditListingImageViewModel UploadedSecondaryImageB { get; set; }
+
+        public EditListingImageInputModel NewMainImage { get; set; }
+
+        public EditListingImageInputModel NewSecondaryImageA { get; set; }
+
+        public EditListingImageInputModel NewSecondaryImageB { get; set; }
+
         //[Required(ErrorMessage = MainImageRequiredErrorMessage)]
         //[ValidateFileTypeAndSize]
-        //public IFormFile MainImage { get; set; }
+        //public IFormFile NewMainImage { get; set; }
 
         //[Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
         //[ValidateFileTypeAndSize]
-        //public IFormFile SecondaryImageA { get; set; }
+        //public IFormFile NewSecondaryImageA { get; set; }
 
         //[Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
         //[ValidateFileTypeAndSize]
-        //public IFormFile SecondaryImageB { get; set; }
+        //public IFormFile NewSecondaryImageB { get; set; }
     }
 }

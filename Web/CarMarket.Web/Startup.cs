@@ -116,17 +116,17 @@
                 app.UseHsts();
             }
 
-            app.Use(async (context, next) =>
-            {
-                await next();
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = "/Home/NotFoundError";
-                    await next();
-                }
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
+            //    if (context.Response.StatusCode == 404)
+            //    {
+            //        context.Request.Path = "/Home/NotFoundError";
+            //        await next();
+            //    }
+            //});
 
-            app.UseCustomExceptionHandler();
+            //app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

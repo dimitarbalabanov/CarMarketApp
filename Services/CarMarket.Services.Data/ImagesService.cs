@@ -32,8 +32,6 @@
                 IsMain = isMain,
             };
 
-            await this.imagesRepository.AddAsync(image);
-            await this.imagesRepository.SaveChangesAsync();
             return image;
         }
 
