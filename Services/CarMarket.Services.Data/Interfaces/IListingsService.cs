@@ -3,13 +3,15 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using CarMarket.Services.Data.Dtos;
+
     using Microsoft.AspNetCore.Http;
 
     public interface IListingsService
     {
         Task<int> CreateAsync<T>(T model, string userId, IFormFile mainImage, IFormFile secImageA, IFormFile secImageB);
 
-        Task<int> EditAsync<T>(T model, int listingId, string userId);
+        Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditImageDto> imgs);
 
         Task<T> GetSingleByIdAsync<T>(int id);
 

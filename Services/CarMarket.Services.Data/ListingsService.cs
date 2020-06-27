@@ -9,6 +9,7 @@
 
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Http;
@@ -47,9 +48,18 @@
             return listing.Id;
         }
 
-        public async Task<int> EditAsync<T>(T model, int listingId, string userId)
+        public async Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditImageDto> imgs)
         {
-            var listingFromDb = await this.listingsRepository.All().FirstOrDefaultAsync(l => l.Id == listingId);
+            var listingFromDb = await this.listingsRepository
+                .All()
+                .Include(l => l.Images)
+                .FirstOrDefaultAsync(l => l.Id == listingId);
+
+            foreach (var img in imgs)
+            {
+                await this.imagesService.ChangeImageByIdAsync(img.Id, img.Image, img.IsMain);
+            }
+
             var newListing = this.mapper.Map<Listing>(model);
 
             listingFromDb.BodyId = newListing.BodyId;

@@ -1,9 +1,10 @@
 ﻿namespace CarMarket.Web.Controllers
 {
-    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings;
 
@@ -72,8 +73,46 @@
                 return this.View(input);
             }
 
+            var newImages = new List<EditImageDto>();
+
+            if (input.MainImage.Image != null)
+            {
+                var mainImg = new EditImageDto
+                {
+                    Id = input.MainImage.Id,
+                    Image = input.MainImage.Image,
+                    IsMain = true,
+                };
+
+                newImages.Add(mainImg);
+            }
+
+            if (input.SecondaryImageA.Image != null)
+            {
+                var secImgA = new EditImageDto
+                {
+                    Id = input.SecondaryImageA.Id,
+                    Image = input.SecondaryImageA.Image,
+                    IsMain = false,
+                };
+
+                newImages.Add(secImgA);
+            }
+
+            if (input.SecondaryImageB.Image != null)
+            {
+                var secImgB = new EditImageDto
+                {
+                    Id = input.SecondaryImageB.Id,
+                    Image = input.SecondaryImageB.Image,
+                    IsMain = false,
+                };
+
+                newImages.Add(secImgB);
+            }
+
             var userId = this.userManager.GetUserId(this.User);
-            var listingId = await this.listingsService.EditAsync<EditListingInputModel>(input, input.Id, userId);
+            var listingId = await this.listingsService.EditAsync<EditListingInputModel>(input, input.Id, userId, newImages);
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
 

@@ -1,5 +1,6 @@
 ﻿namespace CarMarket.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -47,6 +48,20 @@
                 await this.cloudinaryService.DestroyImageAsync(img.PublicId);
             }
 
+            await this.imagesRepository.SaveChangesAsync();
+        }
+
+        public async Task ChangeImageByIdAsync(int id, IFormFile file, bool isMain)
+        {
+            var oldImg = await this.imagesRepository.All().FirstOrDefaultAsync(i => i.Id == id);
+            var newImg = await this.UploadAsync(file, isMain);
+            await this.cloudinaryService.DestroyImageAsync(oldImg.PublicId);
+
+            oldImg.ImageUrl = newImg.ImageUrl;
+            oldImg.PublicId = newImg.PublicId;
+            oldImg.IsMain = newImg.IsMain;
+            oldImg.CreatedOn = DateTime.UtcNow;
+            this.imagesRepository.Update(oldImg);
             await this.imagesRepository.SaveChangesAsync();
         }
     }
