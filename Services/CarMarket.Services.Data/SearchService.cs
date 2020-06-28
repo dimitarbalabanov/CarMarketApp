@@ -7,10 +7,11 @@
 
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Services.Data.Pagination;
     using CarMarket.Services.Data.SearchServiceHelpers;
-    using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
+
     using Microsoft.EntityFrameworkCore;
 
     public class SearchService : ISearchService

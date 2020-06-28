@@ -6,7 +6,7 @@
     using AutoMapper;
 
     using CarMarket.Services.Data.Interfaces;
-    using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
+    using CarMarket.Services.Data.Dtos;
     using CarMarket.Web.ViewModels.Search;
 
     using Microsoft.AspNetCore.Mvc;

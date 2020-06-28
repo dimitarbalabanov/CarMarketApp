@@ -6,7 +6,6 @@
 
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
-    using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
     using CarMarket.Web.ViewModels.Administration.Makes;
     using CarMarket.Web.ViewModels.Administration.Users;
     using CarMarket.Web.ViewModels.Bodies;

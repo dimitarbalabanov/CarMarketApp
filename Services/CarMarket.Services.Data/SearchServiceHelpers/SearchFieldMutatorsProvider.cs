@@ -4,7 +4,7 @@
     using System.Linq;
 
     using CarMarket.Data.Models;
-    using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
+    using CarMarket.Services.Data.Dtos;
 
     internal static class SearchFieldMutatorsProvider
     {

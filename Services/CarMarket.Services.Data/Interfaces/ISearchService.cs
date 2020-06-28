@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using CarMarket.Services.Data.Pagination;
-    using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
+    using CarMarket.Services.Data.Dtos;
 
     public interface ISearchService
     {

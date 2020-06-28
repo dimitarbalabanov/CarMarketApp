@@ -5,7 +5,6 @@
 
     using CarMarket.Web.Infrastructure.CustomValidation;
     using CarMarket.Web.ViewModels.Images;
-    using Microsoft.AspNetCore.Http;
 
     public class EditListingInputModel
     {
@@ -30,8 +29,6 @@
         private const string FuelRequiredErrorMessage = "Please choose a fuel type.";
         private const string ConditionRequiredErrorMessage = "Please choose a condition.";
         private const string ColorRequiredErrorMessage = "Please choose a color.";
-        private const string MainImageRequiredErrorMessage = "Please choose a main image.";
-        private const string SecondaryImageRequiredErrorMessage = "Please choose a secondary image.";
 
         public int Id { get; set; }
 
