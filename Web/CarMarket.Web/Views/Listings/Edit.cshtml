@@ -103,63 +103,40 @@
                         </small>
                     </p>
                 </div>
-                <div class="row mb-1">
-                    <div class="col-md-4">
-                        <img style="width: 100%; height: 13vw; object-fit: cover;" src="@Model.MainImage.ImageUrl" alt="Card image cap">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                                Change main image
-                            </label>
+
+                @for (int i = 0; i < 3; i++)
+                {
+                    var label = "";
+                    var changeText = "";
+                    if (Model.InputImages[i].IsMain)
+                    {
+                        label = "Choose main image";
+                        changeText = "Change main image";
+                    }
+                    else
+                    {
+                        label = "Choose secondary image";
+                        changeText = "Change secondary image";
+                    }
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <img style="width: 100%; height: 13vw; object-fit: cover;" src="@Model.InputImages[i].ImageUrl" alt="Card image cap">
                         </div>
-                        <div class="custom-file mb-2" style="display:none">
-                            <input asp-for="@Model.MainImage.Image" type="file" class="custom-file-input">
-                            <label asp-for="@Model.MainImage.Image" class="custom-file-label">Choose main image</label>
-                            <input asp-for="@Model.MainImage.Id" type="hidden" />
-                            <span asp-validation-for="@Model.MainImage.Image" class="text-info"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-4">
-                        <img style="width: 100%; height: 13vw; object-fit: cover;" src="@Model.SecondaryImageA.ImageUrl" alt="Card image cap">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                            <label class="form-check-label" for="defaultCheck2">
-                                Change secondary image
-                            </label>
-                        </div>
-                        <div class="custom-file mb-2" style="display:none">
-                            <input asp-for="@Model.SecondaryImageA.Image" type="file" class="custom-file-input">
-                            <label asp-for="@Model.SecondaryImageA.Image" class="custom-file-label">Choose secondary image</label>
-                            <input asp-for="@Model.SecondaryImageA.Id" type="hidden" />
-                            <span asp-validation-for="@Model.SecondaryImageA.Image" class="text-info"></span>
+                        <div class="col-md-8">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck@(i)">
+                                <label class="form-check-label" for="defaultCheck@(i)">@changeText</label>
+                            </div>
+                            <div class="custom-file mb-2" style="display:none">
+                                <input asp-for="@Model.InputImages[i].ImageFile" type="file" class="custom-file-input">
+                                <label asp-for="@Model.InputImages[i].ImageFile" class="custom-file-label">@label</label>
+                                <input asp-for="@Model.InputImages[i].Id" type="hidden" />
+                                <input asp-for="@Model.InputImages[i].IsMain" type="hidden" />
+                                <span asp-validation-for="@Model.InputImages[i].ImageFile" class="text-info"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <img style="width: 100%; height: 13vw; object-fit: cover;" src="@Model.SecondaryImageB.ImageUrl" alt="Card image cap">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                            <label class="form-check-label" for="defaultCheck3">
-                                Change secondary image
-                            </label>
-                        </div>
-                        <div class="custom-file mb-2" style="display:none">
-                            <input asp-for="@Model.SecondaryImageB.Image" type="file" class="custom-file-input">
-                            <label asp-for="@Model.SecondaryImageB.Image" class="custom-file-label">Choose secondary image</label>
-                            <input asp-for="@Model.SecondaryImageB.Id" type="hidden" />
-                            <span asp-validation-for="@Model.SecondaryImageB.Image" class="text-info"></span>
-                        </div>
-                    </div>
-                </div>
+                }
                 <hr class="mb-4">
                 <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Save changes</button>
             </form>

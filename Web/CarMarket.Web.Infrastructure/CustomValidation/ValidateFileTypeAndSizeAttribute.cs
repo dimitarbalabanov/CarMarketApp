@@ -7,7 +7,6 @@
     public class ValidateFileTypeAndSizeAttribute : ValidationAttribute
     {
         private const string InvalidFileExtensionErrorMessage = "Image can be .jpg, .jpeg or .png format only.";
-        private const string NoFileErrorMessage = "Image is required.";
         private const string InvalidFileSizeErrorMessage = "Single image's size can be at most 1 MB.";
 
         private const string JpegMimeType = "image/jpeg";
@@ -20,7 +19,7 @@
             var imageAsIFormFile = value as IFormFile;
             if (imageAsIFormFile == null)
             {
-                return new ValidationResult(NoFileErrorMessage);
+                return ValidationResult.Success;
             }
 
             var isValidExtension = this.ValidateFileExtension(imageAsIFormFile);

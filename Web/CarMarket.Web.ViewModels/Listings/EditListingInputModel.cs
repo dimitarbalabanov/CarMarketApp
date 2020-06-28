@@ -83,22 +83,6 @@
         [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionErrorMessage)]
         public string Description { get; set; }
 
-        public EditListingImageInputModel MainImage { get; set; }
-
-        public EditListingImageInputModel SecondaryImageA { get; set; }
-
-        public EditListingImageInputModel SecondaryImageB { get; set; }
-
-        //[Required(ErrorMessage = MainImageRequiredErrorMessage)]
-        //[ValidateFileTypeAndSize]
-        //public IFormFile NewMainImage { get; set; }
-
-        //[Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
-        //[ValidateFileTypeAndSize]
-        //public IFormFile NewSecondaryImageA { get; set; }
-
-        //[Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
-        //[ValidateFileTypeAndSize]
-        //public IFormFile NewSecondaryImageB { get; set; }
+        public IList<EditListingImageInputModel> InputImages { get; set; }
     }
 }

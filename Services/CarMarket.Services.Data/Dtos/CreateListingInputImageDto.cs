@@ -2,11 +2,9 @@
 {
     using Microsoft.AspNetCore.Http;
 
-    public class EditImageDto
+    public class CreateListingInputImageDto
     {
-        public int Id { get; set; }
-
-        public IFormFile Image { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         public bool IsMain { get; set; }
     }

@@ -1,5 +1,7 @@
 ﻿namespace CarMarket.Web.ViewModels.Images
 {
+    using CarMarket.Web.Infrastructure.CustomValidation;
+
     using Microsoft.AspNetCore.Http;
 
     public class EditListingImageInputModel
@@ -8,6 +10,9 @@
 
         public string ImageUrl { get; set; }
 
-        public IFormFile Image { get; set; }
+        [ValidateFileTypeAndSize]
+        public IFormFile ImageFile { get; set; }
+
+        public bool IsMain { get; set; }
     }
 }

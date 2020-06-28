@@ -9,9 +9,9 @@
 
     public interface IListingsService
     {
-        Task<int> CreateAsync<T>(T model, string userId, IEnumerable<CreateListingImageDto> inputImages);
+        Task<int> CreateAsync<T>(T model, string userId, IEnumerable<CreateListingInputImageDto> inputImages);
 
-        Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditImageDto> imgs);
+        Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditListingInputImageDto> inputImages);
 
         Task<T> GetSingleByIdAsync<T>(int id);
 

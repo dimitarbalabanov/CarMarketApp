@@ -28,31 +28,13 @@
             this.CreateMap<CreateListingInputModel, Listing>();
 
             this.CreateMap<Listing, EditListingInputModel>()
-                .ForMember(
-                    dest => dest.MainImage,
-                    opt => opt.MapFrom(
-                        x => x.Images
-                        .Where(y => y.IsMain)
-                        .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
-                        .FirstOrDefault()))
-                .ForMember(
-                    dest => dest.SecondaryImageA,
-                    opt => opt.MapFrom(
-                        x => x.Images
-                        .Where(y => !y.IsMain)
-                        .OrderBy(y => y.CreatedOn)
-                        .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
-                        .FirstOrDefault()))
-                .ForMember(
-                    dest => dest.SecondaryImageB,
-                    opt => opt.MapFrom(
-                        x => x.Images
-                        .Where(y => !y.IsMain)
-                        .OrderBy(y => y.CreatedOn)
-                        .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
-                        .LastOrDefault()));
+                .ForMember(dest => dest.InputImages, opt => opt.MapFrom(l => l.Images));
 
-            this.CreateMap<CreateListingImageInputModel, CreateListingImageDto>();
+            this.CreateMap<Image, EditListingImageInputModel>();
+
+            this.CreateMap<CreateListingImageInputModel, CreateListingInputImageDto>();
+
+            this.CreateMap<EditListingImageInputModel, EditListingInputImageDto>();
 
             this.CreateMap<EditListingInputModel, Listing>();
 

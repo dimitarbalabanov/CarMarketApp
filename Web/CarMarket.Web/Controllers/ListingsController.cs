@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using CarMarket.Data.Models;
@@ -52,7 +53,7 @@
                 return this.View(input);
             }
 
-            var images = this.mapper.Map<IEnumerable<CreateListingImageDto>>(input.InputImages);
+            var images = this.mapper.Map<IEnumerable<CreateListingInputImageDto>>(input.InputImages);
             var userId = this.userManager.GetUserId(this.User);
             var listingId = await this.listingsService
                 .CreateAsync<CreateListingInputModel>(input, userId, images);
@@ -76,43 +77,8 @@
                 return this.View(input);
             }
 
-            var newImages = new List<EditImageDto>();
-
-            if (input.MainImage.Image != null)
-            {
-                var mainImg = new EditImageDto
-                {
-                    Id = input.MainImage.Id,
-                    Image = input.MainImage.Image,
-                    IsMain = true,
-                };
-
-                newImages.Add(mainImg);
-            }
-
-            if (input.SecondaryImageA.Image != null)
-            {
-                var secImgA = new EditImageDto
-                {
-                    Id = input.SecondaryImageA.Id,
-                    Image = input.SecondaryImageA.Image,
-                    IsMain = false,
-                };
-
-                newImages.Add(secImgA);
-            }
-
-            if (input.SecondaryImageB.Image != null)
-            {
-                var secImgB = new EditImageDto
-                {
-                    Id = input.SecondaryImageB.Id,
-                    Image = input.SecondaryImageB.Image,
-                    IsMain = false,
-                };
-
-                newImages.Add(secImgB);
-            }
+            input.InputImages = input.InputImages.Where(x => x.ImageFile != null).ToList();
+            var newImages = this.mapper.Map<IEnumerable<EditListingInputImageDto>>(input.InputImages);
 
             var userId = this.userManager.GetUserId(this.User);
             var listingId = await this.listingsService.EditAsync<EditListingInputModel>(input, input.Id, userId, newImages);

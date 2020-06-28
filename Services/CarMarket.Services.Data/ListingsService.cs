@@ -32,7 +32,7 @@
             this.imagesService = imagesService;
         }
 
-        public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<CreateListingImageDto> inputImages)
+        public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<CreateListingInputImageDto> inputImages)
         {
             var listing = this.mapper.Map<Listing>(model);
             foreach (var img in inputImages)
@@ -47,20 +47,22 @@
             return listing.Id;
         }
 
-        public async Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditImageDto> imgs)
+        public async Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditListingInputImageDto> inputImages)
         {
             var listingFromDb = await this.listingsRepository
                 .All()
                 .Include(l => l.Images)
                 .FirstOrDefaultAsync(l => l.Id == listingId);
 
-            foreach (var img in imgs)
+            if (inputImages.Count() > 0)
             {
-                await this.imagesService.ChangeImageByIdAsync(img.Id, img.Image, img.IsMain);
+                foreach (var img in inputImages)
+                {
+                    await this.imagesService.ChangeImageByIdAsync(img.Id, img.ImageFile, img.IsMain);
+                }
             }
 
             var newListing = this.mapper.Map<Listing>(model);
-
             listingFromDb.BodyId = newListing.BodyId;
             listingFromDb.ColorId = newListing.ColorId;
             listingFromDb.ConditionId = newListing.ConditionId;
