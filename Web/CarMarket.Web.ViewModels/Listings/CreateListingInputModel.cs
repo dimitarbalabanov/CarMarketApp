@@ -1,10 +1,10 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using CarMarket.Data.Models;
     using CarMarket.Web.Infrastructure.CustomValidation;
-    using Microsoft.AspNetCore.Http;
+    using CarMarket.Web.ViewModels.Images;
 
     public class CreateListingInputModel
     {
@@ -30,8 +30,6 @@
         private const string FuelRequiredErrorMessage = "Please choose a fuel type.";
         private const string ConditionRequiredErrorMessage = "Please choose a condition.";
         private const string ColorRequiredErrorMessage = "Please choose a color.";
-        private const string MainImageRequiredErrorMessage = "Please choose a main image.";
-        private const string SecondaryImageRequiredErrorMessage = "Please choose a secondary image.";
 
         [Required(ErrorMessage = MakeRequiredErrorMessage)]
         [ValidateMakeExists]
@@ -80,16 +78,6 @@
         [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionErrorMessage)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = MainImageRequiredErrorMessage)]
-        [ValidateFileTypeAndSize]
-        public IFormFile MainImage { get; set; }
-
-        [Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
-        [ValidateFileTypeAndSize]
-        public IFormFile SecondaryImageA { get; set; }
-
-        [Required(ErrorMessage = SecondaryImageRequiredErrorMessage)]
-        [ValidateFileTypeAndSize]
-        public IFormFile SecondaryImageB { get; set; }
+        public IList<CreateListingImageInputModel> InputImages { get; set; }
     }
 }

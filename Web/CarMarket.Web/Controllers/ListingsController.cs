@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using AutoMapper;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
@@ -17,10 +17,12 @@
         private readonly IListingsService listingsService;
         private readonly IBookmarksService bookmarksService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMapper mapper;
 
-        public ListingsController(IListingsService listingsService, IBookmarksService bookmarksService, UserManager<ApplicationUser> userManager)
+        public ListingsController(IListingsService listingsService, IBookmarksService bookmarksService, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             this.userManager = userManager;
+            this.mapper = mapper;
             this.listingsService = listingsService;
             this.bookmarksService = bookmarksService;
         }
@@ -50,9 +52,10 @@
                 return this.View(input);
             }
 
+            var images = this.mapper.Map<IEnumerable<CreateListingImageDto>>(input.InputImages);
             var userId = this.userManager.GetUserId(this.User);
             var listingId = await this.listingsService
-                .CreateAsync<CreateListingInputModel>(input, userId, input.MainImage, input.SecondaryImageA, input.SecondaryImageB);
+                .CreateAsync<CreateListingInputModel>(input, userId, images);
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }

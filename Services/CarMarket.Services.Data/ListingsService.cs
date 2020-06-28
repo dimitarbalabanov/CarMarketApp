@@ -12,7 +12,6 @@
     using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     public class ListingsService : IListingsService
@@ -33,16 +32,16 @@
             this.imagesService = imagesService;
         }
 
-        public async Task<int> CreateAsync<T>(T model, string userId, IFormFile mainImage, IFormFile secImageA, IFormFile secImageB)
+        public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<CreateListingImageDto> inputImages)
         {
-            var mainImg = await this.imagesService.UploadAsync(mainImage, true);
-            var secImgA = await this.imagesService.UploadAsync(secImageA);
-            var secImgB = await this.imagesService.UploadAsync(secImageB);
-
             var listing = this.mapper.Map<Listing>(model);
-            listing.SellerId = userId;
-            listing.Images = new List<Image> { mainImg, secImgA, secImgB };
+            foreach (var img in inputImages)
+            {
+                var uploadedImg = await this.imagesService.UploadAsync(img.ImageFile, img.IsMain);
+                listing.Images.Add(uploadedImg);
+            }
 
+            listing.SellerId = userId;
             await this.listingsRepository.AddAsync(listing);
             await this.listingsRepository.SaveChangesAsync();
             return listing.Id;

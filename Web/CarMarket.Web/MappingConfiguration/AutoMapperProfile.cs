@@ -5,6 +5,7 @@
     using AutoMapper;
 
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.SearchServiceHelpers.Dtos;
     using CarMarket.Web.ViewModels.Administration.Makes;
     using CarMarket.Web.ViewModels.Administration.Users;
@@ -50,6 +51,8 @@
                         .OrderBy(y => y.CreatedOn)
                         .Select(z => new EditListingImageInputModel { Id = z.Id, ImageUrl = z.ImageUrl })
                         .LastOrDefault()));
+
+            this.CreateMap<CreateListingImageInputModel, CreateListingImageDto>();
 
             this.CreateMap<EditListingInputModel, Listing>();
 

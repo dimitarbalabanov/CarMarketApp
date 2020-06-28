@@ -109,21 +109,18 @@
                         </small>
                     </p>
                 </div>
-                <div class="custom-file mb-2">
-                    <input asp-for="@Model.MainImage" type="file" class="custom-file-input">
-                    <label asp-for="@Model.MainImage" class="custom-file-label">Choose main image</label>
-                    <span asp-validation-for="@Model.MainImage" class="text-info"></span>
-                </div>
-                <div class="custom-file mb-2">
-                    <input asp-for="@Model.SecondaryImageA" type="file" class="custom-file-input">
-                    <label asp-for="@Model.SecondaryImageA" class="custom-file-label">Choose secondary image</label>
-                    <span asp-validation-for="@Model.SecondaryImageA" class="text-info"></span>
-                </div>
-                <div class="custom-file mb-2">
-                    <input asp-for="@Model.SecondaryImageB" type="file" class="custom-file-input">
-                    <label asp-for="@Model.SecondaryImageB" class="custom-file-label">Choose secondary image</label>
-                    <span asp-validation-for="@Model.SecondaryImageB" class="text-info"></span>
-                </div>
+                @for (int i = 0; i < 3; i++)
+                {
+                    var label = i == 0 ? "Choose main image" : "Choose secondary image";
+                    var isMain = i == 0 ? true : false;
+
+                    <div class="custom-file mb-2">
+                        <input asp-for="@Model.InputImages[i].IsMain" type="hidden" value="@isMain">
+                        <input asp-for="@Model.InputImages[i].ImageFile" type="file" class="custom-file-input">
+                        <label asp-for="@Model.InputImages[i].ImageFile" class="custom-file-label">@label</label>
+                        <span asp-validation-for="@Model.InputImages[i].ImageFile" class="text-info"></span>
+                    </div>
+                }
                 <hr class="mb-4">
                 <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
             </form>
