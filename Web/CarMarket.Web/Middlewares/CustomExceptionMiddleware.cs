@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    using CarMarket.Services.Data.Exceptions;
     using CarMarket.Web.Infrastructure;
 
     using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@
             {
                 await this.next(httpContext);
             }
-            catch (Exception ex)
+            catch (BaseException ex)
             {
                 await this.HandleExceptionAsync(httpContext, ex);
             }
@@ -31,7 +32,7 @@
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            if (exception is ArgumentNullException || context.Response.StatusCode == 404)
+            if (exception is NotFoundException)
             {
                 var result = new ViewResult
                 {
@@ -44,19 +45,19 @@
                     await context.ExecuteResultAsync(result);
                 }
             }
-            //else if (exception is Exception)
-            //{
-            //    var result = new ViewResult
-            //    {
-            //        ViewName = "~/Views/Shared/Forbidden.cshtml",
-            //    };
+            else if (exception is AccessDeniedException)
+            {
+                var result = new ViewResult
+                {
+                    ViewName = "~/Views/Shared/AccessDenied.cshtml",
+                };
 
-            //    if (!context.Response.HasStarted)
-            //    {
-            //        context.Response.StatusCode = StatusCodes.Status403Forbidden;
-            //        await context.ExecuteResultAsync(result);
-            //    }
-            //}
+                if (!context.Response.HasStarted)
+                {
+                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    await context.ExecuteResultAsync(result);
+                }
+            }
             else
             {
                 context.Response.StatusCode = StatusCodes.Status204NoContent;
