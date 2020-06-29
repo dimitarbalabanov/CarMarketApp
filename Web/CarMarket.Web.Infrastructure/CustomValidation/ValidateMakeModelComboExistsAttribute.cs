@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
 
     using CarMarket.Services.Data.Interfaces;
 
@@ -26,7 +25,7 @@
             var property = validationContext.ObjectType.GetProperty(makeId);
             var makeIdAsInt = (int)property.GetValue(validationContext.ObjectInstance);
             var modelsService = validationContext.GetService<IModelsService>();
-            bool isValid = Task.Run(async () => await modelsService.IsValidByMakeIdAndIdAsync(makeIdAsInt, modelId)).Result;
+            bool isValid = modelsService.IsValidByMakeIdAndIdAsync(makeIdAsInt, modelId).GetAwaiter().GetResult();
             return isValid
                 ? ValidationResult.Success
                 : new ValidationResult(InvalidErrorMessage);

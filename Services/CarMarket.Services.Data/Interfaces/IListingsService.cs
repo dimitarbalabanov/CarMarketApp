@@ -22,7 +22,5 @@
         Task DeleteByIdAsync(int listingId, string userId);
 
         Task<int> GetTotalCountAsync();
-
-        Task<bool> IsCreatorAsync(string userId, int listingId);
     }
 }

@@ -11,7 +11,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    public class TransmissionsService : ITransmissionsService
+    public class TransmissionsService : ITransmissionsService, IHaveValidValue
     {
         private readonly IRepository<Transmission> transmissionsRepository;
         private readonly IMapper mapper;

@@ -48,7 +48,6 @@
             }
 
             var makeId = await this.makesService.CreateAsync<CreateMakeInputModel>(input);
-
             return this.RedirectToAction(nameof(this.Details), new { id = makeId });
         }
 
@@ -79,7 +78,6 @@
             }
 
             await this.modelsService.CreateAsync<CreateModelInputModel>(input);
-
             return this.RedirectToAction(nameof(this.Details), new { id = input.MakeId });
         }
     }

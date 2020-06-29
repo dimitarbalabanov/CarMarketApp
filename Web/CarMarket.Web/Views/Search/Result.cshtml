@@ -1,14 +1,10 @@
 ﻿@model CarMarket.Web.ViewModels.Search.SearchResultViewModel
-@using CarMarket.Data.Models
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Search Result";
 }
 
-<h1 class="text-center my-text-color mt-4 mb-3">Search Result</h1>
+<h2 class="text-center my-text-color mt-4 mb-2">Search results</h2>
 <div class="container mb-5 text-dark">
     <hr class="mb-4">
     @if (Model.Listings.Count() > 0)

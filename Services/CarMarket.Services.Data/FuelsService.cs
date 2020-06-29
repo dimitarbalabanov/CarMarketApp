@@ -11,7 +11,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    public class FuelsService : IFuelsService
+    public class FuelsService : IFuelsService, IHaveValidValue
     {
         private readonly IRepository<Fuel> fuelsRepository;
         private readonly IMapper mapper;

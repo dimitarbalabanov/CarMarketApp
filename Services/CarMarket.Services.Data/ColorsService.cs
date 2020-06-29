@@ -11,7 +11,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    public class ColorsService : IColorsService
+    public class ColorsService : IColorsService, IHaveValidValue
     {
         private readonly IRepository<Color> colorsRepository;
         private readonly IMapper mapper;

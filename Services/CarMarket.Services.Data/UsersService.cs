@@ -6,6 +6,7 @@
     using AutoMapper;
 
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Exceptions;
     using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,10 @@
             var user = await this.userManager.Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
 
             return this.mapper.Map<T>(user);
         }

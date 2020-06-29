@@ -6,7 +6,5 @@
     public interface IBodiesService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
-
-        Task<bool> IsValidByIdAsync(int id);
     }
 }

@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
 
     using CarMarket.Services.Data.Interfaces;
 
@@ -26,7 +25,7 @@
             var entityPlural = name.EndsWith('y') ? name.Replace("y", "ies") : name + "s";
             var serviceName = string.Format(ServiceNameFormat, entityPlural);
 
-            var serviceAssembly = typeof(IValidValue).Assembly;
+            var serviceAssembly = typeof(IHaveValidValue).Assembly;
             var serviceAssemblyQualifiedName = string.Format(AssemblyQualifiedNameFormat, serviceName);
             var serviceType = serviceAssembly.GetType(serviceAssemblyQualifiedName);
             if (serviceType == null)
@@ -34,12 +33,17 @@
                 throw new ArgumentException();
             }
 
-            var service = (IValidValue)validationContext.GetService(serviceType);
+            var service = (IHaveValidValue)validationContext.GetService(serviceType);
             var id = (int)value;
-            bool isValid = Task.Run(async () => await service.IsValidByIdAsync(id)).Result;
-            return isValid
-                ? ValidationResult.Success
-                : new ValidationResult(string.Format(InvalidErrorMessage, name.ToLower()));
+            bool isValid = service.IsValidByIdAsync(id).GetAwaiter().GetResult();
+
+            if (!isValid)
+            {
+                var errorMsg = string.Format(InvalidErrorMessage, name.ToLower());
+                return new ValidationResult(errorMsg);
+            }
+
+            return ValidationResult.Success;
         }
     }
 }

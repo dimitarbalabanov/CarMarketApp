@@ -12,7 +12,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    public class MakesService : IMakesService
+    public class MakesService : IMakesService, IHaveValidValue
     {
         private readonly IRepository<Make> makesRepository;
         private readonly IMapper mapper;

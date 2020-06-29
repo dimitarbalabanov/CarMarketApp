@@ -6,7 +6,7 @@
 
     public class ValidateFileTypeAndSizeAttribute : ValidationAttribute
     {
-        private const string InvalidFileExtensionErrorMessage = "Image can be .jpg, .jpeg or .png format only.";
+        private const string InvalidFileExtensionErrorMessage = "Image can be .jpg, .jpeg or .png formats only.";
         private const string InvalidFileSizeErrorMessage = "Single image's size can be at most 1 MB.";
 
         private const string JpegMimeType = "image/jpeg";

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using CarMarket.Data.Models;
     using CarMarket.Web.Infrastructure.CustomValidation;
     using CarMarket.Web.ViewModels.Images;
 
@@ -32,7 +33,7 @@
 
         public int Id { get; set; }
 
-        [ValidateMakeExists]
+        [ValidateValueExists(nameof(Make))]
         public int MakeId { get; set; }
 
         public string MakeName { get; set; }
@@ -42,23 +43,23 @@
         public int ModelId { get; set; }
 
         [Required(ErrorMessage = BodyRequiredErrorMessage)]
-        [ValidateBodyExists]
+        [ValidateValueExists(nameof(Body))]
         public int BodyId { get; set; }
 
         [Required(ErrorMessage = TransmissionRequiredErrorMessage)]
-        [ValidateTransmissionExists]
+        [ValidateValueExists(nameof(Transmission))]
         public int TransmissionId { get; set; }
 
         [Required(ErrorMessage = FuelRequiredErrorMessage)]
-        [ValidateFuelExists]
+        [ValidateValueExists(nameof(Fuel))]
         public int FuelId { get; set; }
 
         [Required(ErrorMessage = ConditionRequiredErrorMessage)]
-        [ValidateConditionExists]
+        [ValidateValueExists(nameof(Condition))]
         public int ConditionId { get; set; }
 
         [Required(ErrorMessage = ColorRequiredErrorMessage)]
-        [ValidateColorExists]
+        [ValidateValueExists(nameof(Color))]
         public int ColorId { get; set; }
 
         [Required]

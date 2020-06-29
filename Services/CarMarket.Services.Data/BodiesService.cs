@@ -11,7 +11,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    public class BodiesService : IBodiesService
+    public class BodiesService : IBodiesService, IHaveValidValue
     {
         private readonly IRepository<Body> bodiesRepository;
         private readonly IMapper mapper;

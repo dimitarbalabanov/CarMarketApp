@@ -7,12 +7,14 @@
 
     using AutoMapper;
 
+    using CarMarket.Common;
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Exceptions;
     using CarMarket.Services.Data.Interfaces;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     public class ListingsService : IListingsService
@@ -22,15 +24,18 @@
         private readonly IRepository<Listing> listingsRepository;
         private readonly IMapper mapper;
         private readonly IImagesService imagesService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public ListingsService(
             IRepository<Listing> listingsRepository,
             IMapper mapper,
-            IImagesService imagesService)
+            IImagesService imagesService,
+            UserManager<ApplicationUser> userManager)
         {
             this.listingsRepository = listingsRepository;
             this.mapper = mapper;
             this.imagesService = imagesService;
+            this.userManager = userManager;
         }
 
         public async Task<int> CreateAsync<T>(T model, string userId, IEnumerable<CreateListingInputImageDto> inputImages)
@@ -50,7 +55,7 @@
 
         public async Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditListingInputImageDto> inputImages)
         {
-            if (!(await this.IsCreatorAsync(userId, listingId)))
+            if (!(await this.IsCreatorAsync(userId, listingId) || await this.IsAdminAsync(userId)))
             {
                 throw new AccessDeniedException();
             }
@@ -94,7 +99,7 @@
 
         public async Task DeleteByIdAsync(int listingId, string userId)
         {
-            if (!(await this.IsCreatorAsync(userId, listingId)))
+            if (!(await this.IsCreatorAsync(userId, listingId) || await this.IsAdminAsync(userId)))
             {
                 throw new AccessDeniedException();
             }
@@ -173,7 +178,7 @@
             return count;
         }
 
-        public async Task<bool> IsCreatorAsync(string userId, int listingId)
+        private async Task<bool> IsCreatorAsync(string userId, int listingId)
         {
             var isCreator = (await this.listingsRepository
                 .AllAsNoTracking()
@@ -182,6 +187,13 @@
                 .FirstOrDefaultAsync()) == userId;
 
             return isCreator;
+        }
+
+        private async Task<bool> IsAdminAsync(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            var isAdmin = await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName);
+            return isAdmin;
         }
     }
 }

@@ -11,7 +11,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    public class ConditionsService : IConditionsService
+    public class ConditionsService : IConditionsService, IHaveValidValue
     {
         private readonly IRepository<Condition> conditionsRepository;
         private readonly IMapper mapper;

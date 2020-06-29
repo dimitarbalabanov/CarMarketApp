@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
 
     using CarMarket.Services.Data.Interfaces;
 
@@ -17,7 +16,7 @@
         {
             var makeName = (string)value;
             var makesService = validationContext.GetService<IMakesService>();
-            bool exists = Task.Run(async () => await makesService.ExistsByNameAsync(makeName)).Result;
+            bool exists = makesService.ExistsByNameAsync(makeName).GetAwaiter().GetResult();
             return exists
                 ? new ValidationResult(string.Format(InvalidMakeNameErrorMessage, makeName))
                 : ValidationResult.Success;

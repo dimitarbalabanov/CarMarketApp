@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
 
     using CarMarket.Services.Data.Interfaces;
 
@@ -17,7 +16,7 @@
         {
             var modelName = (string)value;
             var modelService = validationContext.GetService<IModelsService>();
-            bool exists = Task.Run(async () => await modelService.ExistsByNameAsync(modelName)).Result;
+            bool exists = modelService.ExistsByNameAsync(modelName).GetAwaiter().GetResult();
             return exists
                 ? new ValidationResult(string.Format(InvalidModelNameErrorMessage, modelName))
                 : ValidationResult.Success;

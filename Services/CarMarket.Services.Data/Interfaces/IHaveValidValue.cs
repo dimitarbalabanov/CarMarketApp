@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface IValidValue
+    public interface IHaveValidValue
     {
         Task<bool> IsValidByIdAsync(int id);
     }

@@ -7,8 +7,6 @@
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
 
-        Task<bool> IsValidByIdAsync(int id);
-
         Task<int> CreateAsync<T>(T model);
 
         Task<bool> ExistsByNameAsync(string name);

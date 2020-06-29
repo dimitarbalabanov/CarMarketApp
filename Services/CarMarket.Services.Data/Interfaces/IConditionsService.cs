@@ -6,7 +6,5 @@
     public interface IConditionsService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
-
-        Task<bool> IsValidByIdAsync(int id);
     }
 }
