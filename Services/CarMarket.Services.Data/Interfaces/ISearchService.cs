@@ -10,6 +10,6 @@
     {
         IReadOnlyDictionary<int, string> GetOrderingValues { get; }
 
-        Task<PaginatedList<T>> GetSearchResultAsync<T>(SearchModelDto searchModel, int pageNumber);
+        Task<PaginatedList<T>> GetSearchResultAsync<T>(SearchModelDto searchModel, string userId, int pageNumber);
     }
 }

@@ -10,6 +10,7 @@
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
+    using CarMarket.Services.Data.Exceptions;
     using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.EntityFrameworkCore;
@@ -49,10 +50,20 @@
 
         public async Task<int> EditAsync<T>(T model, int listingId, string userId, IEnumerable<EditListingInputImageDto> inputImages)
         {
+            if (!(await this.IsCreatorAsync(userId, listingId)))
+            {
+                throw new AccessDeniedException();
+            }
+
             var listingFromDb = await this.listingsRepository
                 .All()
                 .Include(l => l.Images)
                 .FirstOrDefaultAsync(l => l.Id == listingId);
+
+            if (listingFromDb == null)
+            {
+                throw new NotFoundException();
+            }
 
             if (inputImages.Count() > 0)
             {
@@ -81,14 +92,23 @@
             return listingFromDb.Id;
         }
 
-        public async Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int listingId, string userId)
         {
+            if (!(await this.IsCreatorAsync(userId, listingId)))
+            {
+                throw new AccessDeniedException();
+            }
+
             var listing = await this.listingsRepository
                 .All()
-                .FirstOrDefaultAsync(l => l.Id == id);
+                .FirstOrDefaultAsync(l => l.Id == listingId);
+
+            if (listing == null)
+            {
+                throw new NotFoundException();
+            }
 
             await this.imagesService.DeleteAllImagesByListingIdAsync(listing.Id);
-
             this.listingsRepository.Delete(listing);
             await this.listingsRepository.SaveChangesAsync();
         }
@@ -136,6 +156,11 @@
                 .Include(l => l.Transmission)
                 .FirstOrDefaultAsync(l => l.Id == id);
 
+            if (listing == null)
+            {
+                throw new NotFoundException();
+            }
+
             return this.mapper.Map<T>(listing);
         }
 
@@ -146,6 +171,17 @@
                 .CountAsync();
 
             return count;
+        }
+
+        public async Task<bool> IsCreatorAsync(string userId, int listingId)
+        {
+            var isCreator = (await this.listingsRepository
+                .AllAsNoTracking()
+                .Where(l => l.Id == listingId)
+                .Select(l => l.SellerId)
+                .FirstOrDefaultAsync()) == userId;
+
+            return isCreator;
         }
     }
 }

@@ -7,6 +7,7 @@
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
     using CarMarket.Services.Cloudinary;
+    using CarMarket.Services.Data.Exceptions;
     using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Http;
@@ -54,6 +55,11 @@
         public async Task ChangeImageByIdAsync(int id, IFormFile file, bool isMain)
         {
             var oldImg = await this.imagesRepository.All().FirstOrDefaultAsync(i => i.Id == id);
+            if (oldImg == null)
+            {
+                throw new NotFoundException();
+            }
+
             var newImg = await this.UploadAsync(file, isMain);
             await this.cloudinaryService.DestroyImageAsync(oldImg.PublicId);
 
@@ -61,6 +67,7 @@
             oldImg.PublicId = newImg.PublicId;
             oldImg.IsMain = newImg.IsMain;
             oldImg.CreatedOn = DateTime.UtcNow;
+
             this.imagesRepository.Update(oldImg);
             await this.imagesRepository.SaveChangesAsync();
         }

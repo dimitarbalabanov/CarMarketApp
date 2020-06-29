@@ -12,6 +12,7 @@
 
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class BookmarksController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -25,7 +26,6 @@
             this.bookmarksService = bookmarksService;
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Post(BookmarkInputModel input)
         {
@@ -34,7 +34,6 @@
             return this.Ok();
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

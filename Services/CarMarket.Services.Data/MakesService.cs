@@ -7,6 +7,7 @@
 
     using CarMarket.Data.Common.Repositories;
     using CarMarket.Data.Models;
+    using CarMarket.Services.Data.Exceptions;
     using CarMarket.Services.Data.Interfaces;
 
     using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,11 @@
                 .Include(m => m.Models)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
+            if (make == null)
+            {
+                throw new NotFoundException();
+            }
+
             return this.mapper.Map<T>(make);
         }
 
@@ -61,6 +67,7 @@
             var isValid = await this.makesRepository
                 .AllAsNoTracking()
                 .AnyAsync(m => m.Id == id);
+
             return isValid;
         }
     }

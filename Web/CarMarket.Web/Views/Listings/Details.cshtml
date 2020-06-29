@@ -51,9 +51,11 @@
                 <li>Transmission: @Model.TransmissionType</li>
                 <li>Listing created on: @Model.CreatedOn</li>
             </ul>
-            <h3 class="my-3">Description</h3>
-            <p>@Model.Description</p>
-
+            @if (Model.Description != null)
+            {
+                <h3 class="my-3">Description</h3>
+                <p>@Model.Description</p>
+            }
             <h3 class="my-3">Seller contact information:</h3>
             <p>Name: @Model.SellerFirstName @Model.SellerLastName</p>
             <p>Email: @Model.SellerEmail</p>
@@ -110,7 +112,6 @@
                         }
                     </form>
                 }
-
             }
         </div>
     </div>

@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -40,9 +41,14 @@
 
         public IReadOnlyDictionary<int, string> GetOrderingValues => OrderingValues;
 
-        public async Task<PaginatedList<T>> GetSearchResultAsync<T>(SearchModelDto searchModel, int pageNumber)
+        public async Task<PaginatedList<T>> GetSearchResultAsync<T>(SearchModelDto searchModel, string userId, int pageNumber)
         {
             var listings = this.listingsRepository.AllAsNoTracking();
+
+            if (userId != null)
+            {
+                listings = listings.Where(l => l.SellerId != userId);
+            }
 
             foreach (var mutator in SearchFieldMutatorsProvider.SearchFieldMutators)
             {

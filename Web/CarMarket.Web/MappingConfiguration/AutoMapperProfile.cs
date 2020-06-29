@@ -24,27 +24,55 @@
     {
         public AutoMapperProfile()
         {
-            this.CreateMap<CreateListingInputModel, Listing>();
-
+            // Listing to View model
             this.CreateMap<Listing, EditListingInputModel>()
                 .ForMember(dest => dest.InputImages, opt => opt.MapFrom(l => l.Images));
 
+            this.CreateMap<Listing, DetailsListingViewModel>()
+                .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
+
+            this.CreateMap<Listing, HomeListingViewModel>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Where(y => y.IsMain).Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, PersonalListingViewModel>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Where(y => y.IsMain).Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, BookmarksListingViewModel>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Where(y => y.IsMain).Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, SearchResultListingViewModel>()
+               .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Where(y => y.IsMain).Select(y => y.ImageUrl).FirstOrDefault()));
+
+            this.CreateMap<Listing, UserDetailsListingViewModel>();
+
+            // Input model to Listing
+            this.CreateMap<CreateListingInputModel, Listing>();
+
+            this.CreateMap<EditListingInputModel, Listing>();
+
+            // Image
             this.CreateMap<Image, EditListingImageInputModel>();
 
             this.CreateMap<CreateListingImageInputModel, CreateListingInputImageDto>();
 
             this.CreateMap<EditListingImageInputModel, EditListingInputImageDto>();
 
-            this.CreateMap<EditListingInputModel, Listing>();
-
+            // Color
             this.CreateMap<Color, ColorSelectListViewModel>();
 
+            // Body
             this.CreateMap<Body, BodySelectListViewModel>();
 
+            // Condition
             this.CreateMap<Condition, ConditionSelectListViewModel>();
 
+            // Fuel
             this.CreateMap<Fuel, FuelSelectListViewModel>();
 
+            // Transmission
+            this.CreateMap<Transmission, TransmissionSelectListViewModel>();
+
+            // Make
             this.CreateMap<Make, MakeSelectListViewModel>();
 
             this.CreateMap<Make, MakeViewModel>();
@@ -55,8 +83,7 @@
 
             this.CreateMap<CreateMakeInputModel, Make>();
 
-            this.CreateMap<Transmission, TransmissionSelectListViewModel>();
-
+            // Model
             this.CreateMap<Model, ModelSelectListViewModel>();
 
             this.CreateMap<Model, ModelResponseModel>();
@@ -65,28 +92,13 @@
 
             this.CreateMap<CreateModelInputModel, Model>();
 
-            this.CreateMap<Listing, DetailsListingViewModel>()
-                .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
-
-            this.CreateMap<Listing, HomeListingViewModel>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
-
-            this.CreateMap<Listing, PersonalListingViewModel>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
-
-            this.CreateMap<Listing, BookmarksListingViewModel>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
-
-            this.CreateMap<Listing, SearchResultListingViewModel>()
-               .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl).FirstOrDefault()));
-
+            // Search input to Search Dto
             this.CreateMap<SearchInputModel, SearchModelDto>();
 
+            // Application user to View model
             this.CreateMap<ApplicationUser, UserViewModel>();
 
             this.CreateMap<ApplicationUser, UserDetailsViewModel>();
-
-            this.CreateMap<Listing, UserDetailsListingViewModel>();
         }
     }
 }

@@ -4,11 +4,11 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
-
-    using CarMarket.Services.Data.Interfaces;
+    using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
+    using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Search;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class SearchController : Controller
@@ -17,11 +17,19 @@
 
         private readonly ISearchService searchService;
         private readonly IMapper mapper;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public SearchController(ISearchService searchService, IMapper mapper)
+        public SearchController(
+            ISearchService searchService,
+            IMapper mapper,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             this.searchService = searchService;
             this.mapper = mapper;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -36,8 +44,14 @@
             this.ViewData["Query"] = queryValuesDictionary;
             var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
 
+            string userId = null;
+            if (this.signInManager.IsSignedIn(this.User))
+            {
+                userId = this.userManager.GetUserId(this.User);
+            }
+
             var listings = await this.searchService
-                .GetSearchResultAsync<SearchResultListingViewModel>(searchModel, pageNumber ?? DefaultPageNumber);
+                .GetSearchResultAsync<SearchResultListingViewModel>(searchModel, userId, pageNumber ?? DefaultPageNumber);
 
             var viewModel = new SearchResultViewModel { Listings = listings };
             return this.View(viewModel);
