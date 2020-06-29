@@ -14,6 +14,8 @@
 
         public string MakeName { get; set; }
 
+        public string MakeModelName => $"{this.MakeName} {this.ModelName}";
+
         public string ImageUrl { get; set; }
     }
 }

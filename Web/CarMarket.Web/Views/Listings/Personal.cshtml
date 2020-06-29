@@ -13,17 +13,20 @@
             <div class="row justify-content-center">
                 <div class="card mb-2 w-75">
                     <div class="row no-gutters">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <img src="@listing.ImageUrl" class="card-img" style=" width: 100%; height: 13vw; object-fit: cover;" alt="...">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
                             <div class="card-body">
-                                <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
-                                <p class="card-text">Price: @listing.Price</p>
-                                <p class="card-text"><small class="text-muted">Created on: @listing.CreatedOn</small></p>
-                                <a class="btn btn-info" asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id">Details</a>
+                                <h5 class="card-title"><i class="fas fa-car"></i> @listing.MakeModelName</h5>
+                                <p class="card-text mb-0"><i class="fas fa-money-bill-alt"></i><span class="font-weight-bold"> Price: </span>@listing.Price BGN</p>
+                                <p class="card-text mb-0"><i class="fas fa-calendar"></i><span class="font-weight-bold"> Production year: </span>@listing.ProductionYear</p>
+                                <p class="card-text mb-0"><i class="fas fa-dolly"></i><span class="font-weight-bold"> Mileage: </span>@listing.Mileage km</p>
+                                <p class="card-text"><i class="fas fa-clock"></i><span class="font-weight-bold"> Created on: </span> @listing.CreatedOn</p>
                             </div>
                         </div>
+                        <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>
                     </div>
                 </div>
             </div>

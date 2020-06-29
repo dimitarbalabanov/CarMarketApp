@@ -54,10 +54,10 @@
                 <div class="card my-background-color">
                     <img style="width: 100%; height: 13vw; object-fit: cover;" class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">@listing.MakeName @listing.ModelName</h5>
-                        <p class="card-text mb-0">Price: @listing.Price lv</p>
-                        <p class="card-text mb-0">Production year: @listing.ProductionYear</p>
-                        <p class="card-text mb-0">Mileage: @listing.Mileage km</p>
+                        <h5 class="card-title"><i class="fas fa-car"></i> @listing.MakeModelName</h5>
+                        <p class="card-text mb-0"><span class="font-weight-bold">Price: </span>@listing.Price BGN</p>
+                        <p class="card-text mb-0"><span class="font-weight-bold">Production year: </span>@listing.ProductionYear</p>
+                        <p class="card-text mb-0"><span class="font-weight-bold">Mileage: </span>@listing.Mileage km</p>
                     </div>
                     <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>
                 </div>
