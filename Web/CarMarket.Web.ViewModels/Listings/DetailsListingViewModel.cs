@@ -1,6 +1,9 @@
 ﻿namespace CarMarket.Web.ViewModels.Listings
 {
     using System;
+    using System.Collections.Generic;
+
+    using CarMarket.Web.ViewModels.Images;
 
     public class DetailsListingViewModel
     {
@@ -13,6 +16,8 @@
         public string SellerFirstName { get; set; }
 
         public string SellerLastName { get; set; }
+
+        public string SellerFullName => $"{this.SellerFirstName} {this.SellerLastName}";
 
         public string SellerEmail { get; set; }
 
@@ -40,7 +45,7 @@
 
         public string FuelType { get; set; }
 
-        public string[] ImageUrls { get; set; }
+        public IEnumerable<DetailsListingImageViewModel> Images { get; set; }
 
         public bool IsBookmarkedByCurrentUser { get; set; }
     }

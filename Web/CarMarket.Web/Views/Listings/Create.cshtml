@@ -12,7 +12,7 @@
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.MakeId">Make</label>
+                        <label asp-for="@Model.MakeId"><i class="fas fa-car"></i> Make</label>
                         <select asp-for="@Model.MakeId" class="custom-select d-block w-100" id="makeModel">
                             <option value="">Choose a make</option>
                             <vc:makes-select-list id="@Model.MakeId"></vc:makes-select-list>
@@ -20,7 +20,7 @@
                         <span asp-validation-for="@Model.MakeId" class="text-info"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.ModelId">Model</label>
+                        <label asp-for="@Model.ModelId"><i class="fas fa-car-side"></i> Model</label>
                         <select asp-for="@Model.ModelId" class="custom-select d-block w-100" id="modelSelect">
                             <option value="">Choose a make</option>
                         </select>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.BodyId">Body type</label>
+                        <label asp-for="@Model.BodyId"><i class="fas fa-truck-pickup"></i> Body type</label>
                         <select asp-for="@Model.BodyId" class="custom-select d-block w-100">
                             <option value="">Choose a body</option>
                             <vc:bodies-select-list id="@Model.BodyId"></vc:bodies-select-list>
@@ -37,7 +37,7 @@
                         <span asp-validation-for="@Model.BodyId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.TransmissionId">Transmission type</label>
+                        <label asp-for="@Model.TransmissionId"><i class="fas fa-cogs"></i> Transmission type</label>
                         <select asp-for="@Model.TransmissionId" class="custom-select d-block w-100">
                             <option value="">Choose a transmission</option>
                             <vc:transmissions-select-list id="@Model.TransmissionId"></vc:transmissions-select-list>
@@ -45,7 +45,7 @@
                         <span asp-validation-for="@Model.TransmissionId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.FuelId">Fuel type</label>
+                        <label asp-for="@Model.FuelId"><i class="fas fa-gas-pump"></i> Fuel type</label>
                         <select asp-for="@Model.FuelId" class="custom-select d-block w-100">
                             <option value="">Choose a fuel</option>
                             <vc:fuels-select-list id="@Model.FuelId"></vc:fuels-select-list>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.ConditionId">Condition</label>
+                        <label asp-for="@Model.ConditionId"><i class="fas fa-oil-can"></i> Condition</label>
                         <select asp-for="@Model.ConditionId" class="custom-select d-block w-100">
                             <option value="">Choose a condition</option>
                             <vc:conditions-select-list id="@Model.ConditionId"></vc:conditions-select-list>
@@ -63,7 +63,7 @@
                         <span asp-validation-for="@Model.ConditionId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.ColorId">Color</label>
+                        <label asp-for="@Model.ColorId"><i class="fas fa-palette"></i> Color</label>
                         <select asp-for="@Model.ColorId" class="custom-select d-block w-100">
                             <option value="">Choose a color</option>
                             <vc:colors-select-list id="@Model.ColorId"></vc:colors-select-list>
@@ -71,37 +71,37 @@
                         <span asp-validation-for="@Model.ColorId" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.ProductionYear">Production year</label>
+                        <label asp-for="@Model.ProductionYear"><i class="fas fa-calendar"></i>  Production year</label>
                         <input asp-for="@Model.ProductionYear" type="number" class="form-control">
                         <span asp-validation-for="@Model.ProductionYear" class="text-info"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.Mileage">Mileage in km</label>
+                        <label asp-for="@Model.Mileage"><i class="fas fa-dolly"></i> Mileage in km</label>
                         <input asp-for="@Model.Mileage" type="number" class="form-control">
                         <span asp-validation-for="@Model.Mileage" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.Horsepower">Horsepower</label>
+                        <label asp-for="@Model.Horsepower"><i class="fas fa-horse"></i> Horsepower</label>
                         <input asp-for="@Model.Horsepower" type="number" class="form-control">
                         <span asp-validation-for="@Model.Horsepower" class="text-info"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.Price">Price in BGN</label>
+                        <label asp-for="@Model.Price"><i class="fas fa-money-bill-alt"></i> Price in BGN</label>
                         <input asp-for="@Model.Price" type="number" class="form-control">
                         <span asp-validation-for="@Model.Price" class="text-info"></span>
                     </div>
                 </div>
                 <div class="form-group mb-3">
-                    <label asp-for="@Model.Description">Description</label>
+                    <label asp-for="@Model.Description"><i class="fas fa-file-alt"></i> Description</label>
                     <textarea asp-for="@Model.Description" class="form-control" rows="3"></textarea>
                     <small class="text-muted">Additional information (not required, up to 1500 symbols)</small>
                     <span asp-validation-for="@Model.Description" class="text-info"></span>
                 </div>
                 <div>
                     <p>
-                        <span>Car images</span>
+                        <span><i class="fas fa-images"></i> Car images</span>
                         <small class="text-muted">
                             You cannot post a listing without car images. A total of 3 are required, each up to 1 MB in size.
                             Only ".jpeg", ".jpg" and ".pgn" formats are allowed. The main image of your car is the one that will be displayed in search results.
@@ -122,7 +122,7 @@
                     </div>
                 }
                 <hr class="mb-4">
-                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Create</button>
+                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit"><i class="fas fa-plus-square"></i> Create</button>
             </form>
         </div>
     </div>

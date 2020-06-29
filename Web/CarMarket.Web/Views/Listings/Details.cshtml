@@ -11,21 +11,23 @@
 <div class="container">
 
     <h1 class="my-4">
-        @Model.MakeName
-        <small>@Model.ModelName Price: @Model.Price BGN</small>
+        <i class="fas fa-car"></i> @Model.MakeName
+        <span class="mr-5">@Model.ModelName</span>
+        <span><i class="fas fa-money-bill-alt"></i> @Model.Price BGN</span>
     </h1>
 
     <div class="row">
-
         <div class="col-md-8">
             <div id="carouselControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        @*<img src="@Model.ImageUrls[1]" class="d-block w-100" alt="...">*@
-                    </div>
-                    <div class="carousel-item">
-                        @*<img src="@Model.ImageUrls[0]" class="d-block w-100" alt="...">*@
-                    </div>
+                    @foreach (var img in Model.Images)
+                    {
+                        var active = img.IsMain ? "active" : "";
+
+                        <div class="carousel-item @active">
+                            <img src="@img.ImageUrl" class="d-block w-100" alt="...">
+                        </div>
+                    }
                 </div>
                 <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -39,41 +41,19 @@
         </div>
 
         <div class="col-md-4">
-            <h3 class="my-3">Details</h3>
-            <ul>
-                <li>Body: @Model.BodyType</li>
-                <li>Color: @Model.ColorName</li>
-                <li>Condition: @Model.ConditionType</li>
-                <li>Fuel: @Model.FuelType</li>
-                <li>Horsepower: @Model.Horsepower</li>
-                <li>Mileage: @Model.Mileage</li>
-                <li>Production year: @Model.ProductionYear</li>
-                <li>Transmission: @Model.TransmissionType</li>
-                <li>Listing created on: @Model.CreatedOn</li>
-            </ul>
-            @if (Model.Description != null)
-            {
-                <h3 class="my-3">Description</h3>
-                <p>@Model.Description</p>
-            }
-            <h3 class="my-3">Seller contact information:</h3>
-            <p>Name: @Model.SellerFirstName @Model.SellerLastName</p>
-            <p>Email: @Model.SellerEmail</p>
-        </div>
-        <div class="row float-right">
             @if (this.SignInManager.IsSignedIn(this.User))
             {
                 if (this.UserManager.GetUserId(this.User) == Model.SellerId || this.User.IsInRole(CarMarket.Common.GlobalConstants.AdministratorRoleName))
                 {
-                    //edit
-                    <a class="btn btn-warning" asp-controller="Listings" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <!-- Edit button -->
+                    <a class="btn btn-outline-light my-background-color" asp-controller="Listings" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-edit"></i> Edit</a>
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalCenter">
-                        Delete
+                    <!-- Delete button trigger modal -->
+                    <button type="button" class="btn btn-outline-light my-background-color" data-toggle="modal" data-target="#modalCenter">
+                        <i class="fas fa-trash"></i> Delete
                     </button>
 
-                    <!-- Modal -->
+                    <!-- Delete Modal -->
                     <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -98,21 +78,39 @@
                 }
                 else
                 {
-                    //bookmark
+                    <!-- Bookmark button -->
                     <form id="bookmarksForm" class="form-inline" asp-antiforgery="true">
                         @if (Model.IsBookmarkedByCurrentUser)
                         {
-                            <a id="addBtn" style="display:none" href="#" class="btn btn-info" onclick="addBookmark(@Model.Id)">Add to bookmarks</a>
-                            <a id="removeBtn" href="#" class="btn btn-info" onclick="removeBookmark(@Model.Id)">Remove from bookmarks</a>
+                            <a id="addBtn" style="display:none" href="#" class="btn btn-outline-light my-background-color" onclick="addBookmark(@Model.Id)"><i class="fas fa-plus-square"></i> Add to bookmarks</a>
+                            <a id="removeBtn" href="#" class="btn btn-outline-light my-background-color" onclick="removeBookmark(@Model.Id)"><i class="fas fa-minus-square"></i> Remove from bookmarks</a>
                         }
                         else
                         {
-                            <a id="addBtn" href="#" class="btn btn-info" onclick="addBookmark(@Model.Id)">Add to bookmarks</a>
-                            <a id="removeBtn" style="display:none" href="#" class="btn btn-info" onclick="removeBookmark(@Model.Id)">Remove from bookmarks</a>
+                            <a id="addBtn" href="#" class="btn btn-outline-light my-background-color" onclick="addBookmark(@Model.Id)"><i class="fas fa-plus-square"></i> Add to bookmarks</a>
+                            <a id="removeBtn" style="display:none" href="#" class="btn btn-outline-light my-background-color" onclick="removeBookmark(@Model.Id)"><i class="fas fa-minus-square"></i> Remove from bookmarks</a>
                         }
                     </form>
                 }
             }
+            <h4 class="my-3"><i class="fas fa-info-circle"></i> Details</h4>
+            <p class="mb-0"><i class="fas fa-truck-pickup"></i> <span class="font-weight-bold">Body:</span> @Model.BodyType</p>
+            <p class="mb-0"><i class="fas fa-palette"></i> <span class="font-weight-bold">Color:</span> @Model.ColorName</p>
+            <p class="mb-0"><i class="fas fa-oil-can"></i> <span class="font-weight-bold">Condition:</span> @Model.ConditionType</p>
+            <p class="mb-0"><i class="fas fa-gas-pump"></i> <span class="font-weight-bold">Fuel:</span> @Model.FuelType</p>
+            <p class="mb-0"><i class="fas fa-horse"></i> <span class="font-weight-bold">Horsepower:</span> @Model.Horsepower</p>
+            <p class="mb-0"><i class="fas fa-dolly"></i> <span class="font-weight-bold">Mileage:</span> @Model.Mileage km</p>
+            <p class="mb-0"><i class="fas fa-calendar"></i> <span class="font-weight-bold">Production year:</span> @Model.ProductionYear</p>
+            <p class="mb-0"><i class="fas fa-cogs"></i> <span class="font-weight-bold">Transmission:</span> @Model.TransmissionType</p>
+            <p class="mb-0"><i class="fas fa-clock"></i> <span class="font-weight-bold">Created on:</span> @Model.CreatedOn</p>
+            @if (Model.Description != null)
+            {
+                <h4 class="my-3"><i class="fas fa-file-alt"></i> Description</h4>
+                <p>@Model.Description</p>
+            }
+            <h4 class="my-3"><i class="fas fa-id-card"></i> Contact information:</h4>
+            <p class="mb-0"><i class="fas fa-signature"></i> <span class="font-weight-bold">Name:</span> @Model.SellerFullName</p>
+            <p class="mb-0"><i class="fas fa-at"></i> <span class="font-weight-bold">Email:</span> @Model.SellerEmail</p>
         </div>
     </div>
 </div>

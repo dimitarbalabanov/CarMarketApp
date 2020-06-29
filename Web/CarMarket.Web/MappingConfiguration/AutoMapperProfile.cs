@@ -28,8 +28,7 @@
             this.CreateMap<Listing, EditListingInputModel>()
                 .ForMember(dest => dest.InputImages, opt => opt.MapFrom(l => l.Images));
 
-            this.CreateMap<Listing, DetailsListingViewModel>()
-                .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(x => x.Images.Select(y => y.ImageUrl)));
+            this.CreateMap<Listing, DetailsListingViewModel>();
 
             this.CreateMap<Listing, HomeListingViewModel>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(x => x.Images.Where(y => y.IsMain).Select(y => y.ImageUrl).FirstOrDefault()));
@@ -52,6 +51,8 @@
 
             // Image
             this.CreateMap<Image, EditListingImageInputModel>();
+
+            this.CreateMap<Image, DetailsListingImageViewModel>();
 
             this.CreateMap<CreateListingImageInputModel, CreateListingInputImageDto>();
 

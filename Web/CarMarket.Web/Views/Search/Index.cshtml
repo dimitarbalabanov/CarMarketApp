@@ -11,14 +11,14 @@
             <form asp-controller="Search" asp-action="Result" method="get">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.MakeId">Make</label>
+                        <label asp-for="@Model.MakeId"><i class="fas fa-car"></i> Make</label>
                         <select asp-for="@Model.MakeId" class="custom-select d-block w-100" id="makeModel">
                             <option value="">Any make</option>
                             <vc:makes-select-list id="0"></vc:makes-select-list>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.ModelId">Model</label>
+                        <label asp-for="@Model.ModelId"><i class="fas fa-car-side"></i> Model</label>
                         <select asp-for="@Model.ModelId" class="custom-select d-block w-100" id="modelSelect">
                             <option value="">Any model</option>
                         </select>
@@ -27,21 +27,21 @@
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.BodyId">Body type</label>
+                        <label asp-for="@Model.BodyId"><i class="fas fa-truck-pickup"></i> Body type</label>
                         <select asp-for="@Model.BodyId" class="custom-select d-block w-100">
                             <option value="">Any type</option>
                             <vc:bodies-select-list id="0"></vc:bodies-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.TransmissionId">Transmission type</label>
+                        <label asp-for="@Model.TransmissionId"><i class="fas fa-cogs"></i> Transmission type</label>
                         <select asp-for="@Model.TransmissionId" class="custom-select d-block w-100">
                             <option value="">Any type</option>
                             <vc:transmissions-select-list id="0"></vc:transmissions-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="@Model.FuelId">Fuel type</label>
+                        <label asp-for="@Model.FuelId"><i class="fas fa-gas-pump"></i> Fuel type</label>
                         <select asp-for="@Model.FuelId" class="custom-select d-block w-100">
                             <option value="">Any type</option>
                             <vc:fuels-select-list id="0"></vc:fuels-select-list>
@@ -51,21 +51,21 @@
 
                 <div class="row">
                     <div class="col-md-4 mb-4">
-                        <label asp-for="@Model.ConditionId">Condition</label>
+                        <label asp-for="@Model.ConditionId"><i class="fas fa-oil-can"></i> Condition</label>
                         <select asp-for="@Model.ConditionId" class="custom-select d-block w-100">
                             <option value="">Any type</option>
                             <vc:conditions-select-list id="0"></vc:conditions-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <label asp-for="@Model.ColorId">Color</label>
+                        <label asp-for="@Model.ColorId"><i class="fas fa-palette"></i> Color</label>
                         <select asp-for="@Model.ColorId" class="custom-select d-block w-100">
                             <option value="">Any color</option>
                             <vc:conditions-select-list id="0"></vc:conditions-select-list>
                         </select>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <label>Order by</label>
+                        <label><i class="fas fa-sort"></i> Order by</label>
                         <select asp-for="@Model.OrderingValue" class="custom-select d-block w-100">
                             <vc:ordering-values-select-list></vc:ordering-values-select-list>
                         </select>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-form-label col-sm-3 mr-2">Production year</div>
+                    <div class="col-form-label col-sm-3 mr-2"><i class="fas fa-calendar"></i> Production year</div>
                     <label asp-for="@Model.ProductionYearFrom" class="col-form-label">from</label>
                     <div class="col-sm-4">
                         <input asp-for="@Model.ProductionYearFrom" type="number" class="form-control">
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-form-label col-sm-3 mr-2">Mileage in km</div>
+                    <div class="col-form-label col-sm-3 mr-2"><i class="fas fa-dolly"></i> Mileage in km</div>
                     <label asp-for="@Model.MileageFrom" class="col-form-label">from</label>
                     <div class="col-sm-4">
                         <input asp-for="@Model.MileageFrom" type="number" class="form-control">
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-form-label col-sm-3 mr-2">Horsepower</div>
+                    <div class="col-form-label col-sm-3 mr-2"><i class="fas fa-horse"></i> Horsepower</div>
                     <label asp-for="@Model.HorsepowerFrom" class="col-form-label">from</label>
                     <div class="col-sm-4">
                         <input asp-for="@Model.HorsepowerFrom" type="number" class="form-control">
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-form-label col-sm-3 mr-2">Price in BGN</div>
+                    <div class="col-form-label col-sm-3 mr-2"><i class="fas fa-money-bill-alt"></i> Price in BGN</div>
                     <label asp-for="@Model.PriceFrom" class="col-form-label">from</label>
                     <div class="col-sm-4">
                         <input asp-for="@Model.PriceFrom" type="number" class="form-control">
@@ -121,7 +121,7 @@
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit">Search</button>
+                <button class="btn btn-lg btn-outline-light btn-block my-background-color" type="submit"><i class="fas fa-search"></i> Search</button>
             </form>
         </div>
     </div>
