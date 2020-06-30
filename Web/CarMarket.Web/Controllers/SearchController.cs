@@ -42,7 +42,6 @@
         {
             var queryValuesDictionary = this.Request.Query.ToDictionary(x => x.Key, y => y.Value.ToString());
             this.ViewData["Query"] = queryValuesDictionary;
-            var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
 
             string userId = null;
             if (this.signInManager.IsSignedIn(this.User))
@@ -50,6 +49,7 @@
                 userId = this.userManager.GetUserId(this.User);
             }
 
+            var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
             var listings = await this.searchService
                 .GetSearchResultAsync<SearchResultListingViewModel>(searchModel, userId, pageNumber ?? DefaultPageNumber);
 

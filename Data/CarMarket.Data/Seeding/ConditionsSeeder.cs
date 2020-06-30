@@ -19,6 +19,7 @@
             {
                 new Condition { Type = "New" },
                 new Condition { Type = "Used" },
+                new Condition { Type = "For parts" },
             };
 
             await dbContext.Conditions.AddRangeAsync(conditions);

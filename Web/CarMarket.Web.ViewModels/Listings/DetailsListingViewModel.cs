@@ -37,6 +37,8 @@
 
         public string MakeName { get; set; }
 
+        public string MakeModelName => $"{this.MakeName} {this.ModelName}";
+
         public string BodyType { get; set; }
 
         public string ColorName { get; set; }

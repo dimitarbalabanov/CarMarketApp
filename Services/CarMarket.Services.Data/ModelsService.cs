@@ -26,33 +26,26 @@
         public async Task CreateAsync<T>(T inputModel)
         {
             var model = this.mapper.Map<Model>(inputModel);
-
             await this.modelsRepository.AddAsync(model);
             await this.modelsRepository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsByNameAsync(string name)
         {
-            var exists = await this.modelsRepository
-                .AllAsNoTracking()
-                .AnyAsync(m => m.Name == name);
+            var exists = await this.modelsRepository.AllAsNoTracking().AnyAsync(m => m.Name == name);
             return exists;
         }
 
         public async Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id)
         {
-            var query = this.modelsRepository
-                .AllAsNoTracking()
-                .Where(m => m.MakeId == id);
+            var query = this.modelsRepository.AllAsNoTracking().Where(m => m.MakeId == id);
             var models = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return models;
         }
 
         public async Task<bool> IsValidByMakeIdAndIdAsync(int makeId, int modelId)
         {
-            var isValid = await this.modelsRepository.
-                AllAsNoTracking()
-                .AnyAsync(mod => mod.Id == modelId && mod.MakeId == makeId);
+            var isValid = await this.modelsRepository.AllAsNoTracking().AnyAsync(mod => mod.Id == modelId && mod.MakeId == makeId);
             return isValid;
         }
     }

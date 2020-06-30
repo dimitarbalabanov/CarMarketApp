@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -26,7 +27,6 @@
         public async Task<int> CreateAsync<T>(T model)
         {
             var make = this.mapper.Map<Make>(model);
-
             await this.makesRepository.AddAsync(make);
             await this.makesRepository.SaveChangesAsync();
             return make.Id;
@@ -34,15 +34,13 @@
 
         public async Task<bool> ExistsByNameAsync(string name)
         {
-            var exists = await this.makesRepository
-                .AllAsNoTracking()
-                .AnyAsync(m => m.Name == name);
+            var exists = await this.makesRepository.AllAsNoTracking().AnyAsync(m => m.Name == name);
             return exists;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var query = this.makesRepository.AllAsNoTracking();
+            var query = this.makesRepository.AllAsNoTracking().OrderBy(m => m.CreatedOn);
             var makes = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return makes;
         }
@@ -53,7 +51,6 @@
                 .AllAsNoTracking()
                 .Include(m => m.Models)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
             if (make == null)
             {
                 throw new NotFoundException();
@@ -64,10 +61,7 @@
 
         public async Task<bool> IsValidByIdAsync(int id)
         {
-            var isValid = await this.makesRepository
-                .AllAsNoTracking()
-                .AnyAsync(m => m.Id == id);
-
+            var isValid = await this.makesRepository.AllAsNoTracking().AnyAsync(m => m.Id == id);
             return isValid;
         }
     }

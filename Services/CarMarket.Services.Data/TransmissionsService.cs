@@ -31,9 +31,7 @@
 
         public async Task<bool> IsValidByIdAsync(int id)
         {
-            var isValid = await this.transmissionsRepository.
-                AllAsNoTracking()
-                .AnyAsync(t => t.Id == id);
+            var isValid = await this.transmissionsRepository.AllAsNoTracking().AnyAsync(t => t.Id == id);
             return isValid;
         }
     }

@@ -60,8 +60,7 @@
                 throw new AccessDeniedException();
             }
 
-            var listingFromDb = await this.listingsRepository
-                .All()
+            var listingFromDb = await this.listingsRepository.All()
                 .Include(l => l.Images)
                 .FirstOrDefaultAsync(l => l.Id == listingId);
 
@@ -104,10 +103,8 @@
                 throw new AccessDeniedException();
             }
 
-            var listing = await this.listingsRepository
-                .All()
+            var listing = await this.listingsRepository.All()
                 .FirstOrDefaultAsync(l => l.Id == listingId);
-
             if (listing == null)
             {
                 throw new NotFoundException();
@@ -171,10 +168,7 @@
 
         public async Task<int> GetTotalCountAsync()
         {
-            var count = await this.listingsRepository
-                .AllAsNoTracking()
-                .CountAsync();
-
+            var count = await this.listingsRepository.AllAsNoTracking().CountAsync();
             return count;
         }
 
@@ -185,7 +179,6 @@
                 .Where(l => l.Id == listingId)
                 .Select(l => l.SellerId)
                 .FirstOrDefaultAsync()) == userId;
-
             return isCreator;
         }
 

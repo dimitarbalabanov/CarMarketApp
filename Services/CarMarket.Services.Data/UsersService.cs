@@ -31,19 +31,14 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var usersQuery = this.userManager.Users
-                .AsNoTracking()
-                .Include(u => u.Listings);
-
+            var usersQuery = this.userManager.Users.AsNoTracking().Include(u => u.Listings);
             var users = await this.mapper.ProjectTo<T>(usersQuery).ToListAsync();
             return users;
         }
 
         public async Task<T> GetUserInfoByIdAsync<T>(string userId)
         {
-            var user = await this.userManager.Users
-                .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Id == userId);
+            var user = await this.userManager.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
             {
                 throw new NotFoundException();

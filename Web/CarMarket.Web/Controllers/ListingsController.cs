@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
-
+    using CarMarket.Common;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
     using CarMarket.Services.Data.Interfaces;
@@ -54,8 +54,7 @@
 
             var images = this.mapper.Map<IEnumerable<CreateListingInputImageDto>>(input.InputImages);
             var userId = this.userManager.GetUserId(this.User);
-            var listingId = await this.listingsService
-                .CreateAsync<CreateListingInputModel>(input, userId, images);
+            var listingId = await this.listingsService.CreateAsync<CreateListingInputModel>(input, userId, images);
 
             return this.RedirectToAction(nameof(this.Details), new { id = listingId });
         }
@@ -87,6 +86,11 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             await this.listingsService.DeleteByIdAsync(id, userId);
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.RedirectToAction("Index", "Users", new { area = "Administration" });
+            }
+
             return this.RedirectToAction(nameof(this.Personal));
         }
 
@@ -109,8 +113,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var listingViewModel = await this.listingsService
-                .GetSingleByIdAsync<DetailsListingViewModel>(id);
+            var listingViewModel = await this.listingsService.GetSingleByIdAsync<DetailsListingViewModel>(id);
 
             if (this.signInManager.IsSignedIn(this.User))
             {

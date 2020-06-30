@@ -18,7 +18,10 @@
         private readonly IMapper mapper;
         private readonly IRepository<Listing> listingsRepository;
 
-        public BookmarksService(IRepository<ApplicationUserBookmarkListing> bookmarksRepository, IMapper mapper, IRepository<Listing> listingsRepository)
+        public BookmarksService(
+            IRepository<ApplicationUserBookmarkListing> bookmarksRepository,
+            IMapper mapper,
+            IRepository<Listing> listingsRepository)
         {
             this.bookmarksRepository = bookmarksRepository;
             this.mapper = mapper;
@@ -59,8 +62,7 @@
 
         public async Task<bool> IsBookmarkedAsync(string userId, int listingId)
         {
-            var bookmark = await this.bookmarksRepository
-                .All()
+            var bookmark = await this.bookmarksRepository.All()
                 .FirstOrDefaultAsync(x => x.ListingId == listingId && x.UserId == userId);
 
             return bookmark != null;
@@ -68,8 +70,7 @@
 
         public async Task RemoveAsync(string userId, int listingId)
         {
-            var bookmark = await this.bookmarksRepository
-                .All()
+            var bookmark = await this.bookmarksRepository.All()
                 .FirstOrDefaultAsync(x => x.ListingId == listingId && x.UserId == userId);
 
             this.bookmarksRepository.Delete(bookmark);

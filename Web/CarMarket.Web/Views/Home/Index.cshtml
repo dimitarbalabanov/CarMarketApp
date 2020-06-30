@@ -1,7 +1,9 @@
 ﻿@model CarMarket.Web.ViewModels.Home.HomeViewModel
+@using CarMarket.Common
 @{
     this.ViewData["Title"] = "Home Page";
 }
+
 <div class="my-background-color">
     <div class="container">
         <div class="row align-items-center vh-50 py-5">
@@ -52,9 +54,9 @@
         {
             <div class="col-md-3 col-sm-6 mb-2">
                 <div class="card my-background-color">
-                    <img style="width: 100%; height: 13vw; object-fit: cover;" class="card-img-top" src="@listing.ImageUrl" alt="Card image cap">
+                    <img class="card-img-top custom-thumbnail-img" src="@listing.ImageUrl" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-car"></i> @listing.MakeModelName</h5>
+                        <h5 class="card-title">@listing.MakeModelName</h5>
                         <p class="card-text mb-0"><span class="font-weight-bold">Price: </span>@listing.Price BGN</p>
                         <p class="card-text mb-0"><span class="font-weight-bold">Production year: </span>@listing.ProductionYear</p>
                         <p class="card-text mb-0"><span class="font-weight-bold">Mileage: </span>@listing.Mileage km</p>
@@ -68,27 +70,27 @@
 </div>
 
 <div class="container">
-    <h4 class="text-center my-text-color mt-3">Popular brands</h4>
+    <h4 class="text-center my-text-color mt-3">Browse popular brands</h4>
     <hr />
     <div class="row">
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="#">
-                <img class="img-fluid img-thumbnail" src="~/bmw.jpg" alt="">
+            <a asp-controller="Search" asp-action="Result" asp-all-route-data="@GlobalConstants.VwParams">
+                <img class="img-fluid img-thumbnail" src="~/brands/vw.png" alt="">
             </a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="#">
-                <img class="img-fluid img-thumbnail" src="~/bmw.jpg" alt="">
+            <a asp-controller="Search" asp-action="Result" asp-all-route-data="@GlobalConstants.MercParams">
+                <img class="img-fluid img-thumbnail" src="~/brands/merc.png" alt="">
             </a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="#">
-                <img class="img-fluid img-thumbnail" src="~/bmw.jpg" alt="">
+            <a asp-controller="Search" asp-action="Result" asp-all-route-data="@GlobalConstants.AudiParams">
+                <img class="img-fluid img-thumbnail" src="~/brands/audi.png" alt="">
             </a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="#">
-                <img class="img-fluid img-thumbnail" src="~/bmw.jpg" alt="">
+            <a asp-controller="Search" asp-action="Result" asp-all-route-data="@GlobalConstants.BmwParams">
+                <img class="img-fluid img-thumbnail" src="~/brands/bmw.png" alt="">
             </a>
         </div>
     </div>

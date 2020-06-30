@@ -9,12 +9,19 @@
 }
 
 <div class="container">
-
-    <h1 class="my-4">
-        <i class="fas fa-car"></i> @Model.MakeName
+    <div class="row my-4">
+        <div class="col-md-8">
+            <h1 class="text-center">- @Model.MakeModelName -</h1>
+        </div>
+        <div class="col-md-4">
+            <h1>@Model.Price BGN</h1>
+        </div>
+    </div>
+    @*<h1 class="my-4">
+        @Model.MakeName
         <span class="mr-5">@Model.ModelName</span>
-        <span><i class="fas fa-money-bill-alt"></i> @Model.Price BGN</span>
-    </h1>
+        <span>@Model.Price BGN</span>
+    </h1>*@
 
     <div class="row">
         <div class="col-md-8">
@@ -106,7 +113,7 @@
             @if (Model.Description != null)
             {
                 <h4 class="my-3"><i class="fas fa-file-alt"></i> Description</h4>
-                <p>@Model.Description</p>
+                <p class="text-justify">@Model.Description</p>
             }
             <h4 class="my-3"><i class="fas fa-id-card"></i> Contact information:</h4>
             <p class="mb-0"><i class="fas fa-signature"></i> <span class="font-weight-bold">Name:</span> @Model.SellerFullName</p>

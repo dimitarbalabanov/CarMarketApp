@@ -19,6 +19,39 @@
             {
                 new Make
                 {
+                    Name = "Volkswagen",
+                    Models =
+                    {
+                        new Model { Name = "Amarok" },
+                        new Model { Name = "Arteon" },
+                        new Model { Name = "Caddy" },
+                        new Model { Name = "Golf" },
+                        new Model { Name = "Polo" },
+                        new Model { Name = "Jetta" },
+                        new Model { Name = "Passat" },
+                        new Model { Name = "Touareg" },
+                        new Model { Name = "Transporter" },
+                        new Model { Name = "Tiguan" },
+                    },
+                },
+                new Make
+                {
+                    Name = "Mercedes",
+                    Models =
+                    {
+                        new Model { Name = "G-Class" },
+                        new Model { Name = "S-Class" },
+                        new Model { Name = "C-Class" },
+                        new Model { Name = "E-Class" },
+                        new Model { Name = "CLK-Class" },
+                        new Model { Name = "A-Class" },
+                        new Model { Name = "CL-Class" },
+                        new Model { Name = "GLK-Class" },
+                        new Model { Name = "GLC-Class" },
+                    },
+                },
+                new Make
+                {
                     Name = "Audi",
                     Models =
                     {
@@ -124,22 +157,6 @@
                         new Model { Name = "i20" },
                         new Model { Name = "i30" },
                         new Model { Name = "Veloster" },
-                    },
-                },
-                new Make
-                {
-                    Name = "Mercedes",
-                    Models =
-                    {
-                        new Model { Name = "G-Class" },
-                        new Model { Name = "S-Class" },
-                        new Model { Name = "C-Class" },
-                        new Model { Name = "E-Class" },
-                        new Model { Name = "CLK-Class" },
-                        new Model { Name = "A-Class" },
-                        new Model { Name = "CL-Class" },
-                        new Model { Name = "GLK-Class" },
-                        new Model { Name = "GLC-Class" },
                     },
                 },
                 new Make
@@ -256,23 +273,6 @@
                         new Model { Name = "V60" },
                         new Model { Name = "V80" },
                         new Model { Name = "C30" },
-                    },
-                },
-                new Make
-                {
-                    Name = "Volkswagen",
-                    Models =
-                    {
-                        new Model { Name = "Amarok" },
-                        new Model { Name = "Arteon" },
-                        new Model { Name = "Caddy" },
-                        new Model { Name = "Golf" },
-                        new Model { Name = "Polo" },
-                        new Model { Name = "Jetta" },
-                        new Model { Name = "Passat" },
-                        new Model { Name = "Touareg" },
-                        new Model { Name = "Transporter" },
-                        new Model { Name = "Tiguan" },
                     },
                 },
             };
