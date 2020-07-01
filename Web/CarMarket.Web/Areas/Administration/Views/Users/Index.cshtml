@@ -37,7 +37,7 @@
                                 @user.UserName
                             </td>
                             <td>
-                                @user.CreatedOn
+                                <time datetime="@user.CreatedOn.ToString("O")"></time>
                             </td>
                             <td>
                                 @user.ListingsCount

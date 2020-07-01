@@ -13,9 +13,12 @@
         <li class="nav-item">
             <a class="nav-link text-white" asp-area="" asp-controller="Listings" asp-action="Personal"><i class="fas fa-clipboard-list"></i> Personal</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Listings" asp-action="Bookmarks"><i class="fas fa-bookmark mr-1"></i>Bookmarks</a>
-        </li>
+        if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Listings" asp-action="Bookmarks"><i class="fas fa-bookmark mr-1"></i>Bookmarks</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link text-white"><i class="fas fa-smile"></i> Hello, @(this.User.Identity.Name)!</a>
         </li>

@@ -13,7 +13,7 @@
             <p><span class="font-weight-bold my-text-color">Email:</span> @Model.Email</p>
             <p><span class="font-weight-bold my-text-color">First name:</span> @Model.FirstName</p>
             <p><span class="font-weight-bold my-text-color">Last name:</span> @Model.LastName</p>
-            <p><span class="font-weight-bold my-text-color">Registered on:</span> @Model.CreatedOn</p>
+            <p><span class="font-weight-bold my-text-color">Registered on:</span> <time datetime="@Model.CreatedOn.ToString("O")"></time></p>
             <hr class="mb-4">
         </div>
         <div class="table-responsive">
@@ -56,7 +56,7 @@
                                 @listing.Price
                             </td>
                             <td>
-                                @listing.CreatedOn
+                                <time datetime="@listing.CreatedOn.ToString("O")"></time>
                             </td>
                             <td>
                                 <a class="btn btn-outline-light my-background-color" asp-area="" asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id">Listing Details</a>

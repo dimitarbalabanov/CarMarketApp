@@ -10,7 +10,7 @@
             <hr class="mb-4">
             <p>Make Id: @Model.Id</p>
             <p>Total models: @Model.ModelsCount</p>
-            <p>Created on: @Model.CreatedOn</p>
+            <p>Created on: <time datetime="@Model.CreatedOn.ToString("O")"></time></p>
             <a class="btn btn-outline-light my-background-color" asp-action="CreateModel">Add a new model</a>
             <hr class="mb-4">
         </div>
@@ -42,7 +42,7 @@
                                 @mod.Name
                             </td>
                             <td>
-                                @mod.CreatedOn
+                                <time datetime="@mod.CreatedOn.ToString("O")"></time>
                             </td>
                         </tr>
                     }

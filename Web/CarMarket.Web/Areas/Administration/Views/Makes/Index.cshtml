@@ -37,7 +37,7 @@
                                 @make.Name
                             </td>
                             <td>
-                                @make.CreatedOn
+                                <time datetime="@make.CreatedOn.ToString("O")"></time>
                             </td>
                             <td>
                                 <a class="btn btn-outline-light my-background-color" asp-action="Details" asp-route-id="@make.Id">Manage models</a>

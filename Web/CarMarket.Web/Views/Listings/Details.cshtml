@@ -103,7 +103,7 @@
             <p class="mb-0"><i class="fas fa-dolly"></i> Mileage: <span class="font-weight-bold">@Model.Mileage km</span></p>
             <p class="mb-0"><i class="fas fa-calendar"></i> Production year: <span class="font-weight-bold">@Model.ProductionYear</span></p>
             <p class="mb-0"><i class="fas fa-cogs"></i> Transmission: <span class="font-weight-bold">@Model.TransmissionType</span></p>
-            <p class="mb-0"><i class="fas fa-clock"></i> Created on: <span class="font-weight-bold">@Model.CreatedOn</span></p>
+            <p class="mb-0"><i class="fas fa-clock"></i> Created on: <span class="font-weight-bold"><time datetime="@Model.CreatedOn.ToString("O")"></time></span></p>
 
             <h4 class="my-3"><i class="fas fa-id-card"></i> Contact information:</h4>
             <p class="mb-0"><i class="fas fa-signature"></i> Name: <span class="font-weight-bold">@Model.SellerFullName</span></p>
