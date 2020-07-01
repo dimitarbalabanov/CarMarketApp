@@ -127,24 +127,6 @@
     </div>
 </div>
 @section Scripts {
-    <script>
-        $('#makeModel').on('change', function () {
-            if ($('#makeModel').val() != "") {
-                fetchModels(this.value);
-            }
-        });
-
-        $(window).on('load', function () {
-            if ($('#makeModel').val() != "") {
-                fetchModels($('#makeModel').val());
-            }
-        });
-
-        function fetchModels(id) {
-            $.get(`/api/models/${id}`, function (data) {
-                const options = data.map(x => `<option value=${x.id}>${x.name}</option>`);
-                $('#modelSelect').empty().append(`<option>Any model</option>`).append(options);
-            });
-        }
-    </script>
+    <script src="~/js/load-models.js"></script>
+    <script src="~/js/fetch-models-search.js"></script>
 }

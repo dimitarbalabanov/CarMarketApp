@@ -128,24 +128,9 @@
     </div>
 </div>
 @section Scripts {
+    <script src="~/js/populate-input-file-name.js"></script>
+    <script src="~/js/load-models.js"></script>
     <script>
-        $('.custom-file-input').on('change', function () {
-            const fileName = event.target.files[0].name;
-            $(this).next('.custom-file-label').addClass("selected").html(fileName);
-        });
-
-        $('#makeModel').on('change', function () {
-            if ($('#makeModel').val() != "") {
-                fetchModels(this.value);
-            }
-        });
-
-        $(window).on('load', function () {
-            if ($('#makeModel').val() != "") {
-                fetchModels($('#makeModel').val());
-            }
-        });
-
         function fetchModels(id) {
             $.get(`/api/models/${id}`, function (data) {
                 const options = data.map(

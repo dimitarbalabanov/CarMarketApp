@@ -144,15 +144,6 @@
     </div>
 </div>
 @section Scripts {
-    <script>
-
-        $('.custom-file-input').on('change', function () {
-            const fileName = event.target.files[0].name;
-            $(this).next('.custom-file-label').addClass("selected").html(fileName);
-        });
-
-        $('.form-check-input').on('change', function () {
-            $(this).parent().parent().children().last().toggle();
-        });
-    </script>
+    <script src="~/js/populate-input-file-name.js"></script>
+    <script src="~/js/toggle-file-input-div.js"></script>
 }
