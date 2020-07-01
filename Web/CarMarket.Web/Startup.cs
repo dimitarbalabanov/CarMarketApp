@@ -74,9 +74,10 @@
 
             services.AddSingleton(this.configuration);
 
-            // Data repositories
+            // Data repository
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
+            // Cloudinary
             services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.configuration));
             services.AddTransient<ICloudinaryService, CloudinaryService>();
 
@@ -126,7 +127,7 @@
             //    }
             //});
 
-            //app.UseCustomExceptionHandler();
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

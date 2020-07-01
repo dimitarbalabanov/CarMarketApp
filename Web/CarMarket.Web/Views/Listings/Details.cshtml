@@ -18,10 +18,10 @@
         </div>
     </div>
     @*<h1 class="my-4">
-        @Model.MakeName
-        <span class="mr-5">@Model.ModelName</span>
-        <span>@Model.Price BGN</span>
-    </h1>*@
+            @Model.MakeName
+            <span class="mr-5">@Model.ModelName</span>
+            <span>@Model.Price BGN</span>
+        </h1>*@
 
     <div class="row">
         <div class="col-md-8">
@@ -85,7 +85,7 @@
                 }
                 else
                 {
-                    <!-- Bookmark button -->
+                    <!-- Bookmark buttons -->
                     <form id="bookmarksForm" class="form-inline" asp-antiforgery="true">
                         @if (Model.IsBookmarkedByCurrentUser)
                         {
@@ -101,25 +101,31 @@
                 }
             }
             <h4 class="my-3"><i class="fas fa-info-circle"></i> Details</h4>
-            <p class="mb-0"><i class="fas fa-truck-pickup"></i> <span class="font-weight-bold">Body:</span> @Model.BodyType</p>
-            <p class="mb-0"><i class="fas fa-palette"></i> <span class="font-weight-bold">Color:</span> @Model.ColorName</p>
-            <p class="mb-0"><i class="fas fa-oil-can"></i> <span class="font-weight-bold">Condition:</span> @Model.ConditionType</p>
-            <p class="mb-0"><i class="fas fa-gas-pump"></i> <span class="font-weight-bold">Fuel:</span> @Model.FuelType</p>
-            <p class="mb-0"><i class="fas fa-horse"></i> <span class="font-weight-bold">Horsepower:</span> @Model.Horsepower</p>
-            <p class="mb-0"><i class="fas fa-dolly"></i> <span class="font-weight-bold">Mileage:</span> @Model.Mileage km</p>
-            <p class="mb-0"><i class="fas fa-calendar"></i> <span class="font-weight-bold">Production year:</span> @Model.ProductionYear</p>
-            <p class="mb-0"><i class="fas fa-cogs"></i> <span class="font-weight-bold">Transmission:</span> @Model.TransmissionType</p>
-            <p class="mb-0"><i class="fas fa-clock"></i> <span class="font-weight-bold">Created on:</span> @Model.CreatedOn</p>
-            @if (Model.Description != null)
-            {
-                <h4 class="my-3"><i class="fas fa-file-alt"></i> Description</h4>
-                <p class="text-justify">@Model.Description</p>
-            }
+            <p class="mb-0"><i class="fas fa-truck-pickup"></i> Body: <span class="font-weight-bold">@Model.BodyType</span></p>
+            <p class="mb-0"><i class="fas fa-palette"></i> Color: <span class="font-weight-bold">@Model.ColorName</span></p>
+            <p class="mb-0"><i class="fas fa-oil-can"></i> Condition: <span class="font-weight-bold">@Model.ConditionType</span></p>
+            <p class="mb-0"><i class="fas fa-gas-pump"></i> Fuel: <span class="font-weight-bold">@Model.FuelType</span></p>
+            <p class="mb-0"><i class="fas fa-horse"></i> Horsepower: <span class="font-weight-bold">@Model.Horsepower hp</span></p>
+            <p class="mb-0"><i class="fas fa-dolly"></i> Mileage: <span class="font-weight-bold">@Model.Mileage km</span></p>
+            <p class="mb-0"><i class="fas fa-calendar"></i> Production year: <span class="font-weight-bold">@Model.ProductionYear</span></p>
+            <p class="mb-0"><i class="fas fa-cogs"></i> Transmission: <span class="font-weight-bold">@Model.TransmissionType</span></p>
+            <p class="mb-0"><i class="fas fa-clock"></i> Created on: <span class="font-weight-bold">@Model.CreatedOn</span></p>
+
             <h4 class="my-3"><i class="fas fa-id-card"></i> Contact information:</h4>
-            <p class="mb-0"><i class="fas fa-signature"></i> <span class="font-weight-bold">Name:</span> @Model.SellerFullName</p>
-            <p class="mb-0"><i class="fas fa-at"></i> <span class="font-weight-bold">Email:</span> @Model.SellerEmail</p>
+            <p class="mb-0"><i class="fas fa-signature"></i> Name: <span class="font-weight-bold">@Model.SellerFullName</span></p>
+            <p class="mb-0"><i class="fas fa-at"></i> Email: <span class="font-weight-bold">@Model.SellerEmail</span></p>
         </div>
     </div>
+    @if (Model.Description != null)
+    {
+        <div class="row">
+            <div class="col-md-8">
+
+                <h4 class="my-3"><i class="fas fa-file-alt"></i> Description</h4>
+                <p class="text-justify">@Model.Description</p>
+            </div>
+        </div>
+    }
 </div>
 
 @section Scripts {
