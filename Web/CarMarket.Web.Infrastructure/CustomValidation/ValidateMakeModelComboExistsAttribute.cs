@@ -22,7 +22,7 @@
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var modelId = (int)value;
-            var property = validationContext.ObjectType.GetProperty(makeId);
+            var property = validationContext.ObjectType.GetProperty(this.makeId);
             var makeIdAsInt = (int)property.GetValue(validationContext.ObjectInstance);
             var modelsService = validationContext.GetService<IModelsService>();
             bool isValid = modelsService.IsValidByMakeIdAndIdAsync(makeIdAsInt, modelId).GetAwaiter().GetResult();

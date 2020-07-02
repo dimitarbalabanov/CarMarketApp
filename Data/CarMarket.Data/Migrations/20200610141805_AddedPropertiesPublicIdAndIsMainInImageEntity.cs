@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CarMarket.Data.Migrations
+﻿namespace CarMarket.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedPropertiesPublicIdAndIsMainInImageEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

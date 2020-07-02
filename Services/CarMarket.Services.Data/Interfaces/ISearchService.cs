@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CarMarket.Services.Data.Pagination;
     using CarMarket.Services.Data.Dtos;
+    using CarMarket.Services.Data.Pagination;
 
     public interface ISearchService
     {
