@@ -46,8 +46,15 @@
             var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
             var listings = await this.searchService
                 .GetSearchResultAsync<SearchResultListingViewModel>(searchModel, pageNumber ?? DefaultPageNumber);
+            var searchInfoModel = await this.searchService
+                .ConstructSearchInfoModelAsync<SearchResultSearchInfoViewModel>(searchModel);
 
-            var viewModel = new SearchResultViewModel { Listings = listings };
+            var viewModel = new SearchResultViewModel
+            {
+                Listings = listings,
+                SearchInfoModel = searchInfoModel,
+            };
+
             return this.View(viewModel);
         }
     }

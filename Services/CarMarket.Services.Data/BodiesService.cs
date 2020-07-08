@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -27,6 +28,15 @@
             var query = this.bodiesRepository.AllAsNoTracking();
             var bodies = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return bodies;
+        }
+
+        public async Task<string> GetBodyTypeByIdAsync(int? id)
+        {
+            var bodyType = await this.bodiesRepository.AllAsNoTracking()
+                .Where(b => b.Id == id)
+                .Select(b => b.Type)
+                .FirstOrDefaultAsync();
+            return bodyType;
         }
 
         public async Task<bool> IsValidByIdAsync(int id)

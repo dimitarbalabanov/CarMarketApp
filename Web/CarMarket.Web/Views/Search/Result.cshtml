@@ -11,6 +11,22 @@
 <h2 class="text-center my-text-color mt-4 mb-2">Search results</h2>
 <div class="container mb-5 text-dark">
     <hr class="mb-4">
+    <div class="row justify-content-center">
+        <div class="col">
+            <p>@Model.SearchInfoModel.MakeName</p>
+            <p>@Model.SearchInfoModel.ModelName</p>
+            <p>@Model.SearchInfoModel.BodyType</p>
+            <p>@Model.SearchInfoModel.TransmissionType</p>
+            <p>@Model.SearchInfoModel.FuelType</p>
+            <p>@Model.SearchInfoModel.ConditionType</p>
+            <p>@Model.SearchInfoModel.ColorName</p>
+            <p>@Model.SearchInfoModel.OrderingValueString</p>
+            <p>@Model.SearchInfoModel.ProductionYearFrom - @Model.SearchInfoModel.ProductionYearTo</p>
+            <p>@Model.SearchInfoModel.MileageFrom - @Model.SearchInfoModel.MileageTo</p>
+            <p>@Model.SearchInfoModel.HorsepowerFrom - @Model.SearchInfoModel.HorsepowerTo</p>
+            <p>@Model.SearchInfoModel.PriceFrom - @Model.SearchInfoModel.PriceTo</p>
+        </div>
+    </div>
     @if (Model.Listings.Count() > 0)
     {
         @foreach (var listing in Model.Listings)

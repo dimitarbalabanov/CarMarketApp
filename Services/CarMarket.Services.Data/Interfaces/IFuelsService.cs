@@ -6,5 +6,7 @@
     public interface IFuelsService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<string> GetFuelTypeByIdAsync(int? id);
     }
 }

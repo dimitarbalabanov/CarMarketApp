@@ -31,11 +31,34 @@
         };
 
         private readonly IRepository<Listing> listingsRepository;
+        private readonly IMakesService makesService;
+        private readonly IModelsService modelsService;
+        private readonly IFuelsService fuelsService;
+        private readonly ITransmissionsService transmissionsService;
+        private readonly IColorsService colorsService;
+        private readonly IConditionsService conditionsService;
+        private readonly IBodiesService bodiesService;
         private readonly IMapper mapper;
 
-        public SearchService(IRepository<Listing> listingsRepository, IMapper mapper)
+        public SearchService(
+            IRepository<Listing> listingsRepository,
+            IMakesService makesService,
+            IModelsService modelsService,
+            IFuelsService fuelsService,
+            ITransmissionsService transmissionsService,
+            IColorsService colorsService,
+            IConditionsService conditionsService,
+            IBodiesService bodiesService,
+            IMapper mapper)
         {
             this.listingsRepository = listingsRepository;
+            this.makesService = makesService;
+            this.modelsService = modelsService;
+            this.fuelsService = fuelsService;
+            this.transmissionsService = transmissionsService;
+            this.colorsService = colorsService;
+            this.conditionsService = conditionsService;
+            this.bodiesService = bodiesService;
             this.mapper = mapper;
         }
 
@@ -64,6 +87,22 @@
             var mapperListings = this.mapper.ProjectTo<T>(listings);
             var pagedListings = await PaginatedList<T>.CreateAsync(mapperListings, pageNumber, DefaultPageSize);
             return pagedListings;
+        }
+
+        public async Task<T> ConstructSearchInfoModelAsync<T>(SearchModelDto searchInput)
+        {
+            var searchInfoModel = this.mapper.Map<SearchInfoModelDto>(searchInput);
+            searchInfoModel.OrderingValueString = OrderingValues[searchInput.OrderingValue];
+            searchInfoModel.BodyType = await this.bodiesService.GetBodyTypeByIdAsync(searchInput.BodyId);
+            searchInfoModel.ColorName = await this.colorsService.GetColorNameByIdAsync(searchInput.ColorId);
+            searchInfoModel.ConditionType = await this.conditionsService.GetConditionTypeByIdAsync(searchInput.ConditionId);
+            searchInfoModel.FuelType = await this.fuelsService.GetFuelTypeByIdAsync(searchInput.FuelId);
+            searchInfoModel.MakeName = await this.makesService.GetMakeNameByIdAsync(searchInput.MakeId);
+            searchInfoModel.ModelName = await this.modelsService.GetModelNameByIdAsync(searchInput.ModelId);
+            searchInfoModel.TransmissionType = await this.transmissionsService.GetTransmissionTypeByIdAsync(searchInput.TransmissionId);
+
+            var model = this.mapper.Map<T>(searchInfoModel);
+            return model;
         }
     }
 }

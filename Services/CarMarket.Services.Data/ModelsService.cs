@@ -36,6 +36,15 @@
             return exists;
         }
 
+        public async Task<string> GetModelNameByIdAsync(int? id)
+        {
+            var modelName = await this.modelsRepository.AllAsNoTracking()
+                .Where(m => m.Id == id)
+                .Select(m => m.Name)
+                .FirstOrDefaultAsync();
+            return modelName;
+        }
+
         public async Task<IEnumerable<T>> GetAllByMakeIdAsync<T>(int id)
         {
             var query = this.modelsRepository.AllAsNoTracking().Where(m => m.MakeId == id);

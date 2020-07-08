@@ -6,5 +6,7 @@
     public interface IConditionsService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<string> GetConditionTypeByIdAsync(int? id);
     }
 }

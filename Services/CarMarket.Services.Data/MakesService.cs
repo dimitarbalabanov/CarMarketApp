@@ -38,6 +38,15 @@
             return exists;
         }
 
+        public async Task<string> GetMakeNameByIdAsync(int? id)
+        {
+            var makeName = await this.makesRepository.AllAsNoTracking()
+                .Where(m => m.Id == id)
+                .Select(m => m.Name)
+                .FirstOrDefaultAsync();
+            return makeName;
+        }
+
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             var query = this.makesRepository.AllAsNoTracking().OrderBy(m => m.CreatedOn);

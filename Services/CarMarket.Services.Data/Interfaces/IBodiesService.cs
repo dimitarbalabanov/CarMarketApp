@@ -6,5 +6,7 @@
     public interface IBodiesService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<string> GetBodyTypeByIdAsync(int? id);
     }
 }

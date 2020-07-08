@@ -93,8 +93,12 @@
 
             this.CreateMap<CreateModelInputModel, Model>();
 
-            // Search input to Search Dto
+            // Search
             this.CreateMap<SearchInputModel, SearchModelDto>();
+
+            this.CreateMap<SearchModelDto, SearchInfoModelDto>();
+
+            this.CreateMap<SearchInfoModelDto, SearchResultSearchInfoViewModel>();
 
             // Application user to View model
             this.CreateMap<ApplicationUser, UserViewModel>();

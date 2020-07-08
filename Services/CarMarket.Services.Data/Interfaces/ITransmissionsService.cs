@@ -6,5 +6,7 @@
     public interface ITransmissionsService
     {
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<string> GetTransmissionTypeByIdAsync(int? id);
     }
 }

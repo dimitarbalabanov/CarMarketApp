@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -27,6 +28,15 @@
             var query = this.colorsRepository.AllAsNoTracking();
             var colors = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return colors;
+        }
+
+        public async Task<string> GetColorNameByIdAsync(int? id)
+        {
+            var colorName = await this.colorsRepository.AllAsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.Name)
+                .FirstOrDefaultAsync();
+            return colorName;
         }
 
         public async Task<bool> IsValidByIdAsync(int id)

@@ -5,5 +5,7 @@
     public class SearchResultViewModel
     {
         public PaginatedList<SearchResultListingViewModel> Listings { get; set; }
+
+        public SearchResultSearchInfoViewModel SearchInfoModel { get; set; }
     }
 }

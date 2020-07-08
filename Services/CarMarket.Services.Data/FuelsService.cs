@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -27,6 +28,15 @@
             var query = this.fuelsRepository.AllAsNoTracking();
             var fuels = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return fuels;
+        }
+
+        public async Task<string> GetFuelTypeByIdAsync(int? id)
+        {
+            var fuelType = await this.fuelsRepository.AllAsNoTracking()
+                .Where(f => f.Id == id)
+                .Select(f => f.Type)
+                .FirstOrDefaultAsync();
+            return fuelType;
         }
 
         public async Task<bool> IsValidByIdAsync(int id)

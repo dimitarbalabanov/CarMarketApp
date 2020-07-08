@@ -1,6 +1,7 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -27,6 +28,15 @@
             var query = this.conditionsRepository.AllAsNoTracking();
             var conditions = await this.mapper.ProjectTo<T>(query).ToListAsync();
             return conditions;
+        }
+
+        public async Task<string> GetConditionTypeByIdAsync(int? id)
+        {
+            var conditionType = await this.conditionsRepository.AllAsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.Type)
+                .FirstOrDefaultAsync();
+            return conditionType;
         }
 
         public async Task<bool> IsValidByIdAsync(int id)
