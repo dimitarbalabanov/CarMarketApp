@@ -1,4 +1,8 @@
 ﻿@model CarMarket.Web.ViewModels.Search.SearchResultViewModel
+@using CarMarket.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Search Result";
@@ -25,6 +29,13 @@
                                 <p class="card-text mb-0"><i class="fas fa-calendar"></i><span class="font-weight-bold"> Production year: </span>@listing.ProductionYear</p>
                                 <p class="card-text mb-0"><i class="fas fa-dolly"></i><span class="font-weight-bold"> Mileage: </span>@listing.Mileage km</p>
                                 <p class="card-text"><i class="fas fa-clock"></i><span class="font-weight-bold"> Created on: </span> <time datetime="@listing.CreatedOn.ToString("O")"></time></p>
+                                @if (this.SignInManager.IsSignedIn(this.User))
+                                {
+                                    if (this.UserManager.GetUserId(this.User) == listing.SellerId)
+                                    {
+                                        <p class="card-text text-center"><i class="fas fa-user-check"></i><span class="font-weight-bold"> Your listing</span></p>
+                                    }
+                                }
                             </div>
                         </div>
                         <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="stretched-link"></a>

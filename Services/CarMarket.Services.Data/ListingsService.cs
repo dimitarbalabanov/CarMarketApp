@@ -98,7 +98,7 @@
 
         public async Task DeleteByIdAsync(int listingId, string userId)
         {
-            if (!(await this.IsCreatorAsync(userId, listingId) || await this.IsAdminAsync(userId)))
+            if (!(await this.HasPermissionToAccessAsync(userId, listingId)))
             {
                 throw new AccessDeniedException();
             }
@@ -170,6 +170,14 @@
         {
             var count = await this.listingsRepository.AllAsNoTracking().CountAsync();
             return count;
+        }
+
+        public async Task<bool> HasPermissionToAccessAsync(string userId, int listingId)
+        {
+            var isCreator = await this.IsCreatorAsync(userId, listingId);
+            var isAdmin = await this.IsAdminAsync(userId);
+            var hasPermission = isCreator || isAdmin;
+            return hasPermission;
         }
 
         private async Task<bool> IsCreatorAsync(string userId, int listingId)

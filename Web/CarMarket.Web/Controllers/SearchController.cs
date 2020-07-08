@@ -43,15 +43,9 @@
             var queryValuesDictionary = this.Request.Query.ToDictionary(x => x.Key, y => y.Value.ToString());
             this.ViewData["Query"] = queryValuesDictionary;
 
-            string userId = null;
-            if (this.signInManager.IsSignedIn(this.User))
-            {
-                userId = this.userManager.GetUserId(this.User);
-            }
-
             var searchModel = this.mapper.Map<SearchModelDto>(searchInput);
             var listings = await this.searchService
-                .GetSearchResultAsync<SearchResultListingViewModel>(searchModel, userId, pageNumber ?? DefaultPageNumber);
+                .GetSearchResultAsync<SearchResultListingViewModel>(searchModel, pageNumber ?? DefaultPageNumber);
 
             var viewModel = new SearchResultViewModel { Listings = listings };
             return this.View(viewModel);

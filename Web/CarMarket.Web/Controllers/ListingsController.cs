@@ -5,9 +5,11 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
+
     using CarMarket.Common;
     using CarMarket.Data.Models;
     using CarMarket.Services.Data.Dtos;
+    using CarMarket.Services.Data.Exceptions;
     using CarMarket.Services.Data.Interfaces;
     using CarMarket.Web.ViewModels.Listings;
 
@@ -61,6 +63,12 @@
 
         public async Task<IActionResult> Edit(int id)
         {
+            var userId = this.userManager.GetUserId(this.User);
+            if (!(await this.listingsService.HasPermissionToAccessAsync(userId, id)))
+            {
+                throw new AccessDeniedException();
+            }
+
             var viewModel = await this.listingsService.GetSingleByIdAsync<EditListingInputModel>(id);
             return this.View(viewModel);
         }
@@ -114,7 +122,6 @@
         public async Task<IActionResult> Details(int id)
         {
             var listingViewModel = await this.listingsService.GetSingleByIdAsync<DetailsListingViewModel>(id);
-
             if (this.signInManager.IsSignedIn(this.User))
             {
                 var userId = this.userManager.GetUserId(this.User);
