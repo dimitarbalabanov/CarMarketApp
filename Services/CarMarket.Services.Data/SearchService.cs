@@ -1,7 +1,6 @@
 ﻿namespace CarMarket.Services.Data
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -75,7 +74,7 @@
 
             if (!OrderingValues.ContainsKey(searchModel.OrderingValue))
             {
-                throw new KeyNotFoundException();
+                searchModel.OrderingValue = 0;
             }
 
             listings = OrderingMutatorsProvider.OrderingMutators[searchModel.OrderingValue](listings);
@@ -91,7 +90,7 @@
 
         public async Task<T> ConstructSearchInfoModelAsync<T>(SearchModelDto searchInput)
         {
-            var searchInfoModel = this.mapper.Map<SearchInfoModelDto>(searchInput);
+            var searchInfoModel = new SearchInfoModelDto();
             searchInfoModel.OrderingValueString = OrderingValues[searchInput.OrderingValue];
             searchInfoModel.BodyType = await this.bodiesService.GetBodyTypeByIdAsync(searchInput.BodyId);
             searchInfoModel.ColorName = await this.colorsService.GetColorNameByIdAsync(searchInput.ColorId);

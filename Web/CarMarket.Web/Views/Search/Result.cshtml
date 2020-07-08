@@ -11,22 +11,75 @@
 <h2 class="text-center my-text-color mt-4 mb-2">Search results</h2>
 <div class="container mb-5 text-dark">
     <hr class="mb-4">
-    <div class="row justify-content-center">
-        <div class="col">
-            <p>@Model.SearchInfoModel.MakeName</p>
-            <p>@Model.SearchInfoModel.ModelName</p>
-            <p>@Model.SearchInfoModel.BodyType</p>
-            <p>@Model.SearchInfoModel.TransmissionType</p>
-            <p>@Model.SearchInfoModel.FuelType</p>
-            <p>@Model.SearchInfoModel.ConditionType</p>
-            <p>@Model.SearchInfoModel.ColorName</p>
-            <p>@Model.SearchInfoModel.OrderingValueString</p>
-            <p>@Model.SearchInfoModel.ProductionYearFrom - @Model.SearchInfoModel.ProductionYearTo</p>
-            <p>@Model.SearchInfoModel.MileageFrom - @Model.SearchInfoModel.MileageTo</p>
-            <p>@Model.SearchInfoModel.HorsepowerFrom - @Model.SearchInfoModel.HorsepowerTo</p>
-            <p>@Model.SearchInfoModel.PriceFrom - @Model.SearchInfoModel.PriceTo</p>
+    <div class="row justify-content-center font-weight-bold my-text-color">
+        @{ 
+            var prodYearFrom = !string.IsNullOrEmpty(Model.SearchInfoModel.ProductionYearFrom.ToString()) ? Model.SearchInfoModel.ProductionYearFrom.ToString() : "-";
+            var prodYearTo = !string.IsNullOrEmpty(Model.SearchInfoModel.ProductionYearTo.ToString()) ? Model.SearchInfoModel.ProductionYearTo.ToString() : "-";
+            var mileageFrom = !string.IsNullOrEmpty(Model.SearchInfoModel.MileageFrom.ToString()) ? Model.SearchInfoModel.MileageFrom.ToString() : "-";
+            var mileageTo = !string.IsNullOrEmpty(Model.SearchInfoModel.MileageTo.ToString()) ? Model.SearchInfoModel.MileageTo.ToString() : "-";
+            var horsepowerFrom = !string.IsNullOrEmpty(Model.SearchInfoModel.HorsepowerFrom.ToString()) ? Model.SearchInfoModel.HorsepowerFrom.ToString() : "-";
+            var horsepowerTo = !string.IsNullOrEmpty(Model.SearchInfoModel.HorsepowerTo.ToString()) ? Model.SearchInfoModel.HorsepowerTo.ToString() : "-";
+            var priceFrom = !string.IsNullOrEmpty(Model.SearchInfoModel.PriceFrom.ToString()) ? Model.SearchInfoModel.PriceFrom.ToString() : "-";
+            var priceTo = !string.IsNullOrEmpty(Model.SearchInfoModel.PriceTo.ToString()) ? Model.SearchInfoModel.PriceTo.ToString() : "-";
+        }
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-car"></i> Make: <span class="text-dark">@(Model.SearchInfoModel.MakeName ?? "Any")</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-car-side"></i> Model: <span class="text-dark">@(Model.SearchInfoModel.ModelName ?? "Any")</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-truck-pickup"></i> Body type: <span class="text-dark">@(Model.SearchInfoModel.BodyType ?? "Any")</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-cogs"></i> Transmission type: <span class="text-dark">@(Model.SearchInfoModel.TransmissionType ?? "Any")</span></p>
         </div>
     </div>
+    <div class="row justify-content-center font-weight-bold my-text-color">
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-gas-pump"></i> Fuel type: <span class="text-dark">@(Model.SearchInfoModel.FuelType ?? "Any")</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-oil-can"></i> Condition type: <span class="text-dark">@(Model.SearchInfoModel.ConditionType ?? "Any")</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-palette"></i> Color: <span class="text-dark">@(Model.SearchInfoModel.ColorName ?? "Any")</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-sort"></i> Ordered by: <span class="text-dark">@Model.SearchInfoModel.OrderingValueString</span></p>
+        </div>
+    </div>
+    <div class="row justify-content-center font-weight-bold my-text-color">
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-calendar"></i> Production year from:  <span class="text-dark">@prodYearFrom</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-calendar"></i> Production year to: <span class="text-dark">@prodYearTo</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-dolly"></i> Mileage from: <span class="text-dark">@mileageFrom</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-dolly"></i> Mileage to: <span class="text-dark">@mileageTo</span></p>
+
+        </div>
+    </div>
+    <div class="row justify-content-center font-weight-bold my-text-color">
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-horse"></i> Horsepower from: <span class="text-dark">@horsepowerFrom</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-horse"></i> Horsepower to: <span class="text-dark">@horsepowerTo</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-money-bill-alt"></i> Price from: <span class="text-dark">@priceFrom</span></p>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0"><i class="fas fa-money-bill-alt"></i> Price to: <span class="text-dark">@priceTo</span></p>
+        </div>
+    </div>
+    <hr class="mb-4">
+
     @if (Model.Listings.Count() > 0)
     {
         @foreach (var listing in Model.Listings)
