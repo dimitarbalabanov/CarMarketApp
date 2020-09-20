@@ -19,31 +19,33 @@
         private const string TestName1 = "White";
         private const string TestName2 = "Silver";
         private const string TestName3 = "Black";
-        private const int TestId = 1;
+        private const int TestName1TestId = 1;
+        private const int TestName2TestId = 2;
+        private const int TestName3TestId = 3;
+        private const int NonExistentId = 1234567;
 
         private readonly IMapper mapper;
         private readonly ApplicationDbContext context;
+        private readonly ColorsService sut;
 
         public ColorsServiceTests()
         {
             this.mapper = MapperFactory.Create();
             this.context = InMemoryDbContextFactory.Create();
+            this.SeedColors();
+            this.sut = new ColorsService(new EfRepository<Color>(this.context), this.mapper);
         }
 
         [Fact]
         public async Task GetAllAsync_ShouldReturnCorrectValues_WhenValuesExist()
         {
-            await this.SeedMultiple();
-            var service = this.CreateRepositoryAndService();
-
             var expected = new List<ColorSelectListViewModel>
             {
                 new ColorSelectListViewModel { Name = TestName1 },
                 new ColorSelectListViewModel { Name = TestName2 },
                 new ColorSelectListViewModel { Name = TestName3 },
             };
-
-            var actual = (await service.GetAllAsync<ColorSelectListViewModel>()).ToList();
+            var actual = (await this.sut.GetAllAsync<ColorSelectListViewModel>()).ToList();
 
             Assert.Equal(expected.Count, actual.Count());
             for (int i = 0; i < expected.Count; i++)
@@ -55,70 +57,59 @@
         [Fact]
         public async Task GetAllAsync_ShouldReturnEmptyList_WhenValuesDoNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetAllAsync<ColorSelectListViewModel>();
+            this.context.Colors.RemoveRange(this.context.Colors);
+            await this.context.SaveChangesAsync();
+
+            var actual = await this.sut.GetAllAsync<ColorSelectListViewModel>();
 
             Assert.Empty(actual);
         }
 
-        [Fact]
-        public async Task GetColorNameByIdAsync_ShouldReturnCorrectName_WhenColorExists()
+        [Theory]
+        [InlineData(TestName1TestId, TestName1)]
+        [InlineData(TestName2TestId, TestName2)]
+        [InlineData(TestName3TestId, TestName3)]
+        public async Task GetColorNameByIdAsync_ShouldReturnCorrectName_WhenColorExists(int id, string expected)
         {
-            await this.SeedSingle();
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetColorNameByIdAsync(TestId);
+            var actual = await this.sut.GetColorNameByIdAsync(id);
 
-            Assert.Equal(TestName1, actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public async Task GetColorNameByIdAsync_ShouldReturnNull_WhenColorDoesNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetColorNameByIdAsync(TestId);
+            var actual = await this.sut.GetColorNameByIdAsync(NonExistentId);
 
             Assert.Null(actual);
         }
 
-        [Fact]
-        public async Task IsValidByIdAsync_ShouldReturnTrue_WhenColorExists()
+        [Theory]
+        [InlineData(TestName1TestId)]
+        [InlineData(TestName2TestId)]
+        [InlineData(TestName3TestId)]
+        public async Task IsValidByIdAsync_ShouldReturnTrue_WhenColorExists(int id)
         {
-            await this.SeedSingle();
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.IsValidByIdAsync(TestId);
+            var actual = await this.sut.IsValidByIdAsync(id);
 
             Assert.True(actual);
         }
 
         [Fact]
-        public async Task IsValidByIdAsync_ShouldReturnFalse_WhenColorDoesNotExists()
+        public async Task IsValidByIdAsync_ShouldReturnFalse_WhenColorDoesNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.IsValidByIdAsync(TestId);
+            var actual = await this.sut.IsValidByIdAsync(NonExistentId);
 
             Assert.False(actual);
         }
 
-        private ColorsService CreateRepositoryAndService()
+        private void SeedColors()
         {
-            var repository = new EfRepository<Color>(this.context);
-            var service = new ColorsService(repository, this.mapper);
-            return service;
-        }
-
-        private async Task SeedMultiple()
-        {
-            await this.context.Colors.AddRangeAsync(
-                new Color { Name = TestName1 },
-                new Color { Name = TestName2 },
-                new Color { Name = TestName3 });
-            await this.context.SaveChangesAsync();
-        }
-
-        private async Task SeedSingle()
-        {
-            await this.context.Colors.AddAsync(new Color { Id = TestId, Name = TestName1 });
-            await this.context.SaveChangesAsync();
+            this.context.Colors.AddRange(
+                new Color { Id = TestName1TestId, Name = TestName1 },
+                new Color { Id = TestName2TestId, Name = TestName2 },
+                new Color { Id = TestName3TestId, Name = TestName3 });
+            this.context.SaveChanges();
         }
     }
 }

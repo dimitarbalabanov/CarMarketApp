@@ -19,31 +19,33 @@
         private const string TestType1 = "Automatic";
         private const string TestType2 = "Manual";
         private const string TestType3 = "SemiAutomatic";
-        private const int TestId = 1;
+        private const int TestType1TestId = 1;
+        private const int TestType2TestId = 2;
+        private const int TestType3TestId = 3;
+        private const int NonExistentId = 1234567;
 
         private readonly IMapper mapper;
         private readonly ApplicationDbContext context;
+        private readonly TransmissionsService sut;
 
         public TransmissionsServiceTests()
         {
             this.mapper = MapperFactory.Create();
             this.context = InMemoryDbContextFactory.Create();
+            this.SeedTransmissions();
+            this.sut = new TransmissionsService(new EfRepository<Transmission>(this.context), this.mapper);
         }
 
         [Fact]
         public async Task GetAllAsync_ShouldReturnCorrectValues_WhenValuesExist()
         {
-            await this.SeedMultiple();
-            var service = this.CreateRepositoryAndService();
-
             var expected = new List<TransmissionSelectListViewModel>
             {
                 new TransmissionSelectListViewModel { Type = TestType1 },
                 new TransmissionSelectListViewModel { Type = TestType2 },
                 new TransmissionSelectListViewModel { Type = TestType3 },
             };
-
-            var actual = (await service.GetAllAsync<TransmissionSelectListViewModel>()).ToList();
+            var actual = (await this.sut.GetAllAsync<TransmissionSelectListViewModel>()).ToList();
 
             Assert.Equal(expected.Count, actual.Count());
             for (int i = 0; i < expected.Count; i++)
@@ -55,70 +57,59 @@
         [Fact]
         public async Task GetAllAsync_ShouldReturnEmptyList_WhenValuesDoNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetAllAsync<TransmissionSelectListViewModel>();
+            this.context.Transmissions.RemoveRange(this.context.Transmissions);
+            await this.context.SaveChangesAsync();
+
+            var actual = await this.sut.GetAllAsync<TransmissionSelectListViewModel>();
 
             Assert.Empty(actual);
         }
 
-        [Fact]
-        public async Task GetTransmissionTypeByIdAsync_ShouldReturnCorrectType_WhenTransmissionExists()
+        [Theory]
+        [InlineData(TestType1TestId, TestType1)]
+        [InlineData(TestType2TestId, TestType2)]
+        [InlineData(TestType3TestId, TestType3)]
+        public async Task GetTransmissionTypeByIdAsync_ShouldReturnCorrectType_WhenTransmissionExists(int id, string expected)
         {
-            await this.SeedSingle();
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetTransmissionTypeByIdAsync(TestId);
+            var actual = await this.sut.GetTransmissionTypeByIdAsync(id);
 
-            Assert.Equal(TestType1, actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public async Task GetTransmissionTypeByIdAsync_ShouldReturnNull_WhenTransmissionDoesNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetTransmissionTypeByIdAsync(TestId);
+            var actual = await this.sut.GetTransmissionTypeByIdAsync(NonExistentId);
 
             Assert.Null(actual);
         }
 
-        [Fact]
-        public async Task IsValidByIdAsync_ShouldReturnTrue_WhenTransmissionExists()
+        [Theory]
+        [InlineData(TestType1TestId)]
+        [InlineData(TestType2TestId)]
+        [InlineData(TestType3TestId)]
+        public async Task IsValidByIdAsync_ShouldReturnTrue_WhenTransmissionExists(int id)
         {
-            await this.SeedSingle();
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.IsValidByIdAsync(TestId);
+            var actual = await this.sut.IsValidByIdAsync(id);
 
             Assert.True(actual);
         }
 
         [Fact]
-        public async Task IsValidByIdAsync_ShouldReturnFalse_WhenTransmissionDoesNotExists()
+        public async Task IsValidByIdAsync_ShouldReturnFalse_WhenTransmissionDoesNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.IsValidByIdAsync(TestId);
+            var actual = await this.sut.IsValidByIdAsync(NonExistentId);
 
             Assert.False(actual);
         }
 
-        private TransmissionsService CreateRepositoryAndService()
+        private void SeedTransmissions()
         {
-            var repository = new EfRepository<Transmission>(this.context);
-            var service = new TransmissionsService(repository, this.mapper);
-            return service;
-        }
-
-        private async Task SeedMultiple()
-        {
-            await this.context.Transmissions.AddRangeAsync(
+            this.context.Transmissions.AddRange(
                 new Transmission { Type = TestType1 },
                 new Transmission { Type = TestType2 },
                 new Transmission { Type = TestType3 });
-            await this.context.SaveChangesAsync();
-        }
-
-        private async Task SeedSingle()
-        {
-            await this.context.Transmissions.AddAsync(new Transmission { Id = TestId, Type = TestType1 });
-            await this.context.SaveChangesAsync();
+            this.context.SaveChanges();
         }
     }
 }

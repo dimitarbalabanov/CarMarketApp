@@ -19,31 +19,33 @@
         private const string TestType1 = "Convertible";
         private const string TestType2 = "Coupe";
         private const string TestType3 = "Hatchback";
-        private const int TestId = 1;
+        private const int TestType1TestId = 1;
+        private const int TestType2TestId = 2;
+        private const int TestType3TestId = 3;
+        private const int NonExistentId = 1234567;
 
         private readonly IMapper mapper;
         private readonly ApplicationDbContext context;
+        private readonly BodiesService sut;
 
         public BodiesServiceTests()
         {
             this.mapper = MapperFactory.Create();
             this.context = InMemoryDbContextFactory.Create();
+            this.SeedBodies();
+            this.sut = new BodiesService(new EfRepository<Body>(this.context), this.mapper);
         }
 
         [Fact]
         public async Task GetAllAsync_ShouldReturnCorrectValues_WhenValuesExist()
         {
-            await this.SeedMultiple();
-            var service = this.CreateRepositoryAndService();
-
             var expected = new List<BodySelectListViewModel>
             {
                 new BodySelectListViewModel { Type = TestType1 },
                 new BodySelectListViewModel { Type = TestType2 },
                 new BodySelectListViewModel { Type = TestType3 },
             };
-
-            var actual = (await service.GetAllAsync<BodySelectListViewModel>()).ToList();
+            var actual = (await this.sut.GetAllAsync<BodySelectListViewModel>()).ToList();
 
             Assert.Equal(expected.Count, actual.Count());
             for (int i = 0; i < expected.Count; i++)
@@ -55,70 +57,59 @@
         [Fact]
         public async Task GetAllAsync_ShouldReturnEmptyList_WhenValuesDoNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetAllAsync<BodySelectListViewModel>();
+            this.context.Bodies.RemoveRange(this.context.Bodies);
+            await this.context.SaveChangesAsync();
+
+            var actual = await this.sut.GetAllAsync<BodySelectListViewModel>();
 
             Assert.Empty(actual);
         }
 
-        [Fact]
-        public async Task GetBodyTypeByIdAsync_ShouldReturnCorrectType_WhenBodyExists()
+        [Theory]
+        [InlineData(TestType1TestId, TestType1)]
+        [InlineData(TestType2TestId, TestType2)]
+        [InlineData(TestType3TestId, TestType3)]
+        public async Task GetBodyTypeByIdAsync_ShouldReturnCorrectType_WhenBodyExists(int id, string expected)
         {
-            await this.SeedSingle();
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetBodyTypeByIdAsync(TestId);
+            var actual = await this.sut.GetBodyTypeByIdAsync(id);
 
-            Assert.Equal(TestType1, actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public async Task GetBodyTypeByIdAsync_ShouldReturnNull_WhenBodyDoesNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.GetBodyTypeByIdAsync(TestId);
+            var actual = await this.sut.GetBodyTypeByIdAsync(NonExistentId);
 
             Assert.Null(actual);
         }
 
-        [Fact]
-        public async Task IsValidByIdAsync_ShouldReturnTrue_WhenBodyExists()
+        [Theory]
+        [InlineData(TestType1TestId)]
+        [InlineData(TestType2TestId)]
+        [InlineData(TestType3TestId)]
+        public async Task IsValidByIdAsync_ShouldReturnTrue_WhenBodyExists(int id)
         {
-            await this.SeedSingle();
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.IsValidByIdAsync(TestId);
+            var actual = await this.sut.IsValidByIdAsync(id);
 
             Assert.True(actual);
         }
 
         [Fact]
-        public async Task IsValidByIdAsync_ShouldReturnFalse_WhenBodyDoesNotExists()
+        public async Task IsValidByIdAsync_ShouldReturnFalse_WhenBodyDoesNotExist()
         {
-            var service = this.CreateRepositoryAndService();
-            var actual = await service.IsValidByIdAsync(TestId);
+            var actual = await this.sut.IsValidByIdAsync(NonExistentId);
 
             Assert.False(actual);
         }
 
-        private BodiesService CreateRepositoryAndService()
+        private void SeedBodies()
         {
-            var repository = new EfRepository<Body>(this.context);
-            var service = new BodiesService(repository, this.mapper);
-            return service;
-        }
-
-        private async Task SeedMultiple()
-        {
-            await this.context.Bodies.AddRangeAsync(
-                            new Body { Type = TestType1 },
-                            new Body { Type = TestType2 },
-                            new Body { Type = TestType3 });
-            await this.context.SaveChangesAsync();
-        }
-
-        private async Task SeedSingle()
-        {
-            await this.context.Bodies.AddAsync(new Body { Id = TestId, Type = TestType1 });
-            await this.context.SaveChangesAsync();
+            this.context.Bodies.AddRange(
+                            new Body { Id = TestType1TestId, Type = TestType1 },
+                            new Body { Id = TestType2TestId, Type = TestType2 },
+                            new Body { Id = TestType3TestId, Type = TestType3 });
+            this.context.SaveChanges();
         }
     }
 }
