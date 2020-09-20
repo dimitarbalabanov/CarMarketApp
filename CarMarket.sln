@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMarket.Services", "Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMarket.Web.Infrastructure", "Web\CarMarket.Web.Infrastructure\CarMarket.Web.Infrastructure.csproj", "{CA37DE82-AF39-4743-B35B-294A74480A51}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A5141D3-DF9B-4260-9A9F-E41EA5D8DF14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMarket.Services.Data.Tests", "Tests\CarMarket.Services.Data.Tests\CarMarket.Services.Data.Tests.csproj", "{9DC9BB15-3E86-46A5-A698-7A9A404AC6E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{CA37DE82-AF39-4743-B35B-294A74480A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA37DE82-AF39-4743-B35B-294A74480A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA37DE82-AF39-4743-B35B-294A74480A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC9BB15-3E86-46A5-A698-7A9A404AC6E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC9BB15-3E86-46A5-A698-7A9A404AC6E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC9BB15-3E86-46A5-A698-7A9A404AC6E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC9BB15-3E86-46A5-A698-7A9A404AC6E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +90,7 @@ Global
 		{099051A3-C7D4-4CEA-8A45-31EE9CB4C80E} = {ACBE44C4-E198-45E2-BA02-6655250A0006}
 		{77A69F10-9525-4731-B4E2-A5B71CC42D2C} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
 		{CA37DE82-AF39-4743-B35B-294A74480A51} = {E389DEB6-5F90-444B-A054-12A10D39C76F}
+		{9DC9BB15-3E86-46A5-A698-7A9A404AC6E0} = {2A5141D3-DF9B-4260-9A9F-E41EA5D8DF14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384484BE-4680-4529-9CC2-AD37BA4D12D1}
