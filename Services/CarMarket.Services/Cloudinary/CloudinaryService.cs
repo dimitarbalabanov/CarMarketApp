@@ -21,7 +21,7 @@
             this.cloudinary = cloudinary;
         }
 
-        public async Task<ImageUploadResult> UploadImageAsync(IFormFile formFile, string name)
+        public async Task<UploadResultDto> UploadImageAsync(IFormFile formFile, string name)
         {
             if (formFile == null)
             {
@@ -45,7 +45,13 @@
             var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
             stream.Dispose();
 
-            return uploadResult;
+            var result = new UploadResultDto
+            {
+                AbsoluteUri = uploadResult.SecureUri.AbsoluteUri,
+                PublicId = uploadResult.PublicId,
+            };
+
+            return result;
         }
 
         public async Task DestroyImageAsync(string publicId)

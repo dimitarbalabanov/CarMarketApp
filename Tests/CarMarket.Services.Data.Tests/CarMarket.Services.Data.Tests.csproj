@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CarMarket.Data\CarMarket.Data.csproj" />
     <ProjectReference Include="..\..\Services\CarMarket.Services.Data\CarMarket.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\CarMarket.Services\CarMarket.Services.csproj" />
     <ProjectReference Include="..\..\Web\CarMarket.Web\CarMarket.Web.csproj" />
   </ItemGroup>
 

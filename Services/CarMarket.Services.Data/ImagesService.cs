@@ -29,7 +29,7 @@
             var uploadResult = await this.cloudinaryService.UploadImageAsync(file, file.Name);
             var image = new Image
             {
-                ImageUrl = uploadResult.SecureUri.AbsoluteUri,
+                ImageUrl = uploadResult.AbsoluteUri,
                 PublicId = uploadResult.PublicId,
                 IsMain = isMain,
             };
