@@ -357,3 +357,4 @@ MigrationBackup/
 appsettings.Production.json
 *.min.css
 *.min.js
+/Web/CarMarket.Web/appsettings.json
