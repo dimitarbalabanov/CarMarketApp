@@ -62,6 +62,7 @@
                     options.HeaderName = "X-CSRF-TOKEN";
                 });
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddRazorPages();
 
             services.ConfigureApplicationCookie(options =>
@@ -110,7 +111,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
