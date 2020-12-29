@@ -23,7 +23,7 @@
         private const int TestNonExistentImageId = 123456;
         private const int TestListingId = 1;
         private const int TestNonExistentListingId = 12345;
-        private const int TotalSeededImages = 3;
+        private const int TotalSeededImages = 1;
 
         private readonly ApplicationDbContext context;
         private ImagesService sut;
@@ -67,6 +67,12 @@
         }
 
         [Fact]
+        public async Task ChangeImageByIdAsync_ShouldThrowCustomNotFoundException_WithGivenInvalidId()
+        {
+            await Assert.ThrowsAsync<NotFoundException>(() => this.sut.ChangeImageByIdAsync(TestNonExistentImageId, It.IsAny<IFormFile>(), It.IsAny<bool>()));
+        }
+
+        [Fact]
         public async Task DeleteAllImagesByListingIdAsync_ShouldNotDoAnything_WithInvalidListingId()
         {
             await this.sut.DeleteAllImagesByListingIdAsync(TestNonExistentListingId);
@@ -74,52 +80,10 @@
             Assert.Equal(TotalSeededImages, this.context.Images.Count());
         }
 
-        [Fact]
-        public async Task ChangeImageByIdAsync_ShouldCorrectlyChangeTheImage_WithGivenValidId()
-        {
-            var expected = new Image
-            {
-
-            };
-
-            await this.sut.DeleteAllImagesByListingIdAsync(TestNonExistentListingId);
-
-            Assert.Equal(TotalSeededImages, this.context.Images.Count());
-        }
-
-        [Fact]
-        public async Task ChangeImageByIdAsync_ShouldThrowCustomNotFoundException_WithGivenInvalidId()
-        {
-            await Assert.ThrowsAsync<NotFoundException>(() => this.sut.ChangeImageByIdAsync(TestNonExistentImageId, It.IsAny<IFormFile>(), It.IsAny<bool>()));
-        }
-
-        //public async Task ChangeImageByIdAsync(int id, IFormFile file, bool isMain)
-        //{
-        //    var oldImg = await this.imagesRepository.All().FirstOrDefaultAsync(i => i.Id == id);
-        //    if (oldImg == null)
-        //    {
-        //        throw new NotFoundException();
-        //    }
-
-        //    var newImg = await this.UploadAsync(file, isMain);
-        //    await this.cloudinaryService.DestroyImageAsync(oldImg.PublicId);
-
-        //    oldImg.ImageUrl = newImg.ImageUrl;
-        //    oldImg.PublicId = newImg.PublicId;
-        //    oldImg.IsMain = newImg.IsMain;
-        //    oldImg.CreatedOn = DateTime.UtcNow;
-
-        //    this.imagesRepository.Update(oldImg);
-        //    await this.imagesRepository.SaveChangesAsync();
-        //}
-
         private void SeedData()
         {
             this.context.Images.AddRange(
-                new Image { ListingId = TestListingId },
-                new Image { ListingId = TestListingId },
-                new Image { ListingId = TestListingId },
-                new Image { Id = 1 });
+                new Image { ListingId = TestListingId });
             this.context.SaveChanges();
         }
     }
